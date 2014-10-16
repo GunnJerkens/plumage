@@ -10,7 +10,7 @@ Run `composer install` in the root to install all Composer dependencies, then `n
 
 - MySql or PostgreSQL
 - PHP 5.5+
-- Node.js & NPM
+- node.js & npm
 - Composer
 
 ### environments
@@ -21,6 +21,20 @@ Eacho file can contain an array of variables to override for the specific enviro
 
 ```
 <?php return [];
+```
+
+### grunt
+
+To run the default production build with uglify and compass:
+
+```
+grunt -v
+```
+
+To run the development build that uses concat and browserSync:
+
+```
+grunt dev -v
 ```
 
 ## license

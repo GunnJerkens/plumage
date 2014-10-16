@@ -32,7 +32,7 @@ App::after(function($request, $response) {
 */
 
 Route::filter('sentry_check', function() {
-  if (!Sentry::check()) return Make::view('layout.default');
+  if (!Sentry::check()) return View::make('layouts.default');
 });
 
 /*

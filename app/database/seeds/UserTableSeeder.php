@@ -13,10 +13,10 @@ class UserTableSeeder extends Seeder {
   public function run() {
 
     $createAdmin = Sentry::createUser([
-      'first_name' => 'Dev',
-      'last_name'  => 'Team',
-      'email'      => 'devteam@gunnjerkens.com',
-      'password'   => 'test',
+      'first_name' => 'Marty',
+      'last_name'  => 'McFly',
+      'email'      => 'mmcfly@hillvalley.com',
+      'password'   => 'timetravel',
       'activated'  => true,
     ]);
 

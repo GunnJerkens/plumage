@@ -12,7 +12,7 @@
       @if(Sentry::check())
         <ul class="nav navbar-nav navbar-right">
           <li><a href="{{ Route('dashboard') }}">Dashboard</a></li>
-          <li><a href="#">SiteMapper</a></li>
+          <li><a href="{{ Route('mapper') }}">Mapper</a></li>
           <li><a href="{{ Route('logout') }}">Logout</a></li>
         </ul>
       @else

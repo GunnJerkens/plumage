@@ -2,16 +2,23 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Auth Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', ['as' => 'default', 'uses' => 'AuthController@getDefault']);
+Route::post('/', ['before' => 'csrf', 'uses' => 'AuthController@postLogin']);
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['before' => 'sentry_check'], function() {
+
+    Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@getDashboard']);
+
+    Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+
 });

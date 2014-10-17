@@ -1,6 +1,8 @@
 # plumage
 
-This is built as a PHP replacement for Feather (CouchDB).
+plum·age (ˈplo͞omij) _noun_ - a bird's feathers collectively.
+
+This is built as a PHP backend replacement for [feather](https://github.com/GunnJerkens/feather). Reasoning for this is that the growth of the old sites with separate diverged building blocks isn't sustainable. This project is meant to be a lightweight relational database that supports multiple projects with a json api.
 
 ## setup
 

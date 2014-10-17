@@ -43,3 +43,5 @@ Route::group(['before' => 'sentry_check'], function() {
 | API Routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('api/{project_name}/{project_field}', ['uses' => 'APIController@getProjectField']);

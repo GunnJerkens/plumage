@@ -30,6 +30,7 @@
         <div class="row">
           <div class="col-sm-12">
             <h2>{{ $fields->name }}</h2>
+            <a href="{{ '/api/'.$project->name_adj.'/'.$fields->name }}" class="btn btn-success" target="_blank">API</a>
             <a href="" class="btn btn-default">Edit</a>
             <a href="{{ '/project/'.$fields->project_id.'/'.$fields->name.'/delete'}}" class="btn btn-danger">Delete</a>
           </div>

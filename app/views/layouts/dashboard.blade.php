@@ -10,7 +10,9 @@
       <div class="row">
         <div class="col-sm-12">
           <h1>Projects</h1>
-          <?php var_dump($projects); ?>
+          @foreach($projects as $project)
+            <h6><a href="{{ '/project/'.$project->id }}">{{ $project->name }}</a></h6>
+          @endforeach
         </div>
       </div>
   </section>

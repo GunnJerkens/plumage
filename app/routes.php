@@ -32,6 +32,8 @@ Route::group(['before' => 'sentry_check'], function() {
     Route::get('mapper', ['as' => 'mapper', 'uses' => 'DashboardController@getMapper']);
     Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
+    Route::post('project/{project_id}', ['uses' => 'ProjectController@postProject']);
+
 });
 
 /*

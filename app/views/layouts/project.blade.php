@@ -1,16 +1,15 @@
 @extends('master')
 
 @section('title')
-<title>Dashboard | Plumage</title>
+<title>Project | Plumage</title>
 @stop
 
 @section('body')
-  <section id="dashboard">
+  <section id="project">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h1>Projects</h1>
-          <?php var_dump($projects); ?>
+          <?php var_dump($project); ?>
         </div>
       </div>
   </section>

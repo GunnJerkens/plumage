@@ -48,4 +48,26 @@ class ProjectField extends Eloquent {
     return $response;
   }
 
+  /**
+   * Delete project fields group
+   *
+   * @param int, string
+   *
+   * @return response
+   */
+  public static function deleteFieldsGroup($project_id, $field) {
+    $project = Project::where('id', $project_id)->first();
+    $field   = ProjectField::where('name', $field)->first();
+
+    Schema::drop($field->table_name);
+    $field->delete();
+
+    $response = [
+      'error' => false,
+      'message' => 'Field set deleted.'
+    ];
+
+    return $response;
+  }
+
 }

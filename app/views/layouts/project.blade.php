@@ -26,9 +26,14 @@
           </form>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
+      @foreach($project_fields as $fields)
+        <div class="row">
+          <div class="col-sm-12">
+            <h2>{{ $fields->name }}</h2>
+            <a href="" class="btn btn-default">Edit</a>
+            <a href="{{ '/project/'.$fields->project_id.'/'.$fields->name.'/delete'}}" class="btn btn-danger">Delete</a>
+          </div>
         </div>
-      </div>
+      @endforeach
   </section>
 @stop

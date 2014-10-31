@@ -31,4 +31,9 @@ class ProjectController extends Controller {
     return Redirect::back()->with($response);
   }
 
+  public function postProjectTypeEdit($project_id, $project_type) {
+    var_dump(Input::all());
+    die();
+  }
+
 }

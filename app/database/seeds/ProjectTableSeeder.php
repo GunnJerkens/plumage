@@ -10,8 +10,8 @@ class ProjectTableSeeder extends Seeder {
 
   public function run() {
     DB::table('projects')->insert([
-      'name'      => 'Default Project',
-      'name_adj'  => 'default-project',
+      'name'      => 'Example',
+      'name_adj'  => 'example',
       'is_active' => true
     ]);
   }

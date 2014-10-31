@@ -22,12 +22,13 @@
       @foreach($project_types as $type)
         <div class="row">
           <div class="col-sm-12">
-            <h2>{{ $type->name }}</h2>
+            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->name }}">{{ $type->name }}</a></h2>
             <a href="{{ '/api/'.$project->name_adj.'/'.$type->name }}" class="btn btn-success" target="_blank">API</a>
-            <a href="" class="btn btn-default">Edit</a>
+            <a href="{{ '/project/'.$type->project_id.'/'.$type->name.'/edit' }}" class="btn btn-default">Edit</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->name.'/delete'}}" class="btn btn-danger">Delete</a>
           </div>
         </div>
       @endforeach
+    </div>
   </section>
 @stop

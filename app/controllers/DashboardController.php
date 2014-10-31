@@ -26,14 +26,47 @@ class DashboardController extends Controller {
   /**
    * Handles GET requests for /project/{project_id}
    * 
+   * @param int
+   *
    * @return view
    */
   public function getProject($project_id) {
-    $project       = Project::where('id', $project_id)->first();
+    $project      = Project::where('id', $project_id)->first();
     $projectTypes = ProjectType::where('project_id', $project_id)->get();
     return View::make('layouts.project')->with([
       'project'       => $project,
       'project_types' => $projectTypes
+    ]);
+  }
+
+  /**
+   * Handles GET requests for /project/{project_id}/{project_type}
+   *
+   * @param int
+   *
+   * @return view
+   */
+  public function getProjectType($project_id, $project_type) {
+
+
+    return View::make('layouts.sites')->with([
+
+
+    ]);
+  }
+
+  /**
+   * Handles GET requests for /project/{project_id}/{project_type}/edit
+   *
+   * @param int
+   *
+   * @return view
+   */
+  public function getProjectTypeEdit($project_id, $project_type) {
+
+
+    return View::make('layouts.sites-edit')->with([
+
     ]);
   }
 

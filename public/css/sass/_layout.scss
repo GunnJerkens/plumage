@@ -1,0 +1,17 @@
+#sites-edit {
+  div.form-group {
+    overflow: hidden;
+    clear: both;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0px;
+    &#sortable {
+      margin-top: 25px;
+    }
+    li {
+      overflow: hidden;
+      cursor: pointer;
+    }
+  }
+}

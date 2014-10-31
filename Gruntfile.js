@@ -82,7 +82,7 @@ module.exports = function (grunt) {
         livereload: true
       },
       scripts: {
-        files: ['public/js/*.js','public/js/src/bootstrap/*.js','public/js/src/libs/*.js'],
+        files: ['public/js/src/*.js','public/js/src/bootstrap/*.js','public/js/src/libs/*.js'],
         tasks: ['concat']
       },
       css: {

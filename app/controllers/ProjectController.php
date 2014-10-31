@@ -13,21 +13,21 @@ class ProjectController extends Controller {
       $response = [
         'error'      => true,
         'message'    => 'Alpha characters only',
-        'field_data' => $input['table_name']
+        'type_data' => $input['table_name']
       ];
     } else {
-      $response = ProjectField::createFieldsGroup($project_id, $input);
+      $response = ProjectType::createTypesGroup($project_id, $input);
     }
     return Redirect::back()->with($response);
   }
 
   /**
-   * Handles GET requests for /project/{project_id}/{project_field}/delete
+   * Handles GET requests for /project/{project_id}/{project_type}/delete
    *
    * @return redirect
    */
-  public function postProjectDelete($project_id, $project_field) {
-    $response = ProjectField::deleteFieldsGroup($project_id, $project_field);
+  public function postProjectDelete($project_id, $project_type) {
+    $response = ProjectType::deleteTypesGroup($project_id, $project_type);
     return Redirect::back()->with($response);
   }
 

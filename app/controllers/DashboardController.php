@@ -30,10 +30,10 @@ class DashboardController extends Controller {
    */
   public function getProject($project_id) {
     $project       = Project::where('id', $project_id)->first();
-    $projectFields = ProjectField::where('project_id', $project_id)->get();
+    $projectTypes = ProjectType::where('project_id', $project_id)->get();
     return View::make('layouts.project')->with([
-      'project'        => $project,
-      'project_fields' => $projectFields
+      'project'       => $project,
+      'project_types' => $projectTypes
     ]);
   }
 

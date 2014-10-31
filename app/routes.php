@@ -29,7 +29,7 @@ Route::group(['before' => 'sentry_check'], function() {
 
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@getDashboard']);
     Route::get('project/{project_id}', ['uses' => 'DashboardController@getProject']);
-    Route::get('project/{project_id}/{project_field}/delete', ['uses' => 'ProjectController@postProjectDelete']);
+    Route::get('project/{project_id}/{project_type}/delete', ['uses' => 'ProjectController@postProjectDelete']);
     Route::get('mapper', ['as' => 'mapper', 'uses' => 'DashboardController@getMapper']);
     Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
@@ -44,4 +44,4 @@ Route::group(['before' => 'sentry_check'], function() {
 |--------------------------------------------------------------------------
 */
 
-Route::get('api/{project_name}/{project_field}', ['uses' => 'APIController@getProjectField']);
+Route::get('api/{project_name}/{project_type}', ['uses' => 'APIController@getProjectType']);

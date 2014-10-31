@@ -1,6 +1,6 @@
 @include('partials.header')
 @include('partials.nav')
 
-  @yield('body', 'Dun goofed')
+  @yield('body', 'No content found.')
 
 @include('partials.footer')

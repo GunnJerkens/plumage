@@ -3,11 +3,11 @@
 class APIController extends Controller {
 
   /**
-   * Handles GET requests for /api/{project_name}/{project_field}
+   * Handles GET requests for /api/{project_name}/{project_type}
    *
    * @return json
    */
-  public function getProjectField($project_name, $project_field) {
+  public function getProjectType($project_name, $project_type) {
     $response = [
       'Message' => 'Welcome to the API.'
     ];

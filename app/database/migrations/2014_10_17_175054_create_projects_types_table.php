@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectsFieldsTable extends Migration {
+class CreateProjectsTypesTable extends Migration {
 
   /**
    * Run the migrations.
@@ -12,7 +12,7 @@ class CreateProjectsFieldsTable extends Migration {
    */
   public function up() {
 
-    Schema::create('projects_fields', function($table) {
+    Schema::create('projects_types', function($table) {
 
       $defaultTime = '1985-11-01 01:22:00';
 

@@ -6,14 +6,7 @@
 
 @section('body')
   <section id="project">
-    @if(Session::has('error'))
-      <div class="container">
-        <div class="alert {{ Session::get('error') ? 'alert-danger' : 'alert-success' }}" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          {{ Session::get('message') }}
-        </div>
-      </div>
-    @endif
+    @include('partials.message')
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -22,17 +15,17 @@
             <div class="form-group">
               <input type="text" name="table_name" class="form-control" placeholder="name"{{ Session::has('field_data') ? 'value="'.(Session::get('field_data')).'"' : '' }} required>
             </div>
-            <button type="submit" class="btn btn-default">Add Table</button>
+            <button type="submit" class="btn btn-default">Add Type</button>
           </form>
         </div>
       </div>
-      @foreach($project_fields as $fields)
+      @foreach($project_types as $type)
         <div class="row">
           <div class="col-sm-12">
-            <h2>{{ $fields->name }}</h2>
-            <a href="{{ '/api/'.$project->name_adj.'/'.$fields->name }}" class="btn btn-success" target="_blank">API</a>
+            <h2>{{ $type->name }}</h2>
+            <a href="{{ '/api/'.$project->name_adj.'/'.$type->name }}" class="btn btn-success" target="_blank">API</a>
             <a href="" class="btn btn-default">Edit</a>
-            <a href="{{ '/project/'.$fields->project_id.'/'.$fields->name.'/delete'}}" class="btn btn-danger">Delete</a>
+            <a href="{{ '/project/'.$type->project_id.'/'.$type->name.'/delete'}}" class="btn btn-danger">Delete</a>
           </div>
         </div>
       @endforeach

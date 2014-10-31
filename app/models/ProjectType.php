@@ -1,6 +1,6 @@
 <?php
 
-class ProjectField extends Eloquent {
+class ProjectType extends Eloquent {
 
   use SoftDeletingTrait;
 
@@ -9,7 +9,7 @@ class ProjectField extends Eloquent {
    *
    * @var string
    */
-  protected $table = 'projects_fields';
+  protected $table = 'projects_types';
 
   /**
    * Fillable items in the database
@@ -19,13 +19,13 @@ class ProjectField extends Eloquent {
   protected $fillable = ['project_id', 'name', 'table_name'];
 
   /**
-   * Create project fields group
+   * Create project types group
    *
    * @param int,array
    *
    * @return array
    */
-  public static function createFieldsGroup($project_id, $data) {
+  public static function createTypesGroup($project_id, $data) {
 
     $project = Project::where('id', $project_id)->first();
     $data['table_name'] = strtolower($data['table_name']);
@@ -49,22 +49,22 @@ class ProjectField extends Eloquent {
   }
 
   /**
-   * Delete project fields group
+   * Delete project types group
    *
    * @param int, string
    *
    * @return response
    */
-  public static function deleteFieldsGroup($project_id, $field) {
+  public static function deleteTypesGroup($project_id, $type) {
     $project = Project::where('id', $project_id)->first();
-    $field   = ProjectField::where('name', $field)->first();
+    $type   = ProjectType::where('name', $type)->first();
 
-    Schema::drop($field->table_name);
-    $field->delete();
+    Schema::drop($type->table_name);
+    $type->delete();
 
     $response = [
       'error' => false,
-      'message' => 'Field set deleted.'
+      'message' => 'Type set deleted.'
     ];
 
     return $response;

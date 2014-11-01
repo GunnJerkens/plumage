@@ -22,7 +22,7 @@
       @foreach($project_types as $type)
         <div class="row">
           <div class="col-sm-12">
-            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->name }}</a></h2>
+            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
             <a href="{{ '/api/'.$project->name_adj.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>

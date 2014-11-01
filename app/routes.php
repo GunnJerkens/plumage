@@ -36,7 +36,7 @@ Route::group(['before' => 'sentry_check'], function() {
     Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
 
-    Route::get('project/{project_id}/{project_type}/edit', ['uses' => 'DashboardController@getProjectTypeEdit']);
+    // Route::get('project/{project_id}/{project_type}/edit', ['uses' => 'DashboardController@getProjectTypeEdit']);
 
 
 

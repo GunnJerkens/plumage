@@ -16,7 +16,7 @@ class ProjectType extends Eloquent {
    *
    * @var array
    */
-  protected $fillable = ['project_id', 'name', 'table_name'];
+  protected $fillable = ['project_id', 'type', 'table_name'];
 
   /**
    * Create project types group
@@ -26,13 +26,12 @@ class ProjectType extends Eloquent {
    * @return array
    */
   public static function createTypesGroup($project_id, $data) {
-
     $project = Project::where('id', $project_id)->first();
     $data['table_name'] = strtolower($data['table_name']);
 
-    $projectTable = self::create([
+    $projectTable = ProjectType::create([
       'project_id' => $project_id,
-      'name'       => $data['table_name'],
+      'type'       => $data['table_name'],
       'table_name' => $project->name_adj.'_'.$data['table_name']
     ]);
 
@@ -45,6 +44,25 @@ class ProjectType extends Eloquent {
       'message' => 'Created project type successfully.'
     ];
 
+    return $response;
+  }
+
+  /**
+   * Update the project type fields
+   *
+   * @param int, string, array
+   *
+   * @return array
+   */
+  public static function addTypesFields($project_id, $project_type, $data) {
+    $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
+    if(null === $projectType) {
+      $response = ['error' => true, 'message' => 'Project type not found.'];
+    } else {
+      $projectType->fields = json_encode($data);
+      $projectType->save();
+      $response = ['error' => false, 'message' => 'Fields updated successfully.'];
+    }
     return $response;
   }
 

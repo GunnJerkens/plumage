@@ -18,7 +18,7 @@ class CreateProjectsTypesTable extends Migration {
 
       $table->increments('id');
       $table->integer('project_id')->references('id')->on('projects');
-      $table->string('name');
+      $table->string('type')->nullable();
       $table->string('table_name');
       $table->mediumText('fields')->nullable();
       $table->dateTime('created_at')->default($defaultTime);

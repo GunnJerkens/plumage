@@ -12,7 +12,7 @@ class ProjectController extends Controller {
     if(!preg_match('/^[a-z]+$/', $input['table_name'])) {
       $response = [
         'error'      => true,
-        'message'    => 'Alpha characters only',
+        'message'    => 'Alpha lowercase characters only',
         'type_data' => $input['table_name']
       ];
     } else {
@@ -32,8 +32,8 @@ class ProjectController extends Controller {
   }
 
   public function postProjectTypeEdit($project_id, $project_type) {
-    var_dump(Input::all());
-    die();
+    $response = ProjectType::addTypesFields($project_id, $project_type, Input::except('_token'));
+    return Redirect::back()->with($response);
   }
 
 }

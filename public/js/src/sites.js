@@ -21,7 +21,7 @@ $(document).ready(function() {
     fieldRow = [
       '<li class="field-row" data-id="' + id + '">',
         '<div class="form-group fields">',
-          '<div class="col-sm-5"',
+          '<div class="col-sm-4"',
             '<label>Select a field type</label>',
             '<select name="' + id + '[field_type]" class="form-control select-change">',
               '<option value="text">Text</option>',
@@ -29,7 +29,7 @@ $(document).ready(function() {
               '<option value="select">Select</option>',
             '</select>',
           '</div>',
-          '<div class="col-sm-5">',
+          '<div class="col-sm-4">',
             '<label>Field Name</label>',
             '<input type="text" name="' + id + '[field_name]" class="form-control">',
           '</div>',
@@ -37,6 +37,9 @@ $(document).ready(function() {
             '<label>',
               '<input type="checkbox" name="' + id + '[field_editable]"> User Editable',
             '</label>',
+          '</div>',
+          '<div class="col-sm-2">',
+            '<a class="remove btn btn-danger">Remove Field</a>',
           '</div>',
         '</div>',
         '<div class="form-group values hidden">',
@@ -73,7 +76,7 @@ $(document).ready(function() {
     valueID = $(this).siblings('ul.values-group').children().length;
 
     valueRow = [
-      '<li>',
+      '<li class="value-row">',
         '<div class="form-group">',
           '<div class="col-sm-4">',
             '<label>Value</label>',
@@ -83,12 +86,19 @@ $(document).ready(function() {
             '<label>Name</label>',
             '<input type="text" class="form-control" name="' + id + '[field_values][' + valueID + '][label]">',
           '</div>',
+          '<div class="col-sm-2">',
+            '<a class="remove btn btn-danger">Remove Value</a>',
+          '</div>',
         '</div>',
       '</li>',
     ].join("\n");
 
     $(this).siblings('ul.values-group').append(valueRow);
     return false;
+  });
+
+  $sortable.on('click', 'a.remove', function() {
+    $(this).closest('li').remove();
   });
 
 });

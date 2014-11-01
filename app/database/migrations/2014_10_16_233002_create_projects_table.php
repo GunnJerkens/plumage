@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration {
       $defaultTime = '1985-11-01 01:22:00';
 
       $table->increments('id');
+      $table->integer('user_id')->references('id')->on('users');
       $table->string('name');
       $table->string('name_adj');
       $table->boolean('is_active')->default(false);

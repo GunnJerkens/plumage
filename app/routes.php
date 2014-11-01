@@ -28,12 +28,17 @@ Route::post('/', ['before' => 'csrf', 'uses' => 'AuthController@postLogin']);
 Route::group(['before' => 'sentry_check'], function() {
 
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@getDashboard']);
+    Route::get('mapper', ['as' => 'mapper', 'uses' => 'DashboardController@getMapper']);
+    Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+
+});
+
+Route::group(['before' => 'sentry_check|project_check'], function() {
+
     Route::get('project/{project_id}', ['uses' => 'DashboardController@getProject']);
     Route::get('project/{project_id}/{project_type}', ['uses' => 'DashboardController@getProjectType']);
     Route::get('project/{project_id}/{project_type}/edit', ['uses' => 'DashboardController@getProjectTypeEdit']);
     Route::get('project/{project_id}/{project_type}/delete', ['uses' => 'ProjectController@deleteProjectType']);
-    Route::get('mapper', ['as' => 'mapper', 'uses' => 'DashboardController@getMapper']);
-    Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
 });
 

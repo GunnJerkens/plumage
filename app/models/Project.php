@@ -11,5 +11,11 @@ class Project extends Eloquent {
    */
   protected $table = 'projects';
 
+  /**
+   * Fillable items in the database
+   *
+   * @var array
+   */
+  protected $fillable = ['user_id', 'name', 'name_adj', 'is_active'];
 
 }

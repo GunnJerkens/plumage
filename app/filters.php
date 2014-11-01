@@ -2,26 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application & Route Filters
-|--------------------------------------------------------------------------
-|
-| Below you will find the "before" and "after" events for the application
-| which may be used to do any work before or after a request into your
-| application. Here you may also register your custom route filters.
-|
-*/
-
-App::before(function($request) {
-
-});
-
-
-App::after(function($request, $response) {
-
-});
-
-/*
-|--------------------------------------------------------------------------
 | Authentication Filters
 |--------------------------------------------------------------------------
 |
@@ -33,6 +13,15 @@ App::after(function($request, $response) {
 
 Route::filter('sentry_check', function() {
   if (!Sentry::check()) return Redirect::to('/');
+});
+
+Route::filter('project_check', function($route) {
+  $user       = Sentry::getUser();
+  $project_id = $route->getParameter('project_id');
+  $project    = Project::where('user_id', $user->id)->where('id', $project_id)->first();
+  if(null === $project) {
+    return Redirect::to('404');
+  }
 });
 
 /*

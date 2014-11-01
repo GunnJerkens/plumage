@@ -22,15 +22,22 @@ class ProjectController extends Controller {
   }
 
   /**
-   * Handles GET requests for /project/{project_id}/{project_type}/delete
+   * Handles DELETE requests for /project/{project_id}/{project_type}
    *
    * @return redirect
    */
-  public function postProjectDelete($project_id, $project_type) {
+  public function deleteProjectType($project_id, $project_type) {
     $response = ProjectType::deleteTypesGroup($project_id, $project_type);
     return Redirect::back()->with($response);
   }
 
+  /**
+   * Handles POST requests for /project/{project_id}/{project_type}/edit
+   *
+   * @param int, string
+   *
+   * @return redirect
+   */
   public function postProjectTypeEdit($project_id, $project_type) {
     $response = ProjectType::addTypesFields($project_id, $project_type, Input::except('_token'));
     return Redirect::back()->with($response);

@@ -43,7 +43,6 @@ class ProjectType extends Eloquent {
       'error' => false,
       'message' => 'Created project type successfully.'
     ];
-
     return $response;
   }
 
@@ -75,7 +74,7 @@ class ProjectType extends Eloquent {
    */
   public static function deleteTypesGroup($project_id, $type) {
     $project = Project::where('id', $project_id)->first();
-    $type   = ProjectType::where('name', $type)->first();
+    $type   = ProjectType::where('type', $type)->first();
 
     Schema::drop($type->table_name);
     $type->delete();
@@ -84,7 +83,6 @@ class ProjectType extends Eloquent {
       'error' => false,
       'message' => 'Type set deleted.'
     ];
-
     return $response;
   }
 

@@ -47,11 +47,11 @@ class DashboardController extends Controller {
    * @return view
    */
   public function getProjectType($project_id, $project_type) {
-
-
-    return View::make('layouts.sites')->with([
-
-
+    $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
+    $itemData    = DB::table($projectType->table_name)->get();
+    return View::make('layouts.type')->with([
+      'fields'     => json_decode($projectType->fields),
+      'items'      => $itemData
     ]);
   }
 
@@ -64,7 +64,7 @@ class DashboardController extends Controller {
    */
   public function getProjectTypeEdit($project_id, $project_type) {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
-    return View::make('layouts.sites-edit')->with([
+    return View::make('layouts.type-edit')->with([
       'fields' => json_decode($projectType->fields)
     ]);
   }

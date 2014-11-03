@@ -11,8 +11,8 @@ class ProjectController extends Controller {
     $input = Input::except('_token');
     if(!preg_match('/^[a-z]+$/', $input['table_name'])) {
       $response = [
-        'error'      => true,
-        'message'    => 'Alpha lowercase characters only',
+        'error'     => true,
+        'message'   => 'Alpha lowercase characters only',
         'type_data' => $input['table_name']
       ];
     } else {
@@ -22,13 +22,15 @@ class ProjectController extends Controller {
   }
 
   /**
-   * Handles DELETE requests for /project/{project_id}/{project_type}
+   * Handles POST requests for /project/{project_id}/{project_type}
+   *
+   * @param int, string
    *
    * @return redirect
    */
-  public function deleteProjectType($project_id, $project_type) {
-    $response = ProjectType::deleteTypesGroup($project_id, $project_type);
-    return Redirect::back()->with($response);
+  public function postProjectType($project_id, $project_type) {
+    var_dump(Input::except('_token'));
+    die();
   }
 
   /**
@@ -42,5 +44,16 @@ class ProjectController extends Controller {
     $response = ProjectType::addTypesFields($project_id, $project_type, Input::except('_token'));
     return Redirect::back()->with($response);
   }
+
+  /**
+   * Handles GET requests for /project/{project_id}/{project_type}/delete
+   *
+   * @return redirect
+   */
+  public function deleteProjectType($project_id, $project_type) {
+    $response = ProjectType::deleteTypesGroup($project_id, $project_type);
+    return Redirect::back()->with($response);
+  }
+
 
 }

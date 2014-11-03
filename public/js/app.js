@@ -1904,7 +1904,7 @@ $(document).ready(function() {
     fieldRow = [
       '<li class="field-row" data-id="' + id + '">',
         '<div class="form-group fields">',
-          '<div class="col-sm-4"',
+          '<div class="col-sm-4">',
             '<label>Select a field type</label>',
             '<select name="' + id + '[field_type]" class="form-control select-change">',
               '<option value="text">Text</option>',

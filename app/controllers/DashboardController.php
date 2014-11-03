@@ -63,10 +63,9 @@ class DashboardController extends Controller {
    * @return view
    */
   public function getProjectTypeEdit($project_id, $project_type) {
-
-
+    $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     return View::make('layouts.sites-edit')->with([
-
+      'fields' => json_decode($projectType->fields)
     ]);
   }
 

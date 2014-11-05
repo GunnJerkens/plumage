@@ -34,13 +34,13 @@
                         </td>
                       @elseif($field->field_type === 'checkbox')
                         <td>
-                          <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]">
+                          <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ 'on' !== $item->{$field->field_name} ?: ' checked' }}>
                         </td>
                       @elseif($field->field_type === 'select')
                         <td>
                           <select name="{{ $item->id }}[{{ $field->field_name }}]">
                             @foreach($field->field_values as $option)
-                              <option value="{{ $option->value }}">{{ $option->label }}</option>
+                              <option value="{{ $option->value }}"{{ $option->value !== $item->{$field->field_name} ?: ' selected' }}>{{ $option->label }}</option>
                             @endforeach
                           </select>
                         </td>

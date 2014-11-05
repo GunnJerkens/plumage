@@ -101,6 +101,40 @@ class ProjectType extends Eloquent {
   }
 
   /**
+   * Adds the individual data to the type
+   *
+   * @param string, array
+   *
+   * @return array
+   */
+  public static function createTypesData($tableName, $data) {
+    if(!Schema::hasTable($tableName)) {
+      $response = ['error' => true, 'message' => 'Type table does not exist.'];
+      return $response;
+    }
+    $id = $data['id'];
+    unset($data['id']);
+    $set = DB::table($tableName)->where('id', $id)->first();
+    if(null === $set) {
+      $set = DB::table($tableName)->insert($data);
+    } else {
+      $set = DB::table($tableName)->where('id', $id)->update($data);
+    }
+    return ['error' => false, 'message' => 'Type data updated successfully.'];
+  }
+
+  /**
+   * Deletes the specific data from the type
+   *
+   * @param 
+   *
+   * @return array
+   */
+  public static function deleteTypesData() {
+
+  }
+
+  /**
    * Delete project types group
    *
    * @param int, string
@@ -109,7 +143,7 @@ class ProjectType extends Eloquent {
    */
   public static function deleteTypesGroup($project_id, $type) {
     $project = Project::where('id', $project_id)->first();
-    $type   = ProjectType::where('type', $type)->first();
+    $type    = ProjectType::where('type', $type)->first();
 
     Schema::drop($type->table_name);
     $type->delete();

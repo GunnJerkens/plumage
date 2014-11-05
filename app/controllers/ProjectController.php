@@ -29,8 +29,12 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function postProjectType($project_id, $project_type) {
-    var_dump(Input::except('_token'));
-    die();
+    $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
+    $input       = Input::except('_token');
+    foreach($input as $data) {
+      $response    = ProjectType::createTypesData($projectType->table_name, $data);
+    }
+    return Redirect::back()->with($response);
   }
 
   /**

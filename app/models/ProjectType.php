@@ -58,11 +58,46 @@ class ProjectType extends Eloquent {
     if(null === $projectType) {
       $response = ['error' => true, 'message' => 'Project type not found.'];
     } else {
+      self::createFieldsColumns($projectType->table_name, $data);
       $projectType->fields = json_encode($data);
       $projectType->save();
       $response = ['error' => false, 'message' => 'Fields updated successfully.'];
     }
     return $response;
+  }
+
+  /**
+   * Create fields columns
+   *
+   * @param string, array
+   *
+   * @return void
+   */
+  private static function createFieldsColumns($tableName, $data) {
+    foreach($data as $field) {
+      if(!Schema::hasColumn($tableName, $field['field_name'])) {
+        Schema::table($tableName, function($table) use ($field) {
+          $table->string($field['field_name']);
+        });
+      }
+    }
+  }
+
+  /**
+   * Delete fields columns
+   *
+   * @param string, array
+   *
+   * @return void
+   */
+  private static function deleteFieldsColumns($tableName, $columns) {
+    foreach($columns as $column) {
+      if(Schema::hasColumn($tableName, $column)) {
+        Schema::table($tableName, function($table) use ($column) {
+          $table->dropColumn($column);
+        });
+      }
+    }
   }
 
   /**

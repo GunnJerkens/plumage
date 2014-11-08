@@ -77,7 +77,7 @@ class ProjectType extends Eloquent {
     foreach($data as $field) {
       if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {
-          $table->string($field['field_name']);
+          $table->string($field['field_name'])->default(false);
         });
       }
     }

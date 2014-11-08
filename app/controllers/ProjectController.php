@@ -3,6 +3,36 @@
 class ProjectController extends Controller {
 
   /**
+   * Private class vars
+   *
+   * @var $input array
+   */
+  protected $input, $user;
+
+  /**
+   * Class constructor
+   *
+   * @return void
+   */
+  function __construct() {
+    $this->input = Input::except('_token');
+    $this->user  = Sentry::getUser();
+  }
+
+  /**
+   * Handles POST requests for /dashboard
+   *
+   * @return redirect
+   */
+  public function createProject() {
+    $response = $this->checkNaming($this->input['project_name']);
+    if(!$response) {
+      $response = Project::createNewProject($this->user->id, $this->input['project_name']);
+    }
+    return Redirect::back()->with($response);
+  }
+
+  /**
    * Handles POST requests for /project/{project_id}
    *
    * @return redirect
@@ -59,5 +89,20 @@ class ProjectController extends Controller {
     return Redirect::back()->with($response);
   }
 
+  /**
+   * Make sure a project is all lowercase, no special chars
+   *
+   * @param $string
+   *
+   * @return array|false
+   */
+  private function checkNaming($string) {
+    if(!preg_match('/^[a-z]+$/', $string)) {
+      $response = ['error' => true, 'message' => 'Alpha lowercase characters only' ];
+    } else {
+      $response = false;
+    }
+    return $response;
+  }
 
 }

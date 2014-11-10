@@ -57,4 +57,5 @@ Route::group(['before' => 'sentry_check|csrf'], function() {
 |--------------------------------------------------------------------------
 */
 
-Route::get('api/{project_name}/{project_type}', ['uses' => 'APIController@getProjectType']);
+Route::get('api/missing', ['as' => 'api.missing', 'uses' => 'APIController@getAPIMissing']);
+Route::get('api/{project_name}/{project_type}', ['uses' => 'APIController@getProjectTypeData']);

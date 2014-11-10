@@ -6,8 +6,11 @@ class ProjectController extends Controller {
    * Private class vars
    *
    * @var $input array
+   * @var $user object
+   * @var $projectID int
+   * @var $projectType object
    */
-  protected $input, $user;
+  protected $input, $user, $projectID, $projectType;
 
   /**
    * Class constructor
@@ -38,15 +41,14 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function postProject($project_id) {
-    $input = Input::except('_token');
-    if(!preg_match('/^[a-z]+$/', $input['table_name'])) {
+    if(!preg_match('/^[a-z]+$/', $this->input['table_name'])) {
       $response = [
         'error'     => true,
         'message'   => 'Alpha lowercase characters only',
-        'type_data' => $input['table_name']
+        'type_data' => $this->input['table_name']
       ];
     } else {
-      $response = ProjectType::createTypesGroup($project_id, $input);
+      $response = ProjectType::createTypesGroup($project_id, $this->input);
     }
     return Redirect::back()->with($response);
   }
@@ -60,8 +62,7 @@ class ProjectController extends Controller {
    */
   public function postProjectType($project_id, $project_type) {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
-    $input       = Input::except('_token');
-    foreach($input as $data) {
+    foreach($this->input as $data) {
       $response    = ProjectType::createTypesData($projectType->table_name, $data);
     }
     return Redirect::back()->with($response);
@@ -75,7 +76,9 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function postProjectTypeEdit($project_id, $project_type) {
-    $response = ProjectType::addTypesFields($project_id, $project_type, Input::except('_token'));
+    if(true === ($response = $this->checkEmpty())) {
+      $response = ProjectType::addTypesFields($project_id, $project_type, $this->input);
+    }
     return Redirect::back()->with($response);
   }
 
@@ -103,6 +106,20 @@ class ProjectController extends Controller {
       $response = false;
     }
     return $response;
+  }
+
+  /**
+   * Make sure Type Fields are not empty on POST
+   *
+   * @return true || array
+   */
+  private function checkEmpty() {
+    foreach($this->input as $field) {
+      if(empty($field['field_name']) || empty($field['field_type'])) {
+        return ['error' => true, 'message' => 'Fields require a name and type.'];
+      }
+    }
+    return true;
   }
 
 }

@@ -12,20 +12,22 @@ $(document).ready(function() {
     rowHTML = '<tr data-id="' + rowID + '">';
     rowHTML += '<input type="hidden" name="' + rowID + '[id]" value="' + rowID + '">';
 
-    for(var i = 0; i < fields.length; i++) {
+    for(var key in fields) {
       rowHTML += '<td>';
-      if(fields[i].field_type === 'text' || fields[i].field_type === 'checkbox') {
-        rowHTML += '<input type="' + fields[i].field_type + '" name="' + rowID + '[' + fields[i].field_name + ']">';
-      } else if(fields[i].field_type === 'select') {
-        rowHTML += '<select name="' + rowID + '[' + fields[i].field_name + ']">';
-        for(var j = 0; j < fields[i].field_values.length; j ++) {
-          rowHTML += '<option value="' + fields[i].field_values[j].value + '">' + fields[i].field_values[j].label + '</option>';
+      if(fields[key].field_type === 'text' || fields[key].field_type === 'checkbox') {
+        rowHTML += '<input type="' + fields[key].field_type + '" name="' + rowID + '[' + fields[key].field_name + ']">';
+      } else if(fields[key].field_type === 'select') {
+        rowHTML += '<select name="' + rowID + '[' + fields[key].field_name + ']">';
+        for(var j = 0; j < fields[key].field_values.length; j ++) {
+          rowHTML += '<option value="' + fields[key].field_values[j].value + '">' + fields[key].field_values[j].label + '</option>';
         }
         rowHTML += '</select>';
       }
       rowHTML += '</td>';
     }
     rowHTML += '</tr>';
+
+    console.log(rowHTML);
 
     $('tbody').append(rowHTML);
 

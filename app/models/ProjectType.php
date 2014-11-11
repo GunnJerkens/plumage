@@ -32,7 +32,7 @@ class ProjectType extends Eloquent {
     $projectTable = ProjectType::create([
       'project_id' => $project_id,
       'type'       => $data['table_name'],
-      'table_name' => $project->name_adj.'_'.$data['table_name']
+      'table_name' => $project->name.'_'.$data['table_name']
     ]);
 
     Schema::create($projectTable->table_name, function($table) {

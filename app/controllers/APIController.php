@@ -104,16 +104,4 @@ class APIController extends Controller {
     return Response::json($this->projectTypeData);
   }
 
-  /**
-   * Handles POST requests for /api/{project_name}/{project_type}
-   *
-   * @return json
-   */
-  public function postProjectType($project_name, $project_type) {
-    $response = [
-      'Message' => 'Welcome to the API.'
-    ];
-    return Response::json($response);
-  }
-
 }

@@ -50,8 +50,9 @@ class DashboardController extends Controller {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     $itemData    = DB::table($projectType->table_name)->get();
     return View::make('layouts.type')->with([
-      'fields'     => json_decode($projectType->fields),
-      'items'      => $itemData
+      'project' => $projectType,
+      'fields'  => json_decode($projectType->fields),
+      'items'   => $itemData
     ]);
   }
 

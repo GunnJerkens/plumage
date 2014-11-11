@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+  $('#bulk-upload').modal({
+    backdrop: true,
+    keyboard: true,
+    show: false
+  });
+
   $('.new-item').on('click', function() {
     var rowsArr, rowID, rowHTML;
     rowsArr = [];
@@ -26,8 +32,6 @@ $(document).ready(function() {
       rowHTML += '</td>';
     }
     rowHTML += '</tr>';
-
-    console.log(rowHTML);
 
     $('tbody').append(rowHTML);
 

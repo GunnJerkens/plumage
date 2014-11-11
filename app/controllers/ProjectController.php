@@ -59,6 +59,9 @@ class ProjectController extends Controller {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     foreach($this->input as $data) {
       $response    = ProjectType::createTypesData($projectType->table_name, $data);
+      if($response['error'] === true) {
+        break;
+      }
     }
     return Redirect::back()->with($response);
   }
@@ -74,6 +77,23 @@ class ProjectController extends Controller {
     if(true === ($response = $this->checkEmpty())) {
       $response = ProjectType::addTypesFields($project_id, $project_type, $this->input);
     }
+    return Redirect::back()->with($response);
+  }
+
+  public function postProjectTypeBulk($project_id, $project_type) {
+    $json        = json_decode($this->input['json_data']);
+    $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
+    if($json) {
+      foreach($json as $data) {
+        $data->id = null;
+        $response    = ProjectType::createTypesData($projectType->table_name, (array) $data);
+        if($response['error'] === true) {
+          break;
+        }
+      }
+    } else {
+      $response = ['error' => true, 'message' => 'Malformed json data.'];
+    } 
     return Redirect::back()->with($response);
   }
 

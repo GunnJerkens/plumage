@@ -11,6 +11,11 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bulk-upload">Bulk Upload</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
           @if(sizeof($fields) > 0)
           <form role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -84,4 +89,25 @@
       </div>
     </div>
   </section>
+  <!-- Modal -->
+  <div class="modal fade" id="bulk-upload" tabindex="-1" role="dialog" aria-labelledby="bulk-upload" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Bulk JSON Upload</h4>
+        </div>
+        <form role="form" method="post" action="{{ '/project/'.$project->project_id.'/'.$project->type.'/bulk' }}">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <div class="modal-body">
+            <textarea name="json_data" placeholder="Only valid json accepted" required></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button submit" class="btn btn-primary">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @stop

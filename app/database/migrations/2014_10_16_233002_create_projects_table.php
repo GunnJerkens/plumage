@@ -19,7 +19,6 @@ class CreateProjectsTable extends Migration {
       $table->increments('id');
       $table->integer('user_id')->references('id')->on('users');
       $table->string('name');
-      $table->string('name_adj');
       $table->boolean('is_active')->default(false);
       $table->dateTime('created_at')->default($defaultTime);
       $table->dateTime('updated_at')->default($defaultTime);

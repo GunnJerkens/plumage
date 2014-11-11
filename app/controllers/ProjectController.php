@@ -41,13 +41,8 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function postProject($project_id) {
-    if(!preg_match('/^[a-z]+$/', $this->input['table_name'])) {
-      $response = [
-        'error'     => true,
-        'message'   => 'Alpha lowercase characters only',
-        'type_data' => $this->input['table_name']
-      ];
-    } else {
+    $response = $this->checkNaming($this->input['table_name']);
+    if(!$response) {
       $response = ProjectType::createTypesGroup($project_id, $this->input);
     }
     return Redirect::back()->with($response);
@@ -101,7 +96,7 @@ class ProjectController extends Controller {
    */
   private function checkNaming($string) {
     if(!preg_match('/^[a-z]+$/', $string)) {
-      $response = ['error' => true, 'message' => 'Alpha lowercase characters only' ];
+      $response = ['error' => true, 'message' => 'Alpha lowercase characters only', 'input_text' => $string];
     } else {
       $response = false;
     }

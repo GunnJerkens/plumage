@@ -16,7 +16,7 @@ class Project extends Eloquent {
    *
    * @var array
    */
-  protected $fillable = ['user_id', 'name', 'name_adj', 'is_active'];
+  protected $fillable = ['user_id', 'name', 'is_active'];
 
   /**
    * Create a new project and return the response
@@ -29,7 +29,6 @@ class Project extends Eloquent {
     $id = self::create([
       'user_id'   => $user_id,
       'name'      => $project_name,
-      'name_adj'  => strtolower($project_name),
       'is_active' => true
     ]);
     if($id) {

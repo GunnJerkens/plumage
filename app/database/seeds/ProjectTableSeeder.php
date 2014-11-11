@@ -11,8 +11,7 @@ class ProjectTableSeeder extends Seeder {
   public function run() {
     DB::table('projects')->insert([
       'user_id'   => 1,
-      'name'      => 'Example',
-      'name_adj'  => 'example',
+      'name'      => 'example',
       'is_active' => true
     ]);
   }

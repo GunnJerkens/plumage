@@ -13,7 +13,7 @@
           <form role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
-              <input type="text" name="table_name" class="form-control" placeholder="name"{{ Session::has('field_data') ? 'value="'.(Session::get('field_data')).'"' : '' }} required>
+              <input type="text" name="table_name" class="form-control" placeholder="name"{{ Session::has('input_text') ? 'value="'.(Session::get('input_text')).'"' : '' }} required>
             </div>
             <button type="submit" class="btn btn-default">Add Type</button>
           </form>
@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col-sm-12">
             <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
-            <a href="{{ '/api/'.$project->name_adj.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
+            <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
           </div>

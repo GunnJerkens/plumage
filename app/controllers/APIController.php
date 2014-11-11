@@ -31,7 +31,7 @@ class APIController extends Controller {
    */
   public function setProject($route, $request) {
     $project_name = $route->getParameter('project_name');
-    $project      = Project::where('name_adj', $project_name)->first();
+    $project      = Project::where('name', $project_name)->first();
     if($project != null) {
       $this->project = $project;
     } else {

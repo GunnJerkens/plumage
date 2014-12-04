@@ -14,45 +14,13 @@ $(document).ready(function() {
   }
 
   $('#add-field').on('click', function() {
-    var id, fieldRow;
+    var source, template, data;
 
-    id = $('#sortable').children().length;
+    data     = { id: $('#sortable').children().length };
+    source   = $('#type-add-field').html();
+    template = Handlebars.compile(source);
 
-    fieldRow = [
-      '<li class="field-row" data-id="' + id + '">',
-        '<div class="form-group fields">',
-          '<div class="col-sm-4">',
-            '<label>Select a field type</label>',
-            '<select name="' + id + '[field_type]" class="form-control select-change">',
-              '<option value="text">Text</option>',
-              '<option value="checkbox">Checkbox</option>',
-              '<option value="select">Select</option>',
-            '</select>',
-          '</div>',
-          '<div class="col-sm-4">',
-            '<label>Field Name</label>',
-            '<input type="text" name="' + id + '[field_name]" class="form-control">',
-          '</div>',
-          '<div class="checkbox col-sm-2">',
-            '<label>',
-              '<input type="checkbox" name="' + id + '[field_editable]"> User Editable',
-            '</label>',
-          '</div>',
-          '<div class="col-sm-2">',
-            '<a class="remove btn btn-danger">Remove Field</a>',
-          '</div>',
-        '</div>',
-        '<div class="form-group values hidden">',
-          '<div class="col-sm-12">',
-            '<ul class="values-group">',
-            '</ul>',
-            '<a class="btn btn-default add-value">Add Value</a>',
-          '</div>',
-        '</div>',
-      '</li>'
-    ].join("\n");
-
-    $('#sortable').append(fieldRow);
+    $('#sortable').append(template(data));
     return false;
   });
 
@@ -70,30 +38,16 @@ $(document).ready(function() {
   });
 
   $sortable.on('click', 'a.add-value', function() {
-    var id, valueID, valueRow;
+    var source, template, data;
 
-    id      = $(this).closest('li.field-row').data('id');
-    valueID = $(this).siblings('ul.values-group').children().length;
+    data     = {
+      id:      $(this).closest('li.field-row').data('id'),
+      valueId: $(this).siblings('ul.values-group').children().length
+    };
+    source   = $('#type-add-value').html();
+    template = Handlebars.compile(source);
 
-    valueRow = [
-      '<li class="value-row">',
-        '<div class="form-group">',
-          '<div class="col-sm-4">',
-            '<label>Value</label>',
-            '<input type="text" class="form-control" name="' + id + '[field_values][' + valueID + '][value]">',
-          '</div>',
-          '<div class="col-sm-4">',
-            '<label>Name</label>',
-            '<input type="text" class="form-control" name="' + id + '[field_values][' + valueID + '][label]">',
-          '</div>',
-          '<div class="col-sm-2">',
-            '<a class="remove btn btn-danger">Remove Value</a>',
-          '</div>',
-        '</div>',
-      '</li>',
-    ].join("\n");
-
-    $(this).siblings('ul.values-group').append(valueRow);
+    $(this).siblings('ul.values-group').append(template(data));
     return false;
   });
 

@@ -75,4 +75,5 @@
       </div>
     </div>
   </section>
+  @include('handlebars.type-edit')
 @stop

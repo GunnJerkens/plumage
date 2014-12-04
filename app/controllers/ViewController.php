@@ -1,6 +1,6 @@
 <?php
 
-class DashboardController extends Controller {
+class ViewController extends Controller {
 
   /**
    * Handles GET requests for /dashboard

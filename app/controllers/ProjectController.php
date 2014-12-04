@@ -28,11 +28,14 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function createProject() {
-    $response = $this->checkNaming($this->input['project_name']);
-    if(!$response) {
-      $response = Project::createNewProject($this->user->id, $this->input['project_name']);
+    if(!$this->checkNaming($this->input['project_name'])) {
+      Project::create([
+        'user_id'   => $this->user->id,
+        'name'      => $this->input['project_name'],
+        'is_active' => true
+      ]);
     }
-    return Redirect::back()->with($response);
+    return Redirect::back()->with(['error' => false, 'message' => 'Created new project successfully.']);
   }
 
   /**

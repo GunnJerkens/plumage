@@ -83,7 +83,7 @@ module.exports = function (grunt) {
       },
       scripts: {
         files: ['public/js/src/*.js','public/js/src/bootstrap/*.js','public/js/src/libs/*.js'],
-        tasks: ['concat']
+        tasks: ['uglify']
       },
       css: {
         files: ['public/css/**/*.{sass,scss}'],
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
   });
 
   // Development task checks and concatenates JS, compiles SASS preserving comments and nesting, runs dev server, and starts watch
-  grunt.registerTask('dev', ['compass', 'concat', 'browserSync', 'watch']);
-  grunt.registerTask('default', ['compass', 'uglify']);
+  grunt.registerTask('dev', ['compass', 'concat']);
+  grunt.registerTask('default', ['compass', 'uglify', 'browserSync', 'watch']);
 
  }

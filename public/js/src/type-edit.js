@@ -1,4 +1,4 @@
-$(document).ready(function() {
+;(function() {
 
   var $sortable;
 
@@ -55,4 +55,4 @@ $(document).ready(function() {
     $(this).closest('li').remove();
   });
 
-});
+})();

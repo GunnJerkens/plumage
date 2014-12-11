@@ -28,14 +28,19 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function createProject() {
-    if(!$this->checkNaming($this->input['project_name'])) {
+    if(!$this->checkEmpty()) {
+      $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
+    } elseif(!$this->checkNaming($this->input['project_name'])) {
+      $response = ['error' => true, 'message' => 'Alpha lowercase characters only.', 'input_text' => $this->input['project_name']];
+    } else {
       Project::create([
         'user_id'   => $this->user->id,
         'name'      => $this->input['project_name'],
         'is_active' => true
       ]);
+      $response = ['error' => false, 'message' => 'Created new project successfully.'];
     }
-    return Redirect::back()->with(['error' => false, 'message' => 'Created new project successfully.']);
+    return Redirect::back()->with($response);
   }
 
   /**
@@ -44,9 +49,11 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function postProject($project_id) {
-    $response = $this->checkNaming($this->input['table_name']);
-    if(!$response) {
-      $response = ProjectType::createTypesGroup($project_id, $this->input);
+    if(!$this->checkNaming($this->input['table_name'])) {
+      $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
+    } else {
+      ProjectType::createTypesGroup($project_id, $this->input);
+      $response = ['error' => false, 'message' => 'Created project type successfully.'];
     }
     return Redirect::back()->with($response);
   }
@@ -61,10 +68,11 @@ class ProjectController extends Controller {
   public function postProjectType($project_id, $project_type) {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     foreach($this->input as $data) {
-      $response    = ProjectType::createTypesData($projectType->table_name, $data);
-      if($response['error'] === true) {
+      $state    = ProjectType::createTypesData($projectType->table_name, $data);
+      $response = ['error' => false, 'message' => 'Type data updated successfully.'];
+      if($state === 404) {
+        $response = ['error' => true, 'message' => 'Type table does not exist.'];
         break;
-      }
     }
     return Redirect::back()->with($response);
   }
@@ -77,8 +85,18 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function postProjectTypeEdit($project_id, $project_type) {
-    if(true === ($response = $this->checkEmpty())) {
-      $response = ProjectType::addTypesFields($project_id, $project_type, $this->input);
+    if(!$this->checkEmpty()) {
+      $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
+    } else {
+      $state = ProjectType::addTypesFields($project_id, $project_type, $this->input);
+      switch($state) {
+        case(404):
+          $response = ['error' => true, 'message' => 'Project type not found.'];
+          break;
+        default:
+          $response = ['error' => false, 'message' => 'Fields updated successfully.'];
+          break;
+      }
     }
     return Redirect::back()->with($response);
   }
@@ -89,7 +107,7 @@ class ProjectController extends Controller {
     if($json) {
       foreach($json as $data) {
         $data->id = null;
-        $response    = ProjectType::createTypesData($projectType->table_name, (array) $data);
+        $response = ProjectType::createTypesData($projectType->table_name, (array) $data);
         if($response['error'] === true) {
           break;
         }
@@ -106,24 +124,23 @@ class ProjectController extends Controller {
    * @return redirect
    */
   public function deleteProjectType($project_id, $project_type) {
-    $response = ProjectType::deleteTypesGroup($project_id, $project_type);
-    return Redirect::back()->with($response);
+    ProjectType::deleteTypesGroup($project_id, $project_type);
+    return Redirect::back()->with(['error' => false, 'message' => 'Type set deleted.']);
   }
 
   /**
    * Make sure a project is all lowercase, no special chars
    *
-   * @param $string
+   * @param string
    *
-   * @return array|false
+   * @return bool
    */
   private function checkNaming($string) {
+    $state = true;
     if(!preg_match('/^[a-z]+$/', $string)) {
-      $response = ['error' => true, 'message' => 'Alpha lowercase characters only', 'input_text' => $string];
-    } else {
-      $response = false;
+      $state = false;
     }
-    return $response;
+    return $state;
   }
 
   /**
@@ -132,12 +149,13 @@ class ProjectController extends Controller {
    * @return true || array
    */
   private function checkEmpty() {
+    $state = true;
     foreach($this->input as $field) {
-      if(empty($field['field_name']) || empty($field['field_type'])) {
-        return ['error' => true, 'message' => 'Fields require a name and type.'];
+      if($field === "" || empty($field)) {
+        $state = false;
       }
     }
-    return true;
+    return $state;
   }
 
 }

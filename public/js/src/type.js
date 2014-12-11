@@ -1,4 +1,4 @@
-$(document).ready(function() {
+;(function() {
 
   $('#bulk-upload').modal({
     backdrop: true,
@@ -22,7 +22,7 @@ $(document).ready(function() {
           break;
         case('select'):
           string += '<select name="' + id + '[' + this.field_name + ']">';
-          for(var j = 0; j < this.field_values.length; j ++) {
+          for(var j = 0; j < this.field_values.length; j++) {
             string += '<option value="' + this.field_values[j].value + '">' + this.field_values[j].label + '</option>';
           }
           string += '</select>';
@@ -36,4 +36,4 @@ $(document).ready(function() {
     return false;
   });
 
-});
+})();

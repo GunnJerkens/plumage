@@ -23,7 +23,7 @@ class ProjectType extends Eloquent {
    *
    * @param int,array
    *
-   * @return array
+   * @return true
    */
   public static function createTypesGroup($project_id, $data) {
     $project = Project::where('id', $project_id)->first();
@@ -38,12 +38,7 @@ class ProjectType extends Eloquent {
     Schema::create($projectTable->table_name, function($table) {
       $table->increments('id');
     });
-
-    $response = [
-      'error' => false,
-      'message' => 'Created project type successfully.'
-    ];
-    return $response;
+    return true;
   }
 
   /**
@@ -51,19 +46,19 @@ class ProjectType extends Eloquent {
    *
    * @param int, string, array
    *
-   * @return array
+   * @return true|int
    */
   public static function addTypesFields($project_id, $project_type, $data) {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     if(null === $projectType) {
-      $response = ['error' => true, 'message' => 'Project type not found.'];
+      $state = 404;
     } else {
       self::createFieldsColumns($projectType->table_name, $data);
       $projectType->fields = json_encode($data);
       $projectType->save();
-      $response = ['error' => false, 'message' => 'Fields updated successfully.'];
+      $state = true;
     }
-    return $response;
+    return $state;
   }
 
   /**
@@ -105,22 +100,19 @@ class ProjectType extends Eloquent {
    *
    * @param string, array
    *
-   * @return array
+   * @return true|int
    */
   public static function createTypesData($tableName, $data) {
     if(!Schema::hasTable($tableName)) {
-      $response = ['error' => true, 'message' => 'Type table does not exist.'];
-      return $response;
-    }
-    $id = $data['id'];
-    unset($data['id']);
-    $set = DB::table($tableName)->where('id', $id)->first();
-    if(null === $set) {
-      $set = DB::table($tableName)->insert($data);
+      $state = 404;
     } else {
-      $set = DB::table($tableName)->where('id', $id)->update($data);
+      $state = true;
+      $id = $data['id'];
+      unset($data['id']);
+      $set = DB::table($tableName)->where('id', $id)->first();
+      $set = $set === null ? DB::table($tableName)->insert($data) : DB::table($tableName)->where('id', $id)->update($data);
     }
-    return ['error' => false, 'message' => 'Type data updated successfully.'];
+    return $state;
   }
 
   /**
@@ -139,7 +131,7 @@ class ProjectType extends Eloquent {
    *
    * @param int, string
    *
-   * @return response
+   * @return bool
    */
   public static function deleteTypesGroup($project_id, $type) {
     $project = Project::where('id', $project_id)->first();
@@ -148,11 +140,7 @@ class ProjectType extends Eloquent {
     Schema::drop($type->table_name);
     $type->delete();
 
-    $response = [
-      'error' => false,
-      'message' => 'Type set deleted.'
-    ];
-    return $response;
+    return true;
   }
 
 }

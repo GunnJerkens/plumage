@@ -20,9 +20,8 @@ class UserTableSeeder extends Seeder {
       'activated'  => true,
     ]);
 
-    // Need to setup groups before commenting this back in
-    // $admin = Sentry::findGroupByName('admin');
-    // $createAdmin->addGroup($admin);
+    $admin = Sentry::findGroupByName('admin');
+    $createAdmin->addGroup($admin);
 
   }
 

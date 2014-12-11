@@ -29,6 +29,7 @@ Route::group(['before' => 'sentry_check'], function() {
 
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'ViewController@getDashboard']);
     Route::get('mapper', ['as' => 'mapper', 'uses' => 'ViewController@getMapper']);
+    Route::get('manage', ['as' => 'manage', 'before' => 'manage_check', 'uses' => 'ViewController@getManage']);
     Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
 });
@@ -49,6 +50,8 @@ Route::group(['before' => 'sentry_check|csrf'], function() {
   Route::post('project/{project_id}/{project_type}', ['uses' => 'ProjectController@postProjectType']);
   Route::post('project/{project_id}/{project_type}/edit', ['uses' => 'ProjectController@postProjectTypeEdit']);
   Route::post('project/{project_id}/{project_type}/bulk', ['uses' => 'ProjectController@postProjectTypeBulk']);
+
+  Route::post('manage/ban', ['before' => 'manage_check', 'uses' => 'ManageController@banUsers']);
 
 });
 

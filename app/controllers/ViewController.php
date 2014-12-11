@@ -70,4 +70,17 @@ class ViewController extends Controller {
     ]);
   }
 
+  /**
+   * Handles GET requests for /manage
+   *
+   * @return view
+   */
+  public function getManage() {
+    $user = Sentry::getUser();
+    return View::make('layouts.manage')->with([
+      'users'    => User::all(),
+      'throttle' => Sentry::findThrottlerByUserId($user->id)
+    ]);
+  }
+
 }

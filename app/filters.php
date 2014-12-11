@@ -24,6 +24,12 @@ Route::filter('project_check', function($route) {
   }
 });
 
+Route::filter('manage_check', function() {
+  if(!Sentry::getUser()->hasAnyAccess(['manage'])) {
+    return Redirect::to('404');
+  }
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

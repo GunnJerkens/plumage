@@ -73,6 +73,7 @@ class ProjectController extends Controller {
       if($state === 404) {
         $response = ['error' => true, 'message' => 'Type table does not exist.'];
         break;
+      }
     }
     return Redirect::back()->with($response);
   }
@@ -89,22 +90,25 @@ class ProjectController extends Controller {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
     } else {
       $state = ProjectType::addTypesFields($project_id, $project_type, $this->input);
-      switch($state) {
-        case(404):
-          $response = ['error' => true, 'message' => 'Project type not found.'];
-          break;
-        default:
-          $response = ['error' => false, 'message' => 'Fields updated successfully.'];
-          break;
+      if($state === 404) {
+        $response = ['error' => true, 'message' => 'Project type not found.'];
+      } else {
+        $response = ['error' => false, 'message' => 'Fields updated successfully.'];
       }
     }
     return Redirect::back()->with($response);
   }
 
+  /**
+   * Handles POST requests for /project/
+   *
+   * @param int, string
+   *
+   * @return redirect
+   */
   public function postProjectTypeBulk($project_id, $project_type) {
-    $json        = json_decode($this->input['json_data']);
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
-    if($json) {
+    if(true === ($json = json_decode($this->input['json_data']))) {
       foreach($json as $data) {
         $data->id = null;
         $response = ProjectType::createTypesData($projectType->table_name, (array) $data);

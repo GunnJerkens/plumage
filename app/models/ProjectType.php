@@ -58,7 +58,7 @@ class ProjectType extends Eloquent {
       $projectType->save();
       $state = true;
     }
-    return $state;
+    return true;
   }
 
   /**

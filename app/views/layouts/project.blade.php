@@ -8,6 +8,17 @@
   <section id="project">
     @include('partials.message')
     <div class="container">
+      <h1>Types</h1>
+      @foreach($project_types as $type)
+        <div class="row">
+          <div class="col-sm-12">
+            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
+            <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
+            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
+            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+      @endforeach
       <div class="row">
         <div class="col-sm-12">
           <form role="form" method="post">
@@ -19,16 +30,15 @@
           </form>
         </div>
       </div>
-      @foreach($project_types as $type)
+      @if(Sentry::getUser()->hasAnyAccess(['manage']))
+        <h1>User Access</h1>
         <div class="row">
           <div class="col-sm-12">
-            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
-            <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
-            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
-            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
+            
           </div>
         </div>
-      @endforeach
+      @endif
+      </div>
     </div>
   </section>
 @stop

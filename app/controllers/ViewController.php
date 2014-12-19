@@ -15,10 +15,9 @@ class ViewController extends BaseController {
    * @return view
    */
   public function getDashboard() {
-    $projects = $this->setProjects();
     if($this->user->hasAnyAccess(['manage'])) {
       $projects = Project::all();
-    } else if(!empty($projects)) {
+    } else if(!empty($projects = $this->setProjects())) {
       $projects = Project::whereIn('id', $projects)->orWhere('user_id', $this->user->id)->orderBy('id')->get();
     } else {
       $projects = Project::where('user_id', $this->user->id)->orderBy('id')->get();
@@ -64,7 +63,8 @@ class ViewController extends BaseController {
     $projectTypes = ProjectType::where('project_id', $project_id)->get();
     return View::make('layouts.project')->with([
       'project'       => $project,
-      'project_types' => $projectTypes
+      'project_types' => $projectTypes,
+      'users'         => $this->user->hasAnyAccess(['manage']) ? User::all() : false,
     ]);
   }
 

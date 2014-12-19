@@ -16,7 +16,7 @@ class ProjectAccess extends Eloquent {
    */
   protected $fillable = ['project_id', 'user_id'];
 
-  protected $appends = array('project_name');
+  protected $appends = ['project_name', 'user_email'];
 
   /**
    * Gets the project name and appends it to the model dynamically
@@ -26,6 +26,16 @@ class ProjectAccess extends Eloquent {
   public function getProjectNameAttribute() {
     $project = Project::where('id', $this->project_id)->first();
     return $project->name;
+  }
+
+  /**
+   * Gets the user email and appends it to the model dynamically
+   *
+   * @return string
+   */
+  public function getUserEmailAttribute() {
+    $user = User::where('id', $this->user_id)->first();
+    return $user->email;
   }
 
 }

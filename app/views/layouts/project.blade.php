@@ -11,16 +11,14 @@
       <h1>Types</h1>
       @foreach($project_types as $type)
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-6">
             <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
             <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
             <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
           </div>
-        </div>
       @endforeach
-      <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <form role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -30,11 +28,29 @@
           </form>
         </div>
       </div>
-      @if(Sentry::getUser()->hasAnyAccess(['manage']))
+      @if($users)
         <h1>User Access</h1>
         <div class="row">
-          <div class="col-sm-12">
-            
+          <div class="col-sm-6">
+            <ul>
+              @foreach($project->access as $access)
+                <li data="">{{ $access->user_email }}</li>
+              @endforeach
+            </ul>
+          </div>
+          <div class="col-sm-6">
+            <form role="form" method="post">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <div class="form-group">
+                <label>Add User</label>
+                <select>
+                  @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->email }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <button type="submit" class="btn btn-default">Add User</button>
+            </form>
           </div>
         </div>
       @endif

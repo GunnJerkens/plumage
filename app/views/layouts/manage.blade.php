@@ -23,7 +23,11 @@
               @foreach($users as $user)
                 <tr>
                   <td>{{{ $user->email }}}</td>
-                  <td><textarea>{{{ $user->access }}}</textarea></td>
+                  <td>
+                    @foreach($user->access as $access)
+                      {{ $access->project_name }}
+                    @endforeach
+                  </td>
                   <td>
                     <form role="form" method="post" action="/manage/ban">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -63,4 +67,5 @@
       </div>
     </div>
   </section>
+  <?php var_dump($users); ?>
 @stop

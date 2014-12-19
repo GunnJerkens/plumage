@@ -16,4 +16,16 @@ class ProjectAccess extends Eloquent {
    */
   protected $fillable = ['project_id', 'user_id'];
 
+  protected $appends = array('project_name');
+
+  /**
+   * Gets the project name and appends it to the model dynamically
+   *
+   * @return string
+   */
+  public function getProjectNameAttribute() {
+    $project = Project::where('id', $this->project_id)->first();
+    return $project->name;
+  }
+
 }

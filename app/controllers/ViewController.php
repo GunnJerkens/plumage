@@ -1,6 +1,13 @@
 <?php
 
-class ViewController extends Controller {
+class ViewController extends BaseController {
+
+  /**
+   * Class construct
+   */
+  function __construct() {
+    parent::__construct();
+  }
 
   /**
    * Handles GET requests for /dashboard
@@ -8,12 +15,34 @@ class ViewController extends Controller {
    * @return view
    */
   public function getDashboard() {
-    $projects = Project::all();
+    $projects = $this->setProjects();
+    if($this->user->hasAnyAccess(['manage'])) {
+      $projects = Project::all();
+    } else if(!empty($projects)) {
+      $projects = Project::whereIn('id', $projects)->orWhere('user_id', $this->user->id)->orderBy('id')->get();
+    } else {
+      $projects = Project::where('user_id', $this->user->id)->orderBy('id')->get();
+    }
     return View::make('layouts.dashboard')->with([
       'projects' => $projects
     ]);
   }
 
+  /**
+   * Sets the projects for viewing
+   *
+   * @return array
+   */
+  private function setProjects() {
+    $ids = [];
+    $projects = ProjectAccess::where('user_id', $this->user->id)->get();
+    foreach($projects as $project) {
+      if($project->user_id === $this->user->id) {
+        $ids[] = $project->project_id;
+      }
+    }
+    return $ids;
+  }
   /**
    * Handles GET requests for /mapper
    *
@@ -80,7 +109,6 @@ class ViewController extends Controller {
     return View::make('layouts.manage')->with([
       'users'    => User::all(),
       'throttle' => Sentry::findThrottlerByUserId($user->id),
-      'access'   => ProjectAccess::where('user_id', $user->id)->get()
     ]);
   }
 

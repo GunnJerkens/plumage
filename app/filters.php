@@ -16,11 +16,17 @@ Route::filter('sentry_check', function() {
 });
 
 Route::filter('project_check', function($route) {
-  $user       = Sentry::getUser();
-  $project_id = $route->getParameter('project_id');
-  $project    = Project::where('user_id', $user->id)->where('id', $project_id)->first();
-  $access     = ProjectAccess::where('project_id', $project_id)->where('user_id', $user->id)->get();
-  if(null === $project && null === $access) {
+  $deny      = true;
+  $user      = Sentry::getUser();
+  $projectID = $route->getParameter('project_id');
+  $project   = Project::where('id', $projectID)->with('access')->first();
+  foreach($project->access as $access) {
+    if($access->project_id === (int) $projectID) {
+      $deny = false;
+      break;
+    }
+  }
+  if(!$user->hasAnyAccess(['manage']) && $user->id !== $project->user_id && $deny) {
     return Redirect::to('404');
   }
 });

@@ -47,6 +47,7 @@ Route::group(['before' => 'sentry_check|csrf'], function() {
 
   Route::post('dashboard', ['uses' => 'ProjectController@createProject']);
   Route::post('project/{project_id}', ['uses' => 'ProjectController@postProject']);
+  Route::post('project/{project_id}/access', ['uses' => 'ProjectController@postProjectAccess']);
   Route::post('project/{project_id}/{project_type}', ['uses' => 'ProjectController@postProjectType']);
   Route::post('project/{project_id}/{project_type}/edit', ['uses' => 'ProjectController@postProjectTypeEdit']);
   Route::post('project/{project_id}/{project_type}/bulk', ['uses' => 'ProjectController@postProjectTypeBulk']);

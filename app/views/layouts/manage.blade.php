@@ -67,5 +67,4 @@
       </div>
     </div>
   </section>
-  <?php var_dump($users); ?>
 @stop

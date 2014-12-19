@@ -9,15 +9,7 @@
     @include('partials.message')
     <div class="container">
       <h1>Types</h1>
-      @foreach($project_types as $type)
-        <div class="row">
-          <div class="col-sm-6">
-            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
-            <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
-            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
-            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
-          </div>
-      @endforeach
+      <div class="row">
         <div class="col-sm-6">
           <form role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -27,6 +19,14 @@
             <button type="submit" class="btn btn-default">Add Type</button>
           </form>
         </div>
+        @foreach($project_types as $type)
+          <div class="col-sm-6">
+            <h2><a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a></h2>
+            <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
+            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
+            <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
+          </div>
+        @endforeach
       </div>
       @if($users)
         <h1>User Access</h1>
@@ -39,11 +39,11 @@
             </ul>
           </div>
           <div class="col-sm-6">
-            <form role="form" method="post">
+            <form role="form" method="post" action="/project/{{$project->id}}/access">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
-                <label>Add User</label>
-                <select>
+                <label for="id">Add User</label>
+                <select id="id" name="id">
                   @foreach($users as $user)
                     <option value="{{ $user->id }}">{{ $user->email }}</option>
                   @endforeach

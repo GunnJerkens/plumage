@@ -59,6 +59,19 @@ class ProjectController extends Controller {
   }
 
   /**
+   * Handles POST requests for /project/{project_id}/access
+   *
+   * @return redirect
+   */
+  public function postProjectAccess($project_id) {
+    ProjectAccess::create([
+      'project_id' => $project_id,
+      'user_id'    => $this->input['id'],
+    ]);
+    return Redirect::back()->with(['error' => false, 'message' => 'Added user access successfully.']);
+  }
+
+  /**
    * Handles POST requests for /project/{project_id}/{project_type}
    *
    * @param int, string

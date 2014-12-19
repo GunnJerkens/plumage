@@ -16,7 +16,19 @@ class ProjectAccess extends Eloquent {
    */
   protected $fillable = ['project_id', 'user_id'];
 
+  /**
+   * Appendable items to the object on retrieval
+   *
+   * @var array
+   */
   protected $appends = ['project_name', 'user_email'];
+
+  /**
+   * Disable the eloquent timestamps
+   *
+   * @var bool
+   */
+  public $timestamps = false;
 
   /**
    * Gets the project name and appends it to the model dynamically

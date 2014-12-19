@@ -79,7 +79,8 @@ class ViewController extends Controller {
     $user = Sentry::getUser();
     return View::make('layouts.manage')->with([
       'users'    => User::all(),
-      'throttle' => Sentry::findThrottlerByUserId($user->id)
+      'throttle' => Sentry::findThrottlerByUserId($user->id),
+      'access'   => ProjectAccess::where('user_id', $user->id)->get()
     ]);
   }
 

@@ -19,7 +19,8 @@ Route::filter('project_check', function($route) {
   $user       = Sentry::getUser();
   $project_id = $route->getParameter('project_id');
   $project    = Project::where('user_id', $user->id)->where('id', $project_id)->first();
-  if(null === $project) {
+  $access     = ProjectAccess::where('project_id', $project_id)->where('user_id', $user->id)->get();
+  if(null === $project && null === $access) {
     return Redirect::to('404');
   }
 });

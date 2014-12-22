@@ -1,6 +1,7 @@
 <?php
 
-class ProjectTableSeeder extends Seeder {
+class ProjectTableSeeder extends Seeder
+{
 
   /**
    * Run the database seeds.
@@ -8,7 +9,8 @@ class ProjectTableSeeder extends Seeder {
    * @return void
    */
 
-  public function run() {
+  public function run()
+  {
     DB::table('projects')->insert([
       'user_id'   => 1,
       'name'      => 'example',

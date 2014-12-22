@@ -5,7 +5,8 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface
+{
 
   use UserTrait, RemindableTrait;
 
@@ -27,7 +28,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    * Relationship to the access table
    *
    */
-  public function access() {
+  public function access()
+  {
     return $this->hasMany('ProjectAccess', 'user_id', 'id');
   }
 

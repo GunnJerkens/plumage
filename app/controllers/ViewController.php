@@ -1,11 +1,13 @@
 <?php
 
-class ViewController extends BaseController {
+class ViewController extends BaseController
+{
 
   /**
    * Class construct
    */
-  function __construct() {
+  function __construct()
+  {
     parent::__construct();
   }
 
@@ -14,7 +16,8 @@ class ViewController extends BaseController {
    *
    * @return view
    */
-  public function getDashboard() {
+  public function getDashboard()
+  {
     if($this->user->hasAnyAccess(['manage'])) {
       $projects = Project::all();
     } else if(!empty($projects = $this->setProjects())) {
@@ -32,7 +35,8 @@ class ViewController extends BaseController {
    *
    * @return array
    */
-  private function setProjects() {
+  private function setProjects()
+  {
     $ids = [];
     $projects = ProjectAccess::where('user_id', $this->user->id)->get();
     foreach($projects as $project) {
@@ -47,7 +51,8 @@ class ViewController extends BaseController {
    *
    * @return view
    */
-  public function getMapper() {
+  public function getMapper()
+  {
     return View::make('layouts.mapper');
   }
 
@@ -58,7 +63,8 @@ class ViewController extends BaseController {
    *
    * @return view
    */
-  public function getProject($project_id) {
+  public function getProject($project_id)
+  {
     $project      = Project::where('id', $project_id)->first();
     $projectTypes = ProjectType::where('project_id', $project_id)->get();
     return View::make('layouts.project')->with([
@@ -75,7 +81,8 @@ class ViewController extends BaseController {
    *
    * @return view
    */
-  public function getProjectType($project_id, $project_type) {
+  public function getProjectType($project_id, $project_type)
+  {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     $itemData    = DB::table($projectType->table_name)->get();
     return View::make('layouts.type')->with([
@@ -92,7 +99,8 @@ class ViewController extends BaseController {
    *
    * @return view
    */
-  public function getProjectTypeEdit($project_id, $project_type) {
+  public function getProjectTypeEdit($project_id, $project_type)
+  {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     return View::make('layouts.type-edit')->with([
       'fields' => json_decode($projectType->fields)
@@ -104,7 +112,8 @@ class ViewController extends BaseController {
    *
    * @return view
    */
-  public function getManage() {
+  public function getManage()
+  {
     $user = Sentry::getUser();
     return View::make('layouts.manage')->with([
       'users'    => User::all(),

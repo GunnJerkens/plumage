@@ -1,6 +1,7 @@
 <?php
 
-class Project extends Eloquent {
+class Project extends Eloquent
+{
 
   use SoftDeletingTrait;
 
@@ -23,7 +24,8 @@ class Project extends Eloquent {
    *
    * @return object
    */
-  public function access() {
+  public function access() 
+  {
     return $this->hasMany('ProjectAccess', 'project_id', 'id');
   }
 

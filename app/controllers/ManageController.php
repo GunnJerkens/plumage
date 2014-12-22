@@ -1,6 +1,7 @@
 <?php
 
-class ManageController extends Controller {
+class ManageController extends Controller
+{
 
   /**
    * Class variables
@@ -14,7 +15,8 @@ class ManageController extends Controller {
    * Class constructor function
    *
    */
-  function __construct() {
+  function __construct()
+  {
     $this->input = Input::except('token');
   }
 
@@ -23,7 +25,8 @@ class ManageController extends Controller {
    *
    * @return redirect
    */
-  public function banUser() {
+  public function banUser()
+  {
     $throttle = Sentry::findThrottlerByUserId($this->input['user_id']);
     if ($throttle->isBanned()) {
       $throttle->unBan();
@@ -40,7 +43,8 @@ class ManageController extends Controller {
    *
    * @return redirect
    */
-  public function createUser() {
+  public function createUser()
+  {
     $newUser = Sentry::createUser([
       'email'      => $this->input['email'],
       'password'   => $this->input['password'],
@@ -56,12 +60,12 @@ class ManageController extends Controller {
    *
    * @return void
    */
-  private function emailNewUserCreds() {
+  private function emailNewUserCreds()
+  {
     $data = $this->input;
     Mail::send('emails.welcome', $data, function($message) use ($data) {
       $message->to($data['email'])->subject('Plumage Account Created');
     });
   }
-
 
 }

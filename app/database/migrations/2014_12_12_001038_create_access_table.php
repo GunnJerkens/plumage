@@ -3,14 +3,16 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccessTable extends Migration {
+class CreateAccessTable extends Migration
+{
 
   /**
    * Run the migrations.
    *
    * @return void
    */
-  public function up() {
+  public function up()
+  {
     Schema::create('projects_access', function($table) {
       $table->integer('project_id')->references('id')->on('projects');
       $table->integer('user_id')->references('id')->on('users');
@@ -22,7 +24,8 @@ class CreateAccessTable extends Migration {
    *
    * @return void
    */
-  public function down() {
+  public function down()
+  {
     Schema::drop('projects_access');
   }
 

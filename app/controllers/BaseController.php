@@ -1,6 +1,7 @@
 <?php
 
-class BaseController extends Controller {
+class BaseController extends Controller
+{
 
   /**
    * Class vars
@@ -12,7 +13,8 @@ class BaseController extends Controller {
   /**
    * Class contructor
    */
-  function __construct() {
+  function __construct()
+  {
     $this->user = Sentry::getUser();
   }
 

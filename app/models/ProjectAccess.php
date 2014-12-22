@@ -1,6 +1,7 @@
 <?php
 
-class ProjectAccess extends Eloquent {
+class ProjectAccess extends Eloquent
+{
 
   /**
    * The database table used by the model.
@@ -35,7 +36,8 @@ class ProjectAccess extends Eloquent {
    *
    * @return string
    */
-  public function getProjectNameAttribute() {
+  public function getProjectNameAttribute()
+  {
     $project = Project::where('id', $this->project_id)->first();
     return $project->name;
   }
@@ -45,7 +47,8 @@ class ProjectAccess extends Eloquent {
    *
    * @return string
    */
-  public function getUserEmailAttribute() {
+  public function getUserEmailAttribute()
+  {
     $user = User::where('id', $this->user_id)->first();
     return $user->email;
   }

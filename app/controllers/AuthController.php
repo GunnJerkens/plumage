@@ -1,13 +1,15 @@
 <?php
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
   /**
    * Handles GET requests from /
    *
    * @return view
    */
-  public function getDefault() {
+  public function getDefault()
+  {
     return View::make('layouts.default');
   }
 
@@ -16,7 +18,8 @@ class AuthController extends Controller {
    *
    * @return redirect
    */
-  public function postLogin() {
+  public function postLogin()
+  {
     $input = Input::except('_token');
     $response['error'] = true;
     try {
@@ -63,7 +66,8 @@ class AuthController extends Controller {
    *
    * @return redirect
    */
-  public function getLogout() {
+  public function getLogout()
+  {
     Sentry::logout();
     return Redirect::to('/');
   }

@@ -1,6 +1,7 @@
 <?php
 
-class ProjectType extends Eloquent {
+class ProjectType extends Eloquent
+{
 
   use SoftDeletingTrait;
 
@@ -25,7 +26,8 @@ class ProjectType extends Eloquent {
    *
    * @return true
    */
-  public static function createTypesGroup($project_id, $data) {
+  public static function createTypesGroup($project_id, $data)
+  {
     $project = Project::where('id', $project_id)->first();
     $data['table_name'] = strtolower($data['table_name']);
 
@@ -48,7 +50,8 @@ class ProjectType extends Eloquent {
    *
    * @return true|int
    */
-  public static function addTypesFields($project_id, $project_type, $data) {
+  public static function addTypesFields($project_id, $project_type, $data)
+  {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     if(null === $projectType) {
       $state = 404;
@@ -68,7 +71,8 @@ class ProjectType extends Eloquent {
    *
    * @return void
    */
-  private static function createFieldsColumns($tableName, $data) {
+  private static function createFieldsColumns($tableName, $data)
+  {
     foreach($data as $field) {
       if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {
@@ -85,7 +89,8 @@ class ProjectType extends Eloquent {
    *
    * @return void
    */
-  private static function deleteFieldsColumns($tableName, $columns) {
+  private static function deleteFieldsColumns($tableName, $columns)
+  {
     foreach($columns as $column) {
       if(Schema::hasColumn($tableName, $column)) {
         Schema::table($tableName, function($table) use ($column) {
@@ -102,7 +107,8 @@ class ProjectType extends Eloquent {
    *
    * @return true|int
    */
-  public static function createTypesData($tableName, $data) {
+  public static function createTypesData($tableName, $data)
+  {
     if(!Schema::hasTable($tableName)) {
       $state = 404;
     } else {
@@ -122,7 +128,8 @@ class ProjectType extends Eloquent {
    *
    * @return array
    */
-  public static function deleteTypesData() {
+  public static function deleteTypesData()
+  {
 
   }
 
@@ -133,7 +140,8 @@ class ProjectType extends Eloquent {
    *
    * @return bool
    */
-  public static function deleteTypesGroup($project_id, $type) {
+  public static function deleteTypesGroup($project_id, $type)
+  {
     $project = Project::where('id', $project_id)->first();
     $type    = ProjectType::where('type', $type)->first();
 

@@ -1,6 +1,7 @@
 <?php
 
-class APIController extends Controller {
+class APIController extends Controller
+{
 
   /**
    * Protected class vars
@@ -16,7 +17,8 @@ class APIController extends Controller {
    *
    * @return void
    */
-  function __construct() {
+  function __construct()
+  {
     $this->beforeFilter('@setProject');
     $this->beforeFilter('@setProjectType');
     $this->beforeFilter('@setProjectTypeData');
@@ -29,7 +31,8 @@ class APIController extends Controller {
    *
    * @return void || function()
    */
-  public function setProject($route, $request) {
+  public function setProject($route, $request)
+  {
     $project_name = $route->getParameter('project_name');
     $project      = Project::where('name', $project_name)->first();
     if($project != null) {
@@ -46,7 +49,8 @@ class APIController extends Controller {
    *
    * @return void || function()
    */
-  public function setProjectType($route, $request) {
+  public function setProjectType($route, $request)
+  {
     $project_type = $route->getParameter('project_type');
     $projectType  = ProjectType::where('project_id', $this->project->id)->where('type', $project_type)->first();
     if($projectType != null) {
@@ -63,7 +67,8 @@ class APIController extends Controller {
    *
    * @return void || function()
    */
-  public function setProjectTypeData($route, $request) {
+  public function setProjectTypeData($route, $request)
+  {
     $projectTypeData = DB::Table($this->projectType->table_name)->get();
     if($projectTypeData != null) {
       $this->projectTypeData = $projectTypeData;
@@ -77,7 +82,8 @@ class APIController extends Controller {
    *
    * @return json
    */
-  public function getAPIMissing() {
+  public function getAPIMissing()
+  {
     $quotes = [
       'There\'s that word again. "Heavy." Why are things so heavy in the future? Is there a problem with the Earth\'s gravitational pull?',
       'Roads? Where we\'re going, we don\'t need roads.',
@@ -100,7 +106,8 @@ class APIController extends Controller {
    *
    * @return json
    */
-  public function getProjectTypeData() {
+  public function getProjectTypeData()
+  {
     return Response::json($this->projectTypeData);
   }
 

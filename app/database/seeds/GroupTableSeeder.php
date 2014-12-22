@@ -1,6 +1,7 @@
 <?php
 
-class GroupTableSeeder extends Seeder {
+class GroupTableSeeder extends Seeder
+{
 
   /**
    * Run the database seeds.
@@ -8,8 +9,8 @@ class GroupTableSeeder extends Seeder {
    * @return void
    */
 
-  public function run() {
-
+  public function run()
+  {
     $admin = Sentry::createGroup([
       'name'        => 'admin',
       'permissions' => [
@@ -21,7 +22,6 @@ class GroupTableSeeder extends Seeder {
       'name' => 'user',
       'permissions' => []
     ]);
-
   }
 
 }

@@ -17,23 +17,27 @@ Run `composer install` in the root to install all Composer dependencies, then `n
 
 ### environments
 
-If no environments file exists the application assumes production, create an `.env.local.php` or `.env.local.php` for local and staging respectively.
+If no environments file exists the application assumes production, create an `.env.local.php` or `.env.staging.php` for local and staging respectively.
 
 Each file can contain an array of variables to override for the specific environment, or to keep secret keys out of versioning. The file must at minimum return an empty array.
 
 ```
-<?php return [];
+<?php return [
+
+  // TODO: insert applicable vars
+
+];
 ```
 
 ### grunt
 
-To run the default production build with uglify and compass:
+To run the default production build with uglify, compass, browsersync:
 
 ```
 grunt -v
 ```
 
-To run the development build that uses concat and browserSync:
+To run the development build that uses concat (for debugging):
 
 ```
 grunt dev -v

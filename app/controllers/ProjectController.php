@@ -1,6 +1,7 @@
 <?php
 
-class ProjectController extends Controller {
+class ProjectController extends Controller
+{
 
   /**
    * Private class vars
@@ -17,7 +18,8 @@ class ProjectController extends Controller {
    *
    * @return void
    */
-  function __construct() {
+  function __construct()
+  {
     $this->input = Input::except('_token');
     $this->user  = Sentry::getUser();
   }
@@ -27,7 +29,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function createProject() {
+  public function createProject()
+  {
     if (!$this->checkEmpty()) {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
     } elseif (!$this->checkNaming($this->input['project_name'])) {
@@ -48,7 +51,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function postProject($project_id) {
+  public function postProject($project_id)
+  {
     if (!$this->checkNaming($this->input['table_name'])) {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
     } else {
@@ -63,7 +67,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function postProjectAccess($project_id) {
+  public function postProjectAccess($project_id)
+  {
     ProjectAccess::create([
       'project_id' => $project_id,
       'user_id'    => $this->input['id'],
@@ -78,7 +83,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function postProjectType($project_id, $project_type) {
+  public function postProjectType($project_id, $project_type)
+  {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     foreach ($this->input as $data) {
       $state    = ProjectType::createTypesData($projectType->table_name, $data);
@@ -98,7 +104,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function postProjectTypeEdit($project_id, $project_type) {
+  public function postProjectTypeEdit($project_id, $project_type)
+  {
     if (!$this->checkEmpty()) {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
     } else {
@@ -119,7 +126,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function postProjectTypeBulk($project_id, $project_type) {
+  public function postProjectTypeBulk($project_id, $project_type)
+  {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     if (true === ($json = json_decode($this->input['json_data']))) {
       foreach ($json as $data) {
@@ -140,7 +148,8 @@ class ProjectController extends Controller {
    *
    * @return redirect
    */
-  public function deleteProjectType($project_id, $project_type) {
+  public function deleteProjectType($project_id, $project_type)
+  {
     ProjectType::deleteTypesGroup($project_id, $project_type);
     return Redirect::back()->with(['error' => false, 'message' => 'Type set deleted.']);
   }
@@ -152,7 +161,8 @@ class ProjectController extends Controller {
    *
    * @return bool
    */
-  private function checkNaming($string) {
+  private function checkNaming($string)
+  {
     $state = true;
     if (!preg_match('/^[a-z]+$/', $string)) {
       $state = false;
@@ -165,7 +175,8 @@ class ProjectController extends Controller {
    *
    * @return true || array
    */
-  private function checkEmpty() {
+  private function checkEmpty()
+  {
     $state = true;
     foreach ($this->input as $field) {
       if ($field === "" || empty($field)) {

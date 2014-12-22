@@ -2,7 +2,8 @@
 
 use App\Models\User;
 
-class UserTableSeeder extends Seeder {
+class UserTableSeeder extends Seeder
+{
 
   /**
    * Run the database seeds.
@@ -10,8 +11,8 @@ class UserTableSeeder extends Seeder {
    * @return void
    */
 
-  public function run() {
-
+  public function run()
+  {
     $createAdmin = Sentry::createUser([
       'first_name' => 'Marty',
       'last_name'  => 'McFly',
@@ -22,7 +23,6 @@ class UserTableSeeder extends Seeder {
 
     $admin = Sentry::findGroupByName('admin');
     $createAdmin->addGroup($admin);
-
   }
 
 }

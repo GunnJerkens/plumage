@@ -15,3 +15,28 @@
     }
   }
 }
+
+nav {
+  height: 80px;
+  .navbar-header {
+    .navbar-brand {
+      img {
+        width: 50px;
+        height: auto;
+      }
+    }
+  }
+  ul {
+    height: 80px;
+    li {
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 80px;
+      height: 80px;
+    }
+  }
+}
+
+section#home {
+  text-align: center;
+}

@@ -10,10 +10,10 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <form role="form" method="post" class="pull-right">
+          <form role="form" method="post" class="form-inline pull-right">
             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
             <label for="project_name">Add Project</label>
-            <input type="text" id="project_name" name="project_name"{{ Session::has('input_text') ? 'value="'.(Session::get('input_text')).'"' : '' }}>
+            <input type="text" id="project_name" class="form-control" name="project_name"{{ Session::has('input_text') ? 'value="'.(Session::get('input_text')).'"' : '' }}>
             <button type="submit" class="btn btn-primary">Create Project</button>
           </form>
         </div>

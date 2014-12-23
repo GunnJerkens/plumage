@@ -11,7 +11,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bulk-upload">Bulk Upload</button>
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#bulk-upload">Bulk Upload</button>
         </div>
       </div>
       <div class="row">
@@ -19,7 +19,7 @@
           @if(sizeof($fields) > 0)
           <form role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   @foreach($fields as $field)
@@ -79,9 +79,9 @@
               @endif
               </tbody>
             </table>
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-success pull-right">Save</button>
+            <a href class="btn btn-default new-item pull-right">New Item</a>
           </form>
-          <a href class="btn btn-default new-item">New Item</a>
           @else
             <h1>You need to create fields before you can add data.</h1>
           @endif

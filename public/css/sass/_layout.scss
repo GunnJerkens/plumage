@@ -1,20 +1,16 @@
-#sites-edit {
-  div.form-group {
-    overflow: hidden;
-    clear: both;
-  }
-  ul {
-    list-style: none;
-    padding-left: 0px;
-    &#sortable {
-      margin-top: 25px;
-    }
-    li {
-      overflow: hidden;
-      cursor: pointer;
-    }
-  }
+// Global //
+
+.no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+}
+
+// Navigation //
 
 nav {
   height: auto;
@@ -43,28 +39,14 @@ nav {
   }
 }
 
+// Section Layouts //
+
+
 section#home {
   text-align: center;
 }
 
-section#project {
-  a.new-item {
-    margin-right: 10px;
-  }
-  .types {
-    .the-type {
-      padding-top: 5px;
-      display: inline-block;
-    }
-    .buttons {
-      a.btn {
-        padding: 3px 10px;
-      }
-    }
-  }
-}
-
-section#sites-edit {
+#sites-edit {
   .add-fields {
     button {
       display: inline-block;
@@ -85,9 +67,39 @@ section#sites-edit {
     float: right;
     margin-top: 25px;
   }
+  div.form-group {
+    overflow: hidden;
+    clear: both;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0px;
+    &#sortable {
+      margin-top: 25px;
+    }
+    li {
+      overflow: hidden;
+      cursor: pointer;
+    }
+  }
 }
 
-.no-padding {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+section#project {
+  form {
+    margin-top: 20px;
+  }
+  a.new-item {
+    margin-right: 10px;
+  }
+  .types {
+    .the-type {
+      padding-top: 5px;
+      display: inline-block;
+    }
+    .buttons {
+      a.btn {
+        padding: 3px 10px;
+      }
+    }
+  }
 }

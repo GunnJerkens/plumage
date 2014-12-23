@@ -5,7 +5,7 @@
         <span class="sr-only">Toggle navigation</span>
         <i class="fa fa-bars"></i>
       </button>
-      <a class="navbar-brand" href="/"><img src="img/logo.png"></a>
+      <a class="navbar-brand" href="/"><img src="/img/logo.png"></a>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar">

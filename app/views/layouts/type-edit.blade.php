@@ -9,8 +9,8 @@
     @include('partials.message')
     <div class="container">
       <div class="row">
-        <div class="col-sm-12">
-          <button class="btn btn-default" id="add-field">Add Field</button>
+        <div class="col-sm-12 add-fields">
+          <button class="btn btn-default pull-right" id="add-field">Add Field</button>
           <form id="fields" role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <ul id="sortable">
@@ -35,7 +35,7 @@
                       <input type="checkbox" name="{{ $key }}[field_editable]"{{ isset($value->field_editable) && $value->field_editable === 'on' ? ' checked' : '' }}> User Editable
                     </label>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-2 haha no-padding">
                     <a class="remove btn btn-danger">Remove Field</a>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
                               <label>Name</label>
                               <input type="text" class="form-control" name="{{ $key }}[field_values][{{ $index }}][label]" value="{{ $pair->label }}">
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 no-padding">
                               <a class="remove btn btn-danger">Remove Value</a>
                             </div>
                           </div>
@@ -69,7 +69,7 @@
               @endforeach
             @endif
             </ul>
-            <button type="submit" class="btn btn-default">Update Fields</button>
+            <button type="submit" class="btn btn-success pull-right">Update Fields</button>
           </form>
         </div>
       </div>

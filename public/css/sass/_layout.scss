@@ -48,6 +48,9 @@ section#home {
 }
 
 section#project {
+  a.new-item {
+    margin-right: 10px;
+  }
   .types {
     .the-type {
       padding-top: 5px;
@@ -59,4 +62,32 @@ section#project {
       }
     }
   }
+}
+
+section#sites-edit {
+  .add-fields {
+    button {
+      display: inline-block;
+      position: relative;
+    }
+    form {
+      width: 100%;
+      display: inline-block;
+      position: relative;
+    }
+  }
+  .checkbox {
+    label {
+      margin-top: 20px;
+    }
+  }
+  a.remove {
+    float: right;
+    margin-top: 25px;
+  }
+}
+
+.no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

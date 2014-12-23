@@ -18,7 +18,7 @@
           <input type="checkbox" name="{{ id }}[field_editable]"> User Editable
         </label>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-2 no-padding">
         <a class="remove btn btn-danger">Remove Field</a>
       </div>
     </div>
@@ -42,7 +42,7 @@
         <label>Name</label>
         <input type="text" class="form-control" name="{{ id }}[field_values][{{ valueId }}][label]">
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-2 no-padding">
         <a class="remove btn btn-danger">Remove Value</a>
       </div>
     </div>

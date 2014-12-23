@@ -16,21 +16,21 @@
             <div class="form-group">
               <input type="text" name="table_name" class="form-control" placeholder="name"{{ Session::has('input_text') ? 'value="'.(Session::get('input_text')).'"' : '' }} required>
             </div>
-            <button type="submit" class="btn btn-default">Add Type</button>
+            <button type="submit" class="btn btn-default pull-right">Add Type</button>
           </form>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 types">
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <tbody>
                 @foreach($project_types as $type)
                   <tr>
                     <td>
-                      <a href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a>
+                      <a class="the-type" href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a>
                       <div class="buttons pull-right">
-                        <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="" target="_blank">API</a>
-                        <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="">Edit</a>
-                        <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="">Delete</a>
+                        <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
+                        <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
+                        <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
                       </div>
                     </td>
                   </tr>

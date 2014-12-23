@@ -17,9 +17,10 @@
 }
 
 nav {
-  height: 80px;
+  height: auto;
   .navbar-header {
     .navbar-brand {
+      height: auto;
       img {
         width: 50px;
         height: auto;
@@ -27,12 +28,17 @@ nav {
     }
   }
   ul {
-    height: 80px;
+    height: 70px;
     li {
       vertical-align: middle;
       display: inline-block;
-      line-height: 80px;
-      height: 80px;
+      line-height: 70px;
+      height: 70px;
+      a {
+        height: 70px;
+        line-height: 70px !important;
+        padding-top: 0 !important;
+      }
     }
   }
 }

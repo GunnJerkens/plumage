@@ -54,13 +54,13 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'forge',
-			'username'  => 'forge',
-			'password'  => '',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
+			'host'      => isset($_ENV['DB_HOST']) ? $_ENV['DB_HOST'] : 'localhost',
+			'database'  => isset($_ENV['DB_NAME']) ? $_ENV['DB_NAME'] : 'plumage_dev',
+			'username'  => isset($_ENV['DB_USER']) ? $_ENV['DB_USER'] : 'root',
+			'password'  => isset($_ENV['DB_PASS']) ? $_ENV['DB_PASS'] : '',
+			'charset'   => isset($_ENV['DB_CHARSET']) ? $_ENV['DB_CHARSET'] : 'utf8',
+			'collation' => isset($_ENV['DB_COLLATION']) ? $_ENV['DB_COLLATION'] : 'utf8_unicode_ci',
+			'prefix'    => isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '',
 		),
 
 		'pgsql' => array(

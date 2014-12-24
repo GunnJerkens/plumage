@@ -19,13 +19,4 @@ return array(
     'secret' => $_ENV['MAILGUN_SECRET'],
   ),
 
-  'mandrill' => array(
-    'secret' => '',
-  ),
-
-  'stripe' => array(
-    'model'  => 'User',
-    'secret' => '',
-  ),
-
 );

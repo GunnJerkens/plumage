@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => isset($_ENV['DEBUG']) ? $_ENV['DEBUG'] : false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => isset($_ENV['HOSTNAME']) ? $_ENV['HOSTNAME'] : 'http://localhost',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'UTC',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YIMYrt2kC1sCoMTea4S2JeeYdH0JmVKr',
+	'key' => isset($_ENV['ENCRYPTION_KEY']) ? $_ENV['ENCRYPTION_KEY'] : 'YIMYrt2kC1sCoMTea4S2JeeYdH0JmVKr',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 

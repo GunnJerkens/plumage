@@ -1,6 +1,8 @@
 <?php
 
 return [
+
+  // APP
   'HOSTNAME'       => 'localhost',
   'DEBUG'          => false,
   'TIMEZONE'       => 'UTC',
@@ -18,4 +20,5 @@ return [
   // SERVICES
   'MAILGUN_DOMAIN' => '',
   'MAILGUN_SECRET' => '',
+
 ];

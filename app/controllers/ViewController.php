@@ -114,11 +114,7 @@ class ViewController extends BaseController
    */
   public function getManage()
   {
-    $user = Sentry::getUser();
-    return View::make('layouts.manage')->with([
-      'users'    => $this->retrieveAllUsers(),
-      'throttle' => Sentry::findThrottlerByUserId($user->id),
-    ]);
+    return View::make('layouts.manage')->with(['users' => $this->retrieveAllUsers()]);
   }
 
   /**

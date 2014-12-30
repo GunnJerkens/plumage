@@ -69,11 +69,28 @@ class ProjectController extends Controller
    */
   public function postProjectAccess($project_id)
   {
-    ProjectAccess::create([
-      'project_id' => $project_id,
-      'user_id'    => $this->input['id'],
-    ]);
-    return Redirect::back()->with(['error' => false, 'message' => 'Added user access successfully.']);
+    $access  = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->first();
+    $project = Project::where('id', $project_id)->first();
+
+    if(!$access && $this->input['id'] != $project->user_id) {
+      ProjectAccess::create([
+        'project_id' => $project_id,
+        'user_id'    => $this->input['id'],
+      ]);
+      return Redirect::back()->with(['error' => false, 'message' => 'Added user access successfully.']);
+    } else {
+      return Redirect::back()->with(['error' => true, 'message' => 'User already has access.']);
+    }
+  }
+
+  /**
+   * Handles POST requests for /project/{project_id}/accessremove
+   *
+   * @return redirect
+   */
+  public function postProjectAccessRemove($project_id) {
+    $access = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->delete();
+    return Redirect::back()->with(['error' => false, 'message' => 'Users access removed sucessfully.']);
   }
 
   /**

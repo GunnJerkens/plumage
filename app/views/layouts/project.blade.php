@@ -49,7 +49,14 @@
                 <tbody>
                   @foreach($project->access as $access)
                     <tr>
-                      <td data="">{{ $access->user_email }}</td>
+                      <td>{{ $access->user_email }}</td>
+                      <td>
+                        <form role="form" method="post" action="/project/{{$project->id}}/access-remove">
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                          <input type="hidden" name="id" value="{{ $access->user_id }}">
+                          <button type="submit" class="btn btn-default"><i class="fa fa-times"></i></button>
+                        </form>
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>

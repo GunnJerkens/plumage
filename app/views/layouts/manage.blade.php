@@ -32,7 +32,7 @@
                     <form role="form" method="post" action="/manage/ban">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <input type="hidden" name="user_id" value="{{{ $user->id }}}">
-                      <button class="btn btn-danger">{{{ $throttle->isBanned() ? 'Unban' : 'Ban' }}}</button>
+                      <button class="btn btn-danger">{{{ $user->banned ? 'Unban' : 'Ban' }}}</button>
                     </form>
                   </td>
                 </tr>

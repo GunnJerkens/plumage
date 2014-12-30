@@ -116,9 +116,25 @@ class ViewController extends BaseController
   {
     $user = Sentry::getUser();
     return View::make('layouts.manage')->with([
-      'users'    => User::all(),
+      'users'    => $this->retrieveAllUsers(),
       'throttle' => Sentry::findThrottlerByUserId($user->id),
     ]);
+  }
+
+  /**
+   * Returns a set of users
+   *
+   * @param string, string, array
+   *
+   * @return object
+   */
+  private function retrieveAllUsers() {
+    $users = User::leftJoin('throttle', 'users.id', '=', 'throttle.user_id')
+                  ->leftJoin('users_groups', 'users.id', '=', 'users_groups.user_id')
+                  ->select('users.*', 'throttle.banned', 'users_groups.group_id')
+                  ->orderBy('users.email', 'ASC')
+                  ->get();
+    return $users;
   }
 
 }

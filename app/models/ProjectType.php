@@ -56,7 +56,7 @@ class ProjectType extends Eloquent
     if(null === $projectType) {
       $state = 404;
     } else {
-      self::createFieldsColumns($projectType->table_name, $data);
+      $data = self::createFieldsColumns($projectType->table_name, $data);
       $projectType->fields = json_encode($data);
       $projectType->save();
       $state = true;
@@ -69,17 +69,35 @@ class ProjectType extends Eloquent
    *
    * @param string, array
    *
-   * @return void
+   * @return array
    */
   private static function createFieldsColumns($tableName, $data)
   {
-    foreach($data as $field) {
+    foreach($data as &$field) {
+      $field['field_name'] = self::fieldNameWhiteList($field['field_name']);
       if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {
           $table->string($field['field_name'])->default(false);
         });
       }
     }
+    return $data;
+  }
+
+  /**
+   * Validates the types field names against a whitelist
+   *
+   * @param string
+   *
+   * @return string
+   */
+  private static function fieldNameWhiteList($fieldName)
+  {
+    $whitelist = ['id'];
+    if(in_array($fieldName, $whitelist)) {
+      $fieldName = $fieldName.'_';
+    }
+    return $fieldName;
   }
 
   /**

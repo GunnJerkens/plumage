@@ -146,7 +146,7 @@ class ProjectController extends Controller
   public function postProjectTypeBulk($project_id, $project_type)
   {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
-    if (true === ($json = json_decode($this->input['json_data']))) {
+    if (is_array($json = json_decode($this->input['json_data']))) {
       foreach ($json as $data) {
         $data->id = null;
         $response = ProjectType::createTypesData($projectType->table_name, (array) $data);

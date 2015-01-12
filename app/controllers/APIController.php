@@ -95,7 +95,9 @@ class APIController extends Controller
       'What\'s a rerun?',
       'What-what the hell is a gigawatt?',
       'If you put your mind to it, you can accomplish anything.',
-      'Weight has nothing to do with it.'
+      'Weight has nothing to do with it.',
+      'Lorraine. My density has brought me to you.',
+      'Yes. Yes. I\'m George. George McFly. I\'m your density. I mean, your destiny.',
     ];
     $key = array_rand($quotes);
     return Response::json($quotes[$key], 404);

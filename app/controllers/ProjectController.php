@@ -54,7 +54,7 @@ class ProjectController extends Controller
   public function postProject($project_id)
   {
     if (!$this->checkNaming($this->input['table_name'])) {
-      $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
+      $response = ['error' => true, 'message' => 'Types may only contain lowercase a-z, underscores, & dashes.'];
     } else {
       ProjectType::createTypesGroup($project_id, $this->input);
       $response = ['error' => false, 'message' => 'Created project type successfully.'];
@@ -181,7 +181,7 @@ class ProjectController extends Controller
   private function checkNaming($string)
   {
     $state = true;
-    if (!preg_match('/^[a-z]+$/', $string)) {
+    if (!preg_match('/^[a-z-_]+$/', $string)) {
       $state = false;
     }
     return $state;

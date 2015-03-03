@@ -46,7 +46,7 @@
                         <td>
                           <select name="{{ $item->id }}[{{ $field->field_name }}]"{{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
                             @foreach($field->field_values as $option)
-                              <option value="{{ $option->value }}"{{ $option->value !== $item->{$field->field_name} ?: ' selected' }}>{{ $option->label }}</option>
+                              <option value="{{ $option->value }}"{{ $option->value === $item->{$field->field_name} ? ' selected' : '' }}>{{ $option->label }}</option>
                             @endforeach
                           </select>
                         </td>

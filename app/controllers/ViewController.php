@@ -88,7 +88,8 @@ class ViewController extends BaseController
     return View::make('layouts.type')->with([
       'project' => $projectType,
       'fields'  => json_decode($projectType->fields),
-      'items'   => $itemData
+      'items'   => $itemData,
+      'user'    => $this->user,
     ]);
   }
 

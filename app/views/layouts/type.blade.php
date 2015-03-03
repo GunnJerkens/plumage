@@ -36,15 +36,15 @@
                     @foreach($fields as $field)
                       @if($field->field_type === 'text')
                         <td>
-                          <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}">
+                          <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" {{ !$user->hasAccess(['manage']) && isset($field->field_editable) && $field->field_editable === 'on' ? ' readonly' : '' }}>
                         </td>
                       @elseif($field->field_type === 'checkbox')
                         <td>
-                          <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ 'on' !== $item->{$field->field_name} ?: ' checked' }}>
+                          <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ 'on' !== $item->{$field->field_name} ?: ' checked' }} {{ !$user->hasAccess(['manage']) && isset($field->field_editable) && $field->field_editable === 'on' ? ' readonly' : '' }}>
                         </td>
                       @elseif($field->field_type === 'select')
                         <td>
-                          <select name="{{ $item->id }}[{{ $field->field_name }}]">
+                          <select name="{{ $item->id }}[{{ $field->field_name }}]"{{ !$user->hasAccess(['manage']) && isset($field->field_editable) && $field->field_editable === 'on' ? ' readonly' : '' }}>
                             @foreach($field->field_values as $option)
                               <option value="{{ $option->value }}"{{ $option->value !== $item->{$field->field_name} ?: ' selected' }}>{{ $option->label }}</option>
                             @endforeach

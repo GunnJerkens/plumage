@@ -77,7 +77,7 @@ class ProjectType extends Eloquent
       $field['field_name'] = self::fieldNameWhiteList($field['field_name']);
       if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {
-          $table->string($field['field_name'])->default(false);
+          $table->mediumText($field['field_name'])->nullable();
         });
       }
     }

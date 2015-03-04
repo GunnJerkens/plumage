@@ -1,9 +1,11 @@
-/bootstrap/compiled.php
-/.sass-cache
-/node_modules
-/vendor
-composer.phar
+.DS_Store
 .env.*.php
 .env.php
-.DS_Store
+.sass-cache
+bin/config.sh
+bootstrap/compiled.php
+composer.phar
+node_modules
+sql
 Thumbs.db
+vendor

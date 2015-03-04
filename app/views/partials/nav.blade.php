@@ -13,7 +13,6 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="{{ Route('dashboard') }}">Dashboard</a></li>
           @if(Sentry::getUser()->hasAccess('manage'))
-            <li><a href="{{ Route('mapper') }}">Mapper</a></li>
             <li><a href="{{ Route('manage') }}">Manage</a></li>
           @endif
           <li><a href="{{ Route('logout') }}">Logout</a></li>

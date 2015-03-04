@@ -28,7 +28,6 @@ Route::post('/', ['before' => 'csrf', 'uses' => 'AuthController@postLogin']);
 Route::group(['before' => 'sentry_check'], function() {
 
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'ViewController@getDashboard']);
-    Route::get('mapper', ['as' => 'mapper', 'uses' => 'ViewController@getMapper']);
     Route::get('manage', ['as' => 'manage', 'before' => 'manage_check', 'uses' => 'ViewController@getManage']);
     Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 

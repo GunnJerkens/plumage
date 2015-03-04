@@ -134,10 +134,34 @@ class ProjectType extends Eloquent
       $id = $data['id'];
       unset($data['id']);
       $set = DB::table($tableName)->where('id', $id)->first();
-      $set = $set === null ? DB::table($tableName)->insert($data) : DB::table($tableName)->where('id', $id)->update($data);
+      if($set === null) {
+        DB::table($tableName)->insert($data);
+      } else {
+        $data = self::setBooleanData($tableName, $data);
+        DB::table($tableName)->where('id', $id)->update($data);
+      }
     }
     return $state;
   }
+
+  /**
+   * Set the boolean data true or false, checks data against column names/type
+   *
+   * @param string, array
+   *
+   * @return array
+   */
+   public static function setBooleanData($tableName, $data) {
+    $columns = DB::connection()->getDoctrineSchemaManager()->listTableColumns($tableName);
+    foreach($columns as $column) {
+      if($column->getType()->getName() === 'boolean') {
+        $columnName = $column->getName();
+        $data[$columnName] = isset($data[$columnName]) ? true : false;
+      }
+    }
+    return $data;
+   }
+
 
   /**
    * Deletes the specific data from the type

@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"cartalyst/sentry": "2.1.*",
-		"barryvdh/laravel-cors": "0.2.*"
+		"barryvdh/laravel-cors": "0.2.*",
+		"doctrine/dbal": "2.5.*"
 	},
 	"autoload": {
 		"classmap": [

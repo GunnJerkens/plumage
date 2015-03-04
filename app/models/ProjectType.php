@@ -77,7 +77,11 @@ class ProjectType extends Eloquent
       $field['field_name'] = self::fieldNameWhiteList($field['field_name']);
       if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {
-          $table->mediumText($field['field_name'])->nullable();
+          if($field['field_type'] === 'checkbox') {
+            $table->boolean($field['field_name'])->default(false);
+          } else {
+            $table->mediumText($field['field_name'])->nullable();
+          }
         });
       }
     }

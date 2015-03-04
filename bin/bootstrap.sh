@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f `dirname $0`/config.sh ]; then
-  echo "please copy config.sample.sh to config.sh, and edit"
+  echo "Please copy config.sample.sh to config.sh, and edit. Exiting."
   exit 1
 fi
 . `dirname $0`/config.sh

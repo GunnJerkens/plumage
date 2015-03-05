@@ -29,7 +29,9 @@
                       <a class="the-type" href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a>
                       <div class="buttons pull-right">
                         <a href="{{ '/api/'.$project->name.'/'.$type->type }}" class="btn btn-success" target="_blank">API</a>
-                        <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
+                        @if($edit)
+                          <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}" class="btn btn-default">Edit</a>
+                        @endif
                         <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger">Delete</a>
                       </div>
                     </td>

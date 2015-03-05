@@ -37,6 +37,15 @@ Route::filter('manage_check', function() {
   }
 });
 
+Route::filter('edit_check', function($route) {
+  $user      = Sentry::getUser();
+  $projectID = $route->getParameter('project_id');
+  $project   = Project::where('id', $projectID)->where('user_id', $user->id)->first();
+  if(!Sentry::getUser()->hasAnyAccess(['manage']) && null === $project) {
+    return Redirect::to('404');
+  }
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

@@ -37,7 +37,7 @@ Route::group(['before' => 'sentry_check|project_check'], function() {
 
     Route::get('project/{project_id}', ['uses' => 'ViewController@getProject']);
     Route::get('project/{project_id}/{project_type}', ['uses' => 'ViewController@getProjectType']);
-    Route::get('project/{project_id}/{project_type}/edit', ['uses' => 'ViewController@getProjectTypeEdit']);
+    Route::get('project/{project_id}/{project_type}/edit', ['before' => 'edit_check', 'uses' => 'ViewController@getProjectTypeEdit']);
     Route::get('project/{project_id}/{project_type}/delete', ['uses' => 'ProjectController@deleteProjectType']);
 
 });

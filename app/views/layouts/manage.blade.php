@@ -29,10 +29,10 @@
                     @endforeach
                   </td>
                   <td>
-                    <form role="form" method="post" action="/manage/ban">
+                    <form role="form" method="post" action="/manage/delete">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <input type="hidden" name="user_id" value="{{{ $user->id }}}">
-                      <button class="btn btn-danger">{{{ $user->banned ? 'Unban' : 'Ban' }}}</button>
+                      <button class="btn btn-danger">Delete</button>
                     </form>
                   </td>
                 </tr>

@@ -21,19 +21,20 @@ class ManageController extends Controller
   }
 
   /**
-   * Handles POST requests for /manage/ban
+   * Handles POST requests for /manage/delete
    *
    * @return redirect
    */
-  public function banUser()
+  public function deleteUser()
   {
-    $throttle = Sentry::findThrottlerByUserId($this->input['user_id']);
-    if ($throttle->isBanned()) {
-      $throttle->unBan();
-      $response = ['error' => false, 'message' => 'User has been unbanned.'];
-    } else {
-      $throttle->ban();
-      $response = ['error' => false, 'message' => 'User has been banned.'];
+    $user     = User::where('id', $this->input['user_id'])->first();
+    $response = ['error' => true, 'message' => 'User not found.'];
+    if($user) {
+      DB::table('projects_access')->where('user_id', $user->id)->delete();
+      DB::table('throttle')->where('user_id', $user->id)->delete();
+      DB::table('users_groups')->where('user_id', $user->id)->delete();
+      $user->delete();
+      $response = ['error' => false, 'message' => 'User has been deleted.'];
     }
     return Redirect::back()->with($response);
   }

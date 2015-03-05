@@ -52,8 +52,8 @@ Route::group(['before' => 'sentry_check|csrf'], function() {
   Route::post('project/{project_id}/{project_type}/edit', ['uses' => 'ProjectController@postProjectTypeEdit']);
   Route::post('project/{project_id}/{project_type}/bulk', ['uses' => 'ProjectController@postProjectTypeBulk']);
 
-  Route::post('manage/ban', ['before' => 'manage_check', 'uses' => 'ManageController@banUser']);
-  Route::post('manage/create', ['before' => 'manage_check', 'uses' => 'ManageController@CreateUser']);
+  Route::post('manage/delete', ['before' => 'manage_check', 'uses' => 'ManageController@deleteUser']);
+  Route::post('manage/create', ['before' => 'manage_check', 'uses' => 'ManageController@createUser']);
 
 });
 

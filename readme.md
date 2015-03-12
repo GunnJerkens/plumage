@@ -1,14 +1,16 @@
 # plumage
 
+![Plumage Logo](https://raw.githubusercontent.com/GunnJerkens/plumage/master/public/img/logo.png)
+
 plum·age (ˈplo͞omij) _noun_ - a bird's feathers collectively.
 
-The core concept behind this project is built a lightweight API that is easily customizable, has user accounts to allow editing by end clients, and is handled entirely using a relational database.  
+The core concept behind this project is to build a lightweight API that is easily customizable, has user accounts to allow editing by end clients/users, and is handled entirely using a relational schema.  
 
 Plumage is built as a relational API replacement for [feather](https://github.com/GunnJerkens/feather) [deprecated].  
 
 ## setup
 
-Run `composer install` in the root to install all Composer dependencies, then `npm install` to install all Grunt tasks. Create a MySql database and configure your environments file with your specific configuration.
+Run `composer install` in the root to install all Composer dependencies, then `npm install` to install all Grunt tasks. Create a MySql/PostgreSQL database and configure your environments file with your specific configuration.
 
 ### environments
 
@@ -20,7 +22,7 @@ Each file can contain an array of variables to override for the specific environ
 
 ### seeding
 
-To use the default seed data run `php artisan db:seed`. Credentials can be found in `/app/database/seeds/UserTableSeeder.php` to login.
+To use the default seed data run `php artisan db:seed`. Credentials can be found in `app/database/seeds/UserTableSeeder.php` to login.
 
 ### scripts
 
@@ -45,7 +47,7 @@ All pull requests should made on the `master` branch.
 
 [Open Issues](https://github.com/GunnJerkens/plumage/issues)
 
-** Bin scripts do not currently support Postgres **
+*** Bin scripts do not currently support Postgres ***
 
 ## license
 

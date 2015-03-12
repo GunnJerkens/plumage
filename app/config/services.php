@@ -15,8 +15,8 @@ return array(
   */
 
   'mailgun' => array(
-    'domain' => $_ENV['MAILGUN_DOMAIN'],
-    'secret' => $_ENV['MAILGUN_SECRET'],
+    'domain' => isset($_ENV['MAILGUN_DOMAIN']) ? $_ENV['MAILGUN_DOMAIN'] : null,
+    'secret' => isset($_ENV['MAILGUN_SECRET']) ? $_ENV['MAILGUN_SECRET'] : null,
   ),
 
 );

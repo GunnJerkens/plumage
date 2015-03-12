@@ -25,6 +25,6 @@ local_password=
 #leave this empty to use the default, otherwise "local", "staging" or "production"
 remote_env=
 
-#adjust the length of rentetion and the location of the sql directory
+#adjust the length of sql backup retention and the location of the sql directory
 retention=7
 sql_dir=`dirname $0`/../sql

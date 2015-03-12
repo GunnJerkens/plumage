@@ -6,14 +6,7 @@ This is built as a PHP backend replacement for [feather](https://github.com/Gunn
 
 ## setup
 
-Run `composer install` in the root to install all Composer dependencies, then `npm install` to install all Grunt tasks.
-
-### dependencies
-
-- MySql or PostgreSQL
-- PHP 5.5+
-- node.js & npm
-- Composer
+Run `composer install` in the root to install all Composer dependencies, then `npm install` to install all Grunt tasks. Create a MySql database and configure your environments file with your specific configuration.
 
 ### environments
 
@@ -23,19 +16,34 @@ If no environments file exists the application assumes production, if an `.env.l
   
 Each file can contain an array of variables to override for the specific environment, or to keep secret keys out of versioning. The file must at minimum return an array matching the `APP` and `DATABASE` options of the `sample.env.php`.  
 
-### grunt
+### seeding
 
-To run the default production build with uglify, compass, browsersync:
+To use the default seed data run `php artisan db:seed`. Credentials can be found in `/app/database/seeds/UserTableSeeder.php` to login.
 
-```
-grunt -v
-```
+### scripts
 
-To run the development build that uses concat (for debugging):
+To setup project scripts for database pulls and cronjobs, copy `bin/config.sample.sh` to `bin/config.sh` and fill out all required values.
 
-```
-grunt dev -v
-```
+Run `bin/db_fetch.sh` to clone a remote database to the local environment. Use `bin/db_backup.sh` to dump the current database and save to the configured sql directory.
+
+### development
+
+To run the default production build with uglify, compass, browsersync use `grunt -v`. To run the development build that uses concat (for debugging) use `grunt dev -v`.
+
+All pull requests should made on the `master` branch.
+
+## dependencies
+
+- MySql or PostgreSQL
+- PHP 5.5+
+- node.js & npm
+- Composer
+
+## issues
+
+[Open Issues](https://github.com/GunnJerkens/plumage/issues)
+
+** Bin scripts do not currently support Postgres **
 
 ## license
 

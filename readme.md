@@ -22,7 +22,7 @@ Each file can contain an array of variables to override for the specific environ
 
 ### seeding
 
-To use the default seed data run `php artisan db:seed`. Credentials can be found in `app/database/seeds/UserTableSeeder.php` to login.
+To use the default seed data run `bin/reset.sh`. Credentials can be found in `app/database/seeds/UserTableSeeder.php` to login.
 
 ### scripts
 

@@ -2,7 +2,9 @@
 
 plum·age (ˈplo͞omij) _noun_ - a bird's feathers collectively.
 
-This is built as a PHP backend replacement for [feather](https://github.com/GunnJerkens/feather). Reasoning for this is that the growth of the old sites with separate diverged building blocks isn't sustainable. This project is meant to be a lightweight relational database that supports multiple projects with a json api.
+The core concept behind this project is built a lightweight API that is easily customizable, has user accounts to allow editing by end clients, and is handled entirely using a relational database.  
+
+Plumage is built as a relational API replacement for [feather](https://github.com/GunnJerkens/feather) [deprecated].  
 
 ## setup
 

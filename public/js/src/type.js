@@ -36,4 +36,27 @@
     return false;
   });
 
+  $('#project').on('click', '.delete-type', function() {
+    var id = $(this).data('id');
+    if('new' !== id) {
+      $.ajax({
+        url: window.location.href + '/delete-row',
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: 'row=' + id,
+        beforeSend: function(request) {
+          $("form#invite-user .message").empty();
+          return request.setRequestHeader("X-CSRF-Token", $("meta[name='token']").attr('content'));
+        },
+        success: function(data) {
+          console.log(data);
+        },
+        error: function(xhr, textStatus, thrownError) { console.log('Silent failure.'); }
+      });
+    }
+    $(this).closest('tr').remove();
+    return false;
+  });
+
 })();

@@ -27,18 +27,18 @@ Route::post('/', ['before' => 'csrf', 'uses' => 'AuthController@postLogin']);
 
 Route::group(['before' => 'sentry_check'], function() {
 
-    Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'ViewController@getDashboard']);
-    Route::get('manage', ['as' => 'manage', 'before' => 'manage_check', 'uses' => 'ViewController@getManage']);
-    Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+  Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'ViewController@getDashboard']);
+  Route::get('manage', ['as' => 'manage', 'before' => 'manage_check', 'uses' => 'ViewController@getManage']);
+  Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
 });
 
 Route::group(['before' => 'sentry_check|project_check'], function() {
 
-    Route::get('project/{project_id}', ['uses' => 'ViewController@getProject']);
-    Route::get('project/{project_id}/{project_type}', ['uses' => 'ViewController@getProjectType']);
-    Route::get('project/{project_id}/{project_type}/edit', ['before' => 'edit_check', 'uses' => 'ViewController@getProjectTypeEdit']);
-    Route::get('project/{project_id}/{project_type}/delete', ['uses' => 'ProjectController@deleteProjectType']);
+  Route::get('project/{project_id}', ['uses' => 'ViewController@getProject']);
+  Route::get('project/{project_id}/{project_type}', ['uses' => 'ViewController@getProjectType']);
+  Route::get('project/{project_id}/{project_type}/edit', ['before' => 'edit_check', 'uses' => 'ViewController@getProjectTypeEdit']);
+  Route::get('project/{project_id}/{project_type}/delete', ['uses' => 'ProjectController@deleteProjectType']);
 
 });
 
@@ -54,6 +54,12 @@ Route::group(['before' => 'sentry_check|csrf'], function() {
 
   Route::post('manage/delete', ['before' => 'manage_check', 'uses' => 'ManageController@deleteUser']);
   Route::post('manage/create', ['before' => 'manage_check', 'uses' => 'ManageController@createUser']);
+
+});
+
+Route::group(['before' => 'sentry_check|csrf_ajax'], function() {
+
+  Route::post('project/{project_id}/{project_type}/delete-row', ['uses' => 'ProjectController@postProjectTypeDeleteRow']);
 
 });
 

@@ -62,3 +62,9 @@ Route::filter('csrf', function() {
     throw new Illuminate\Session\TokenMismatchException;
   }
 });
+
+Route::filter('csrf_ajax', function() {
+  if (Session::token() != Request::header('x-csrf-token')) {
+    throw new Illuminate\Session\TokenMismatchException;
+  }
+});

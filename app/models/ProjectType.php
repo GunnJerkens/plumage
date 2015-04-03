@@ -166,17 +166,17 @@ class ProjectType extends Eloquent
     return $data;
    }
 
-
   /**
    * Deletes the specific data from the type
    *
-   * @param 
+   * @param int, string, int
    *
-   * @return array
+   * @return void
    */
-  public static function deleteTypesData()
+  public static function deleteTypesData($project_id, $project_type, $project_row)
   {
-
+    $projectType = self::where('project_id', $project_id)->where('type', $project_type)->first();
+    DB::table($projectType->table_name)->where('id', $project_row)->delete();
   }
 
   /**

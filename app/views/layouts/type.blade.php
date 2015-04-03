@@ -23,6 +23,7 @@
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
+                  <td>Delete</td>
                   @foreach($fields as $field)
                     <td>{{ $field->field_name }}</td>
                   @endforeach
@@ -33,6 +34,7 @@
                 @foreach($items as $item)
                   <tr data-id="{{ $item->id }}">
                     <input type="hidden" name="{{ $item->id }}[id]" value="{{ $item->id }}">
+                    <td><a href class="delete-type btn btn-danger" data-id="{{ $item->id }}"><i class="fa fa-times"></i></a>
                     @foreach($fields as $field)
                       @if($field->field_type === 'text')
                         <td>

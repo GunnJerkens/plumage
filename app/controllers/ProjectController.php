@@ -172,6 +172,18 @@ class ProjectController extends Controller
   }
 
   /**
+   *
+   *
+   *
+   *
+   */
+  public function postProjectTypeDeleteRow($project_id, $project_type)
+  {
+    ProjectType::deleteTypesData($project_id, $project_type, $this->input['row']);
+    return Response::json(['error' => false, 'message' => 'Removed row successfully.']);
+  }
+
+  /**
    * Make sure a project is all lowercase, no special chars
    *
    * @param string

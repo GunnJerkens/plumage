@@ -10,7 +10,11 @@ class AuthController extends Controller
    */
   public function getDefault()
   {
-    return View::make('layouts.default');
+    if(Sentry::check()) {
+      return Redirect::to('dashboard');
+    } else {
+      return View::make('layouts.default');
+    }
   }
 
   /**
@@ -45,7 +49,6 @@ class AuthController extends Controller
     catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
       $response['message'] = 'User is not activated.';
     }
-
     catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
       $response['message'] = 'User is suspended.';
     }
@@ -62,7 +65,7 @@ class AuthController extends Controller
   }
 
   /**
-   * Handles GET request from /logout
+   * Handles GET requests from /logout
    *
    * @return redirect
    */

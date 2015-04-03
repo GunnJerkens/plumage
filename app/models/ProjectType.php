@@ -61,7 +61,7 @@ class ProjectType extends Eloquent
       $projectType->save();
       $state = true;
     }
-    return true;
+    return $state;
   }
 
   /**
@@ -74,6 +74,7 @@ class ProjectType extends Eloquent
   private static function createFieldsColumns($tableName, $data)
   {
     foreach($data as &$field) {
+
       $field['field_name'] = self::fieldNameWhiteList($field['field_name']);
       if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {

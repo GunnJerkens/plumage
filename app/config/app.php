@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => isset($_ENV['HOSTNAME']) ? $_ENV['HOSTNAME'] : 'http://localhost',
+	'url' => isset($_ENV['HOSTNAME']) ? $_ENV['HOSTNAME'] : 'http://plumage.dev',
 
 	/*
 	|--------------------------------------------------------------------------

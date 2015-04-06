@@ -1,5 +1,7 @@
 # plumage
 
+![Travis Build Status](https://travis-ci.org/GunnJerkens/plumage.svg?branch=master)
+
 ![Plumage Logo](https://raw.githubusercontent.com/GunnJerkens/plumage/master/public/img/logo.png)
 
 plum·age (ˈplo͞omij) _noun_ - a bird's feathers collectively.

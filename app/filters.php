@@ -16,23 +16,33 @@ Route::filter('sentry_check', function() {
 });
 
 Route::filter('project_check', function($route) {
-  $deny      = true;
   $user      = Sentry::getUser();
+
+  // Test if the user is an admin
+  if ($user->hasAnyAccess(['manage'])) {
+    return;
+  }
+
   $projectID = $route->getParameter('project_id');
   $project   = Project::where('id', $projectID)->with('access')->first();
+
+  // Test the user id matches the projects owner's id
+  if ($user->id === $project->user_id) {
+    return;
+  }
+
+  // Test if the user has project access
   foreach($project->access as $access) {
-    if($access->project_id === (int) $projectID) {
-      $deny = false;
-      break;
+    if($access->user_id === $user->id) {
+      return;
     }
   }
-  if(!$user->hasAnyAccess(['manage']) && $user->id !== $project->user_id && $deny) {
-    return Redirect::to('404');
-  }
+
+  return Redirect::to('404');
 });
 
 Route::filter('manage_check', function() {
-  if(!Sentry::getUser()->hasAnyAccess(['manage'])) {
+  if (!Sentry::getUser()->hasAnyAccess(['manage'])) {
     return Redirect::to('404');
   }
 });
@@ -41,7 +51,7 @@ Route::filter('edit_check', function($route) {
   $user      = Sentry::getUser();
   $projectID = $route->getParameter('project_id');
   $project   = Project::where('id', $projectID)->where('user_id', $user->id)->first();
-  if(!Sentry::getUser()->hasAnyAccess(['manage']) && null === $project) {
+  if (!Sentry::getUser()->hasAnyAccess(['manage']) && null === $project) {
     return Redirect::to('404');
   }
 });

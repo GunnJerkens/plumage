@@ -69,13 +69,18 @@ class ProjectTypeTest extends TestCase {
    * ProjectType::addTypesFields()
    *
    */
-  public function testAddTypesFields()
+  public function testAddTypesFieldsSuccess()
   {
-    // Test a success
     $state = ProjectType::addTypesFields($this->projectId, $this->projectType, $this->projectFields);
     $this->assertTrue($state);
+  }
 
-    // Test a failure
+  /**
+   * ProjectType::addTypesFields()
+   *
+   */
+  public function testAddTypesFieldsFailure()
+  {
     $state = ProjectType::addTypesFields(42, 'nope', []);
     $this->assertInternalType('int', $state);
     $this->assertEquals(404, $state);
@@ -101,14 +106,19 @@ class ProjectTypeTest extends TestCase {
    * ProjectType::setBooleanData()
    *
    */
-  public function testSetBooleanData()
+  public function testSetBooleanDataFalse()
   {
-    // Test setting the checkbox attribute to false
     $data = ProjectType::setBooleanData('example_test', $this->projectData);
     $this->assertInternalType('array', $data);
     $this->assertEquals(false, $data['checkbox']);
+  }
 
-    // Test setting the checkbox attribute to true
+  /**
+   * ProjectType::setBooleanData()
+   *
+   */
+  public function testSetBooleanDataTrue()
+  {
     $this->projectData['checkbox'] = true;
     $data = ProjectType::setBooleanData('example_test', $this->projectData);
     $this->assertInternalType('array', $data);
@@ -121,7 +131,9 @@ class ProjectTypeTest extends TestCase {
    */
   public function testDeleteTypesData()
   {
-    // This needs to be built off of seed data
+    $state = ProjectType::deleteTypesData($this->projectId, 'test-type', 1);
+    $this->assertInternalType('int', $state);
+    $this->assertEquals(1, $state);
   }
 
   /**
@@ -138,9 +150,20 @@ class ProjectTypeTest extends TestCase {
    * ProjectType::deleteAllTypesTables()
    *
    */
-  public function testDeleteAllTypesTables()
+  public function testDeleteAllTypesTablesTrue()
   {
-    // This needs to be built off of seed data
+    $state = ProjectType::deleteAllTypesTables($this->projectId);
+    $this->assertEquals(true, $state);
+  }
+
+  /**
+   * ProjectType::deleteAllTypesTables()
+   *
+   */
+  public function testDeleteAllTypesTablesFalse()
+  {
+    $state = ProjectType::deleteAllTypesTables(15);
+    $this->assertEquals(false, $state);
   }
 
 }

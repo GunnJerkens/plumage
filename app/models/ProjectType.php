@@ -192,12 +192,12 @@ class ProjectType extends Eloquent
    *
    * @param int, string, int
    *
-   * @return void
+   * @return int|null
    */
   public static function deleteTypesData($project_id, $project_type, $project_row)
   {
     $projectType = self::where('project_id', $project_id)->where('type', $project_type)->first();
-    DB::table($projectType->table_name)->where('id', $project_row)->delete();
+    return DB::table($projectType->table_name)->where('id', $project_row)->delete();
   }
 
   /**
@@ -226,7 +226,7 @@ class ProjectType extends Eloquent
   public static function deleteAllTypesTables($project_id)
   {
     $projectType = self::where('project_id', $project_id)->get();
-    if(null !== $projectType) {
+    if(0 !== sizeof($projectType)) {
       foreach($projectType as $project) {
         if(Schema::hasTable($project->table_name)) {
           Schema::drop($project->table_name);

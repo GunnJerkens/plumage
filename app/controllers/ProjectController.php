@@ -71,8 +71,8 @@ class ProjectController extends Controller
    {
     $deleteTypesTables = ProjectType::deleteAllTypesTables($project_id);
     if($deleteTypesTables) {
-      ProjectType::where('project_id', $project_id)->forceDelete();
-      Project::where('id', $project_id)->forceDelete();
+      ProjectType::where('project_id', $project_id)->delete();
+      Project::where('id', $project_id)->delete();
       return Redirect::back()->with(['error' => false, 'message' => 'Project deleted successfully.']);
     } else {
       return Redirect::back()->with(['error' => true, 'message' => 'Error delete all type sets.']);

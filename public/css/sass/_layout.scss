@@ -1,5 +1,4 @@
 // Global //
-
 .no-padding {
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -11,9 +10,9 @@ textarea {
 }
 
 // Navigation //
-
-nav {
+nav.navbar-default {
   height: auto;
+  border-radius: 0px;
   .navbar-header {
     .navbar-brand {
       height: auto;
@@ -40,8 +39,6 @@ nav {
 }
 
 // Section Layouts //
-
-
 section#home {
   text-align: center;
 }
@@ -86,7 +83,16 @@ section#home {
 
 section#project {
   form {
-    margin-top: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    div.form-inner-wrapper {
+      overflow-y: hidden;
+      overflow-x: scroll;
+    }
+    button {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
   }
   a.new-item {
     margin-right: 10px;

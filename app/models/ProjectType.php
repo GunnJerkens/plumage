@@ -57,11 +57,26 @@ class ProjectType extends Eloquent
       $state = 404;
     } else {
       $data = self::createFieldsColumns($projectType->table_name, $data);
-      $projectType->fields = json_encode($data);
+      $projectType->fields = self::formatFields($data);
       $projectType->save();
       $state = true;
     }
     return $state;
+  }
+
+  /**
+   * Format fields
+   *
+   *
+   */
+  private static function formatFields($data)
+  {
+    foreach($data as &$fields) {
+      if(isset($fields['field_name_orig'])) {
+        unset($fields['field_name_orig']);
+      }
+    }
+    return json_encode($data);
   }
 
   /**
@@ -76,7 +91,12 @@ class ProjectType extends Eloquent
     foreach($data as &$field) {
 
       $field['field_name'] = self::fieldNameWhiteList($field['field_name']);
-      if(!Schema::hasColumn($tableName, $field['field_name'])) {
+
+      if(isset($field['field_name_orig']) && $field['field_name'] !== $field['field_name_orig']) {
+        Schema::table($tableName, function($table) use ($field) {
+          $table->renameColumn($field['field_name_orig'], $field['field_name']);
+        });
+      } else if(!Schema::hasColumn($tableName, $field['field_name'])) {
         Schema::table($tableName, function($table) use ($field) {
           if($field['field_type'] === 'checkbox') {
             $table->boolean($field['field_name'])->default(false);

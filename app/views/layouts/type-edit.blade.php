@@ -29,6 +29,7 @@
                   <div class="col-sm-4">
                     <label>Field Name</label>
                     <input type="text" name="{{ $key }}[field_name]" class="form-control" value="{{ $value->field_name }}">
+                    <input type="hidden" name="{{ $key }}[field_name_orig]" value="{{ $value->field_name }}" class="hidden">
                   </div>
                   <div class="checkbox col-sm-2">
                     <label>

@@ -27,6 +27,7 @@
                 @foreach($projects as $project)
                   <tr>
                     <td><a href="{{ '/project/'.$project->id }}">{{ $project->name }}</a></td>
+                    <td><form role="form" action="{{ '/project/'.$project->id.'/delete' }}" method="post"><input type="hidden" name="_token" value="{{ csrf_token() }}"><button class="btn btn-danger">Delete Project</button></form></td>
                   </tr>
                 @endforeach
               </tbody>

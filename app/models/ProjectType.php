@@ -210,12 +210,32 @@ class ProjectType extends Eloquent
   public static function deleteTypesGroup($project_id, $type)
   {
     $project = Project::where('id', $project_id)->first();
-    $type    = ProjectType::where('type', $type)->first();
+    $type    = self::where('type', $type)->first();
 
     Schema::drop($type->table_name);
     $type->delete();
 
     return true;
+  }
+
+  /**
+   * Delete all project types tables
+   *
+   * @return bool
+   */
+  public static function deleteAllTypesTables($project_id)
+  {
+    $projectType = self::where('project_id', $project_id)->get();
+    if(null !== $projectType) {
+      foreach($projectType as $project) {
+        if(Schema::hasTable($project->table_name)) {
+          Schema::drop($project->table_name);
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

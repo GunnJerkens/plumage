@@ -63,6 +63,23 @@ class ProjectController extends Controller
   }
 
   /**
+   * Handles POST requests for /project/{project_id}/delete
+   *
+   * @return redirect
+   */
+   public function postProjectDelete($project_id)
+   {
+    $deleteTypesTables = ProjectType::deleteAllTypesTables($project_id);
+    if($deleteTypesTables) {
+      ProjectType::where('project_id', $project_id)->forceDelete();
+      Project::where('id', $project_id)->forceDelete();
+      return Redirect::back()->with(['error' => false, 'message' => 'Project deleted successfully.']);
+    } else {
+      return Redirect::back()->with(['error' => true, 'message' => 'Error delete all type sets.']);
+    }
+   }
+
+  /**
    * Handles POST requests for /project/{project_id}/access
    *
    * @return redirect

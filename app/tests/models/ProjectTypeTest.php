@@ -134,4 +134,13 @@ class ProjectTypeTest extends TestCase {
     $this->assertEquals(true, $state);
   }
 
+  /**
+   * ProjectType::deleteAllTypesTables()
+   *
+   */
+  public function testDeleteAllTypesTables()
+  {
+    // This needs to be built off of seed data
+  }
+
 }

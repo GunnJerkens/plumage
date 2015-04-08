@@ -1,6 +1,6 @@
 <?php
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
 
   /**
@@ -20,8 +20,7 @@ class ProjectController extends Controller
    */
   function __construct()
   {
-    $this->input = Input::except('_token');
-    $this->user  = Sentry::getUser();
+    parent::__construct();
   }
 
   /**

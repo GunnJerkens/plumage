@@ -8,14 +8,15 @@ class BaseController extends Controller
    *
    * @var $user object
    */
-  protected $user;
+  protected $user, $input;
 
   /**
    * Class contructor
    */
   function __construct()
   {
-    $this->user = Sentry::getUser();
+    $this->user  = Sentry::getUser();
+    $this->input = Input::except('_token');
   }
 
 }

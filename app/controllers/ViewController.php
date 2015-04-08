@@ -119,4 +119,14 @@ class ViewController extends BaseController
     return View::make('layouts.manage')->with(['users' => User::all()]);
   }
 
+  /**
+   * Handles GET requests for /account
+   *
+   * @return view
+   */
+  public function getAccount()
+  {
+    return View::make('layouts.account')->with(['user' => $this->user]);
+  }
+
 }

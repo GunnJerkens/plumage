@@ -12,6 +12,7 @@
       @if(Sentry::check())
         <ul class="nav navbar-nav navbar-right">
           <li><a href="{{ Route('dashboard') }}">Dashboard</a></li>
+          <li><a href="{{ Route('account') }}">Account</a></li>
           @if(Sentry::getUser()->hasAccess('manage'))
             <li><a href="{{ Route('manage') }}">Manage</a></li>
           @endif

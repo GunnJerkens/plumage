@@ -16,7 +16,7 @@
             <input type="hidden" name="form_part" value="email">
             <div class="form-group">
               <label for="email_new">New Email</label>
-              <input type="email" id="email_new" class="form-control" name="email_new" placeholder="{{$user->email}}" required>
+              <input type="email" id="email_new" class="form-control" name="email_new" required>
             </div>
             <div class="form-group">
               <label for="email_confirm">Confirm Email</label>
@@ -31,15 +31,15 @@
             <input type="hidden" name="form_part" value="password">
             <div class="form-group">
               <label for="password_old">Old Password</label>
-              <input type="password_old" id="password_old" class="form-control" name="password_old" required>
+              <input type="password" id="password_old" class="form-control" name="password_old" required>
             </div>
             <div class="form-group">
               <label for="password_new">New Password</label>
-              <input type="password_new" id="password_new" class="form-control" name="password_new" required>
+              <input type="password" id="password_new" class="form-control" name="password_new" required>
             </div>
             <div class="form-group">
               <label for="password_confirm">Comfirm New Password</label>
-              <input type="password_confirm" id="password_confirm" class="form-control" name="password_confirm" required>
+              <input type="password" id="password_confirm" class="form-control" name="password_confirm" required>
             </div>
             <button type="submit" class="btn btn-default">Update</button>
           </form>

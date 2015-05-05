@@ -60,6 +60,7 @@
                 @else
                   <tr data-id="0">
                     <input type="hidden" name="0[id]" value="0">
+                    <td><a href class="delete-type btn btn-danger" data-id=""><i class="fa fa-times"></i></a>
                     @foreach($fields as $field)
                       @if($field->field_type === 'text')
                         <td>

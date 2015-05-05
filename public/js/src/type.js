@@ -1,4 +1,4 @@
-;(function() {
+;(function($) {
 
   $('#bulk-upload').modal({
     backdrop: true,
@@ -59,4 +59,4 @@
     return false;
   });
 
-})();
+})(jQuery);

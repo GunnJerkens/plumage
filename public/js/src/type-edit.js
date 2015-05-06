@@ -16,7 +16,9 @@
   $('#add-field').on('click', function() {
     var source, template, data;
 
-    data     = { id: $('#sortable').children().length };
+    data = { 
+      id: $('li.field-row').last().data('id') + 1 || 0
+    };
     source   = $('#type-add-field').html();
     template = Handlebars.compile(source);
 

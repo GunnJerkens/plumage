@@ -75,7 +75,7 @@ class ProjectType extends Eloquent
     $fields = json_decode($type->fields);
     $match  = false;
     foreach($fields as $key=>$value) {
-      if($value->field_name === $column) {
+      if(isset($value->field_name) && $value->field_name === $column) {
         unset($fields[$key]);
         $match = true;
       }

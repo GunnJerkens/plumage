@@ -64,6 +64,7 @@ Route::group(['before' => 'sentry_check|csrf'], function() {
 Route::group(['before' => 'sentry_check|csrf_ajax'], function() {
 
   Route::post('project/{project_id}/{project_type}/delete-row', ['uses' => 'ProjectController@postProjectTypeDeleteRow']);
+  Route::post('project/{project_id}/{project_type}/edit/delete-field', ['uses' => 'ProjectController@postProjectDeleteField']);
 
 });
 

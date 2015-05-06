@@ -63,6 +63,32 @@ class ProjectType extends Eloquent
   }
 
   /**
+   * Remove the project type fields
+   *
+   * @param object, string, string
+   *
+   * @return
+   */
+  public static function removeTypesFields($project, $type, $column)
+  {
+    $type   = self::where('project_id', $project->id)->where('type', $type)->first();
+    $fields = json_decode($type->fields);
+    $match  = false;
+    foreach($fields as $key=>$value) {
+      if($value->field_name === $column) {
+        unset($fields[$key]);
+        $match = true;
+      }
+    }
+    if($match) {
+      $type->fields = json_encode($fields);
+      $type->save();
+      self::deleteFieldsColumns($type->table_name, [$column]);
+    }
+    return $match ? true : false;
+  }
+
+  /**
    * Format fields
    *
    *

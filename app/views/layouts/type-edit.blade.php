@@ -37,7 +37,7 @@
                     </label>
                   </div>
                   <div class="col-sm-2 haha no-padding">
-                    <a class="remove btn btn-danger">Remove Field</a>
+                    <a class="remove-field btn btn-danger" data-column="{{ $value->field_name }}">Remove Field</a>
                   </div>
                 </div>
                 <div class="form-group values{{ isset($value->field_values) ?: ' hidden' }}">

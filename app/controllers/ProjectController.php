@@ -188,15 +188,32 @@ class ProjectController extends BaseController
   }
 
   /**
+   * Handles POST requests for /project/{project_id}/{project_type}/delete-row
    *
-   *
-   *
-   *
+   * @return json
    */
   public function postProjectTypeDeleteRow($project_id, $project_type)
   {
     ProjectType::deleteTypesData($project_id, $project_type, $this->input['row']);
     return Response::json(['error' => false, 'message' => 'Removed row successfully.']);
+  }
+
+  /**
+   * Handles POST requests for /project/{project_id}/{project_type}/delete-field
+   *
+   * @return json
+   */
+  public function postProjectDeleteField($project_id, $project_type)
+  {
+    $column  = isset($this->input['column']) ? $this->input['column'] : false;
+    $project = Project::where('id', $project_id)->first();
+    $state   = ProjectType::removeTypesFields($project, $project_type, $column);
+    if($state) {
+      $state = ['error' => false, 'message' => 'Deleted field successfully.'];
+    } else {
+      $state = ['error' => true, 'message' => 'Failed to delete field.'];
+    }
+    return Response::json($state);
   }
 
   /**

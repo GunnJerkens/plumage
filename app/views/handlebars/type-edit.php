@@ -19,7 +19,7 @@
         </label>
       </div>
       <div class="col-sm-2 no-padding">
-        <a class="remove btn btn-danger">Remove Field</a>
+        <a class="remove-field btn btn-danger">Remove Field</a>
       </div>
     </div>
     <div class="form-group values hidden">

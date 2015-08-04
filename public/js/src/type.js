@@ -32,6 +32,7 @@
     });
 
     template = Handlebars.compile(source);
+    $('table#no-data').remove();
     $('tbody').append(template(data));
     return false;
   });

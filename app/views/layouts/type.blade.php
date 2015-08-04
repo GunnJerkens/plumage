@@ -58,29 +58,11 @@
                     </tr>
                   @endforeach
                 @else
-                  <tr data-id="0">
-                    <input type="hidden" name="0[id]" value="0">
-                    <td><a href class="delete-type btn btn-danger" data-id=""><i class="fa fa-times"></i></a>
-                    @foreach($fields as $field)
-                      @if($field->field_type === 'text')
-                        <td>
-                          <input type="text" name="0[{{ $field->field_name }}]">
-                        </td>
-                      @elseif($field->field_type === 'checkbox')
-                        <td>
-                          <input type="checkbox" name="0[{{ $field->field_name }}]">
-                        </td>
-                      @elseif($field->field_type === 'select')
-                        <td>
-                          <select name="0[{{ $field->field_name }}]">
-                            @foreach($field->field_values as $option)
-                              <option value="{{ $option->value }}">{{ $option->label }}</option>
-                            @endforeach
-                          </select>
-                        </td>
-                      @endif
-                    @endforeach
-                  </tr>
+                  <table id="no-data">
+                    <tr>
+                      <td>No data available.</td>
+                    </tr>
+                  </table>
                 @endif
                 </tbody>
               </table>

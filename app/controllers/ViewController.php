@@ -70,7 +70,6 @@ class ViewController extends BaseController
     return View::make('layouts.project')->with([
       'project'       => $project,
       'project_types' => $projectTypes,
-      'edit'          => !$this->user->hasAnyAccess(['manage']) && $this->user->id !== $project->user_id ? false : true,
       'users'         => $this->user->hasAnyAccess(['manage']) ? User::all() : false,
     ]);
   }

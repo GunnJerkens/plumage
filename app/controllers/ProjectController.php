@@ -119,6 +119,7 @@ class ProjectController extends BaseController
   public function postProjectType($project_id, $project_type)
   {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
+    $response = ['error' => true, 'message' => 'Type data does not exist.'];
     foreach ($this->input as $data) {
       $state    = ProjectType::createTypesData($projectType->table_name, $data);
       $response = ['error' => false, 'message' => 'Type data updated successfully.'];

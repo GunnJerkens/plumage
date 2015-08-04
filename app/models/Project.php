@@ -18,6 +18,13 @@ class Project extends Eloquent
   protected $fillable = ['user_id', 'name', 'is_active'];
 
   /**
+   * Appendable items to the object on retrieval
+   *
+   * @var array
+   */
+  protected $appends = ['is_owner'];
+
+  /**
    * Relationship to the access table
    *
    * @return object
@@ -25,6 +32,17 @@ class Project extends Eloquent
   public function access() 
   {
     return $this->hasMany('ProjectAccess', 'project_id', 'id');
+  }
+
+  /**
+   * Checks if user is owner of project and appends it to the model dynamically
+   *
+   * @return boolean
+   */
+  public function getIsOwnerAttribute()
+  {
+    $user = Sentry::getUser();
+    return !$user->hasAnyAccess(['manage']) && $user->id !== $this->user_id ? false : true;
   }
 
 }

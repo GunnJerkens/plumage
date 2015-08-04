@@ -4,7 +4,7 @@ return array(
 
   /*
   |--------------------------------------------------------------------------
-  | Pagination Language Lines
+  | Auth Language Lines
   |--------------------------------------------------------------------------
   |
   | The following language lines are used by the paginator library to build
@@ -13,8 +13,11 @@ return array(
   |
   */
 
-  'previous' => '&laquo; Previous',
-
-  'next'     => 'Next &raquo;',
+  "username"    => "Login was incorrect, please try again.",
+  "password"    => "Password was incorrect, please try again.",
+  "not_found"   => "Account was not found.",
+  "deactivated" => "This account has not yet been activated.",
+  "suspened"    => "This account has been suspended.",
+  "banned"      => "This account has been banned.",
 
 );

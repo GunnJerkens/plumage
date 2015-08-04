@@ -4,7 +4,7 @@ return array(
 
   /*
   |--------------------------------------------------------------------------
-  | Pagination Language Lines
+  | Projects Language Lines
   |--------------------------------------------------------------------------
   |
   | The following language lines are used by the paginator library to build
@@ -13,8 +13,6 @@ return array(
   |
   */
 
-  'previous' => '&laquo; Previous',
 
-  'next'     => 'Next &raquo;',
 
 );

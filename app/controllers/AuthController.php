@@ -12,9 +12,9 @@ class AuthController extends Controller
   {
     if(Sentry::check()) {
       return Redirect::to('dashboard');
-    } else {
-      return View::make('layouts.default');
     }
+
+    return View::make('layouts.default');
   }
 
   /**
@@ -28,39 +28,39 @@ class AuthController extends Controller
     $response['error'] = true;
     try {
       $credentials = [
-        'email'    => $input['email'],
-        'password' => $input['password'],
+        'email'    => isset($input['email']) ? $input['email'] : '',
+        'password' => isset($input['password']) ? $input['password'] : '',
       ];
       $user = Sentry::authenticate($credentials, true);
       $response['error'] = false;
     }
     catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
-      $response['message'] = 'Login field is required.';
+      $response['message'] = Lang::get('auth.username');
     }
     catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
-      $response['message'] = 'Password field is required.';
+      $response['message'] = Lang::get('auth.password');
     }
     catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
-      $response['message'] = 'Wrong password, try again.';
+      $response['message'] = Lang::get('auth.password');
     }
     catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
-      $response['message'] = 'User was not found.';
+      $response['message'] = Lang::get('auth.not_found');
     }
     catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
-      $response['message'] = 'User is not activated.';
+      $response['message'] = Lang::get('auth.deactivated');
     }
     catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
-      $response['message'] = 'User is suspended.';
+      $response['message'] = Lang::get('auth.suspended');
     }
     catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
-      $response['message'] = 'User is banned.';
+      $response['message'] = Lang::get('auth.banned');
     }
     finally {
       if($response['error']) {
         return Redirect::back()->with($response);
-      } else {
-        return Redirect::to('dashboard');
       }
+
+      return Redirect::to('dashboard');
     }
   }
 

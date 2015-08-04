@@ -245,7 +245,7 @@ class ProjectType extends Eloquent
   /**
    * Delete all project types tables
    *
-   * @return bool
+   * @return void
    */
   public static function deleteAllTypesTables($project_id)
   {
@@ -256,10 +256,8 @@ class ProjectType extends Eloquent
           Schema::drop($project->table_name);
         }
       }
-      return true;
-    } else {
-      return false;
     }
+    return true;
   }
 
 }

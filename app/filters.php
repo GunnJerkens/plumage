@@ -16,7 +16,7 @@ Route::filter('sentry_check', function() {
 });
 
 Route::filter('project_check', function($route) {
-  $user      = Sentry::getUser();
+  $user = Sentry::getUser();
 
   // Test if the user is an admin
   if ($user->hasAnyAccess(['manage'])) {

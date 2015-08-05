@@ -1,6 +1,6 @@
 ;(function($) {
 
-  var nextId = $('section#project').data('next-id');
+  var newId = 0;
 
   $('#bulk-upload').modal({
     backdrop: true,
@@ -11,8 +11,8 @@
   $('.new-item').on('click', function() {
     var source, template, data, id;
 
-    id     = nextId;
-    data   = { id: nextId, fields: fields }
+    id     = 'new' + newId;
+    data   = { id: id, fields: fields }
     source = $('#type-new-item').html();
 
     Handlebars.registerHelper('dofields', function(i) {
@@ -36,13 +36,13 @@
     template = Handlebars.compile(source);
     $('table#no-data').remove();
     $('tbody').append(template(data));
-    nextId++;
+    newId++;
     return false;
   });
 
-  $('#project').on('click', '.delete-type', function() {
-    var id = $(this).data('id');
-    if('new' !== id) {
+  $('#project').on('click', '.delete-type', function(e) {
+    var id = $(this).attr('data-id');
+    if('new' !== id.substring(0,3)) {
       $.ajax({
         url: window.location.href + '/delete-row',
         type: 'post',

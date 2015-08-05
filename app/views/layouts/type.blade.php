@@ -6,7 +6,7 @@
 
 @section('body')
   <script>var fields = {{ json_encode($fields) }};</script>
-  <section id="project">
+  <section id="project" data-next-id="{{ $next_id }}">
     @include('partials.message')
     <div class="container">
       <div class="row">

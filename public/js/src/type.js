@@ -1,5 +1,7 @@
 ;(function($) {
 
+  var nextId = $('section#project').data('next-id');
+
   $('#bulk-upload').modal({
     backdrop: true,
     keyboard: true,
@@ -9,8 +11,8 @@
   $('.new-item').on('click', function() {
     var source, template, data, id;
 
-    id     = $('tbody').children().length + 1;
-    data   = { id: id, fields: fields }
+    id     = nextId;
+    data   = { id: nextId, fields: fields }
     source = $('#type-new-item').html();
 
     Handlebars.registerHelper('dofields', function(i) {
@@ -34,6 +36,7 @@
     template = Handlebars.compile(source);
     $('table#no-data').remove();
     $('tbody').append(template(data));
+    nextId++;
     return false;
   });
 

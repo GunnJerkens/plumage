@@ -85,7 +85,7 @@ class ViewController extends BaseController
   {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     $itemData    = DB::table($projectType->table_name)->get();
-    $projectTable = DB::select(DB::raw("SHOW TABLE STATUS WHERE `Name` = '$projectType->table_name'"));
+    $projectTable = DB::select(DB::raw("SHOW TABLE STATUS WHERE name = :project_table"), ['project_table' => $projectType->table_name]);
     $nextId = $projectTable[0]->Auto_increment;
     return View::make('layouts.type')->with([
       'project' => $projectType,

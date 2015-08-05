@@ -8,7 +8,6 @@ class GroupTableSeeder extends Seeder
    *
    * @return void
    */
-
   public function run()
   {
     $admin = Sentry::createGroup([

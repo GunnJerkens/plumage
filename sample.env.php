@@ -7,6 +7,7 @@ return [
   'DEBUG'          => false,
   'TIMEZONE'       => 'UTC',
   'ENCRYPTION_KEY' => 'YIMYrt2kC1sCoMTea4S2JeeYdH0JmVKr',
+  'SEED_SIZE'      => 10,
 
   // DATABASE
   'DB_NAME'        => 'plumage_dev',

@@ -18,7 +18,11 @@ $rgbapng_px_size: 1;
 
 /* SCSS Modules */
 @import "bootstrap";
+@import "colors";
 @import "mixins";
 @import "animations";
+
+/* Views */
+@import "home";
 @import "layout";
 @import "nav";

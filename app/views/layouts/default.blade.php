@@ -16,7 +16,7 @@
             <div class="logo text-center">
               <a href="/"><img src="/img/logo.png" alt="Plumage"></a>
             </div>
-            <form class="navbar-form navbar-right" role="form" method="post">
+            <form class="loginForm" role="form" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
                 <input type="email" class="form-control" name="email" placeholder="Email">

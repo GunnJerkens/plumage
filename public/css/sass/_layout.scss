@@ -1,3 +1,7 @@
+body {
+  background-color: $lightGray;
+}
+
 // Global //
 .no-padding {
   padding-left: 0 !important;
@@ -36,11 +40,6 @@ nav.navbar-default {
       }
     }
   }
-}
-
-// Section Layouts //
-section#home {
-  text-align: center;
 }
 
 #sites-edit {

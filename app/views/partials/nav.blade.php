@@ -23,8 +23,10 @@
       <i class="fa fa-bars"></i>
     </div>
 
-    <div class="logo text-center">
-      <a href="/"><img src="/img/logo.png" alt="Plumage"></a>
+    <div class="container">
+      <div class="logo text-center">
+        <a href="/"><img src="/img/logo.png" alt="Plumage"></a>
+      </div>
     </div>
 
 @endif

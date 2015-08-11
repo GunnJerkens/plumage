@@ -21,8 +21,9 @@ $rgbapng_px_size: 1;
 @import "colors";
 @import "mixins";
 @import "animations";
+@import "nav";
 
 /* Views */
-@import "home";
 @import "layout";
-@import "nav";
+@import "home";
+@import "dashboard"

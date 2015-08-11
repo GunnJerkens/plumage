@@ -1,0 +1,66 @@
+section#dashboard {
+  form.addForm {
+    input {
+      position: relative;
+      border-radius: 0;
+      @include box-shadow(none);
+      padding-right: 11%;
+    }
+    button {
+      position: absolute;
+      z-index: 2;
+      right: 15px;
+      top: 0;
+      border-radius: 0;
+    }
+  }
+  table {
+    tbody {
+      tr {
+        td {
+          position: relative;
+          padding: 0;
+          &:hover {
+            background-color: $white;
+          }
+          a {
+            font-size: 18px;
+            display: inline-block;
+            width: 100%;
+            height: auto;
+            padding: 20px 10px;
+            &:before {
+              content: attr(title);
+              position: relative;
+              display: inline-block;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background-color: darken($lightGray, 5%);
+              color: darken($lightGray, 30%);
+              overflow: hidden;
+              font-size: 20px;
+              padding-top: 5px;
+              padding-left: 14px;
+              margin-right: 10px;
+              letter-spacing: 20px;
+              text-transform: uppercase;
+            }
+          }
+          span {
+            position: absolute;
+            z-index: 2;
+            right: 15px;
+            top: 50%;
+            margin-top: -15px;
+            button {
+              font-size: 20px;
+              padding: 0 8px 2px 8px;
+              border-radius: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@
 @stop
 
 @section('body')
-  <section id="project">
+  <section id="project" class="project">
     @include('partials.message')
     <div class="container">
       <h1>Types</h1>

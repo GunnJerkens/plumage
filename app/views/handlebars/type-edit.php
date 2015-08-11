@@ -3,7 +3,7 @@
     <div class="form-group fields">
       <div class="col-sm-4">
         <label>Select a field type</label>
-        <select name="{{ id }}[field_type]" class="form-control select-change">
+        <select name="{{ id }}[field_type]" class="form-control js-select-change">
           <option value="text">Text</option>
           <option value="checkbox">Checkbox</option>
           <option value="select">Select</option>
@@ -19,14 +19,14 @@
         </label>
       </div>
       <div class="col-sm-2 no-padding">
-        <a class="remove-field btn btn-danger">Remove Field</a>
+        <a class="js-remove-field btn btn-danger">Remove Field</a>
       </div>
     </div>
     <div class="form-group values hidden">
       <div class="col-sm-12">
         <ul class="values-group">
         </ul>
-        <a class="btn btn-default add-value">Add Value</a>
+        <a class="btn btn-default js-add-value">Add Value</a>
       </div>
     </div>
   </li>

@@ -8,7 +8,7 @@
     show: false
   });
 
-  $('.new-item').on('click', function() {
+  $('.js-new-item').on('click', function() {
     var source, template, data, id;
 
     id     = 'new' + newId;
@@ -40,9 +40,9 @@
     return false;
   });
 
-  $('#project').on('click', '.delete-type', function(e) {
-    var id = $(this).attr('data-id');
-    if('new' !== id.substring(0,3)) {
+  $('#project').on('click', '.js-delete-type', function() {
+    var id = $(this).data('id');
+    if('new' !== id) {
       $.ajax({
         url: window.location.href + '/delete-row',
         type: 'post',

@@ -5,7 +5,7 @@
 @stop
 
 @section('body')
-  <section id="manage">
+  <section id="manage" class="manage">
     @include('partials.message')
     <div class="container">
       <div class="row">
@@ -38,7 +38,7 @@
                 </tr>
               @endforeach
             </tbody>
-          </table> 
+          </table>
         </div>
       </div>
       <div class="row">

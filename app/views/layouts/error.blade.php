@@ -5,7 +5,7 @@
 @stop
 
 @section('body')
-  <section id="errors">
+  <section id="errors" class="errors">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">

@@ -1,0 +1,37 @@
+section.sites-edit {
+  .add-fields {
+    button {
+      display: inline-block;
+      position: relative;
+    }
+    form {
+      width: 100%;
+      display: inline-block;
+      position: relative;
+    }
+  }
+  .checkbox {
+    label {
+      margin-top: 20px;
+    }
+  }
+  a.js-remove-field {
+    float: right;
+    margin-top: 25px;
+  }
+  div.form-group {
+    overflow: hidden;
+    clear: both;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0px;
+    &#sortable {
+      margin-top: 25px;
+    }
+    li {
+      overflow: hidden;
+      cursor: pointer;
+    }
+  }
+}

@@ -5,12 +5,12 @@
 @stop
 
 @section('body')
-  <section id="sites-edit">
+  <section id="sites-edit" class="sites-edit">
     @include('partials.message')
     <div class="container">
       <div class="row">
         <div class="col-sm-12 add-fields">
-          <button class="btn btn-default pull-right" id="add-field">Add Field</button>
+          <button class="btn btn-default pull-right js-add-field">Add Field</button>
           <form id="fields" role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <ul id="sortable">
@@ -20,7 +20,7 @@
                 <div class="form-group fields">
                   <div class="col-sm-4">
                     <label>Select a field type</label>
-                    <select name="{{ $key }}[field_type]" class="form-control select-change">
+                    <select name="{{ $key }}[field_type]" class="form-control js-select-change">
                       <option value="text"{{ $value->field_type === 'text' ? ' selected' : '' }}>Text</option>
                       <option value="checkbox"{{ $value->field_type === 'checkbox' ? ' selected' : '' }}>Checkbox</option>
                       <option value="select"{{ $value->field_type === 'select' ? ' selected' : '' }}>Select</option>
@@ -37,7 +37,7 @@
                     </label>
                   </div>
                   <div class="col-sm-2 haha no-padding">
-                    <a class="remove-field btn btn-danger" data-column="{{ $value->field_name }}">Remove Field</a>
+                    <a class="js-remove-field btn btn-danger" data-column="{{ $value->field_name }}">Remove Field</a>
                   </div>
                 </div>
                 <div class="form-group values{{ isset($value->field_values) ?: ' hidden' }}">
@@ -63,7 +63,7 @@
                       @endforeach
                     @endif
                     </ul>
-                    <a class="btn btn-default add-value">Add Value</a>
+                    <a class="btn btn-default js-add-value">Add Value</a>
                   </div>
                 </div>
               </li>

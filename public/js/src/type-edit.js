@@ -13,10 +13,10 @@
     $('.value-sortable').sortable();
   }
 
-  $('#add-field').on('click', function() {
+  $('.js-add-field').on('click', function() {
     var source, template, data;
 
-    data = { 
+    data = {
       id: $('li.field-row').last().data('id') + 1 || 0
     };
     source   = $('#type-add-field').html();
@@ -26,7 +26,7 @@
     return false;
   });
 
-  $sortable.on('change', 'select.select-change', function() {
+  $sortable.on('change', 'select.js-select-change', function() {
     var $valueDiv;
 
     $valueDiv = $(this).closest('div.fields').siblings('div.values');
@@ -39,7 +39,7 @@
     return false;
   });
 
-  $sortable.on('click', 'a.add-value', function() {
+  $sortable.on('click', '.js-add-value', function() {
     var source, template, data;
 
     data     = {
@@ -53,7 +53,7 @@
     return false;
   });
 
-  $sortable.on('click', 'a.remove-field', function(e) {
+  $sortable.on('click', '.js-remove-field', function(e) {
     var column = $(this).data('column') || false;
 
     e.preventDefault();

@@ -13,7 +13,7 @@
           <form role="form" method="post" class="addForm">
             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
             <label for="project_name" class="sr-only">Add Project</label>
-            <input type="text" id="project_name" class="form-control" placeholder="Add project" name="project_name"{{ Session::has('input_text') ? 'value="'.(Session::get('input_text')).'"' : '' }}>
+            <input type="text" id="project_name" class="form-control" placeholder="project name" name="project_name"{{ Session::has('input_text') ? 'value="'.(Session::get('input_text')).'"' : '' }}>
             <button type="submit" class="btn btn-primary">Create Project</button>
           </form>
         </div>
@@ -28,7 +28,7 @@
                     <td>
                       <a href="{{ '/project/'.$project->id }}" title="{{ $project->name }}">{{ $project->name }}</a>
                       @if($project->is_owner)
-                      <span><form role="form" action="{{ '/project/'.$project->id.'/delete' }}" method="post"><input type="hidden" name="_token" value="{{ csrf_token() }}"><button class="btn btn-danger">&times;</button></form></span>
+                        <form role="form" action="{{ '/project/'.$project->id.'/delete' }}" method="post"><input type="hidden" name="_token" value="{{ csrf_token() }}"><button class="btn-delete"><i class="fa fa-times-circle"></i></button></form>
                       @endif
                     </td>
                   </tr>

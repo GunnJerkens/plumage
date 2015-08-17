@@ -3,12 +3,12 @@
   <!-- Pushy Menu -->
   <nav class="pushy pushy-left">
     <ul>
-      <li><a href="{{ Route('dashboard') }}">Dashboard</a></li>
-      <li><a href="{{ Route('account') }}">Account</a></li>
+      <li><a href="{{ Route('dashboard') }}"><i class="fa fa-clone"></i> Dashboard</a></li>
+      <li><a href="{{ Route('account') }}"><i class="fa fa-user"></i> Account</a></li>
       @if(Sentry::getUser()->hasAccess('manage'))
-        <li><a href="{{ Route('manage') }}">Manage</a></li>
+        <li><a href="{{ Route('manage') }}"><i class="fa fa-gear"></i> Manage</a></li>
       @endif
-      <li><a href="{{ Route('logout') }}">Logout</a></li>
+      <li><a href="{{ Route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
   </nav>
 

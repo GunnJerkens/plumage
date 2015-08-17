@@ -20,43 +20,65 @@ section.dashboard {
         td {
           position: relative;
           padding: 0;
+          overflow-x: hidden;
           &:hover {
             background-color: $white;
           }
           a {
-            font-size: 18px;
+            font-size: 20px;
             display: inline-block;
+            position: relative;
             width: 100%;
             height: auto;
-            padding: 20px 10px;
+            padding: 20px 10px 20px 20px;
+            margin-left: 45px;
             &:before {
               content: attr(title);
-              position: relative;
+              position: absolute;
               display: inline-block;
               width: 40px;
               height: 40px;
               border-radius: 50%;
-              background-color: darken($lightGray, 5%);
-              color: darken($lightGray, 30%);
+              background-color: lighten($blue, 5%);
+              color: $white;
               overflow: hidden;
               font-size: 20px;
-              padding-top: 5px;
-              padding-left: 14px;
-              margin-right: 10px;
+              padding-top: 6px;
+              padding-left: 13px;
+              margin-left: -50px;
+              margin-top: -5px;
               letter-spacing: 20px;
               text-transform: uppercase;
             }
+            &:hover {
+              text-decoration: none;
+              &:before {
+                background-color: darken($blue, 10%);
+              }
+            }
           }
-          span {
+          .btn-delete {
+            font-size: 25px;
+            border-radius: 0;
             position: absolute;
-            z-index: 2;
-            right: 15px;
+            right: 20px;
             top: 50%;
-            margin-top: -15px;
-            button {
-              font-size: 20px;
-              padding: 0 8px 2px 8px;
-              border-radius: 0;
+            margin-top: -20px;
+            i {
+              color: $red;
+              &:hover {
+                color: darken($red, 10%);
+              }
+            }
+          }
+        }
+        &:nth-child(even) {
+          td {
+            a {
+              color: $pink;
+              &:before {
+                background-color: lighten($pink, 10%);
+              }
             }
           }
         }

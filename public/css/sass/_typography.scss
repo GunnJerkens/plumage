@@ -1,0 +1,86 @@
+/// General ///
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-size: 16px;
+}
+@mixin serif {
+  font-family: serif;
+}
+
+@mixin sans {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin misc-label {
+  @include sans;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @include sans;
+  font-weight: 300;
+}
+
+p, a, label {
+  @include sans;
+  font-weight: 400;
+}
+
+a {
+  color: $blue;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+h1 {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: $purple;
+  color: $white;
+  margin: 0;
+  padding: 5px;
+  border: 1px solid;
+  border-color: darken($purple, 10%);
+  &.alt {
+    background-color: $pink;
+    border-color: darken($pink, 10%);
+  }
+}
+
+h2 {
+  color: $blue;
+  text-align: center;
+  margin-top: 0;
+}
+
+.btn {
+  border-radius: 0;
+  &.btn-primary {
+    background-color: $blue;
+    border-color: darken($blue, 10%);
+    &:hover {
+      background-color: darken($blue, 5%);
+    }
+  }
+  &.btn-danger {
+    background-color: $red;
+    border-color: darken($red, 10%);
+    &:hover {
+      background-color: darken($red, 5%);
+    }
+  }
+}
+
+button {
+  background-image: transparent;
+  background: transparent;
+  border: none;
+  @include box-shadow(none);
+}

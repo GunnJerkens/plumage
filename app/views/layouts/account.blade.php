@@ -8,38 +8,38 @@
   <section id="account" class="account">
     @include('partials.message')
     <div class="container">
-      <h1>Account</h1>
-      <div class="row">
-        <div class="col-sm-6">
+      <div class="row panel">
+        <h1 class="alt">Account</h1>
+        <div class="col-sm-6 section">
           <form role="form" id="update-email" method="post" action="/account">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="form_part" value="email">
             <div class="form-group">
-              <label for="email_new">New Email</label>
-              <input type="email" id="email_new" class="form-control" name="email_new" required>
+              <label for="email_new" class="sr-only">New Email</label>
+              <input type="email" id="email_new" class="form-control" name="email_new" placeholder="New Email" required>
             </div>
             <div class="form-group">
-              <label for="email_confirm">Confirm Email</label>
-              <input type="email" id="email_confirm" class="form-control" name="email_confirm" required>
+              <label for="email_confirm" class="sr-only">Confirm Email</label>
+              <input type="email" id="email_confirm" class="form-control" name="email_confirm" placeholder="Confirm Email" required>
             </div>
             <button type="submit" class="btn btn-default">Update</button>
           </form>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 section">
           <form role="form" id="update-password" method="post" action="/account">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="form_part" value="password">
             <div class="form-group">
-              <label for="password_old">Old Password</label>
-              <input type="password" id="password_old" class="form-control" name="password_old" required>
+              <label for="password_old" class="sr-only">Old Password</label>
+              <input type="password" id="password_old" class="form-control" name="password_old" placeholder="Old Password" required>
             </div>
             <div class="form-group">
-              <label for="password_new">New Password</label>
-              <input type="password" id="password_new" class="form-control" name="password_new" required>
+              <label for="password_new" class="sr-only">New Password</label>
+              <input type="password" id="password_new" class="form-control" name="password_new" placeholder="New Password" required>
             </div>
             <div class="form-group">
-              <label for="password_confirm">Comfirm New Password</label>
-              <input type="password" id="password_confirm" class="form-control" name="password_confirm" required>
+              <label for="password_confirm" class="sr-only">Comfirm New Password</label>
+              <input type="password" id="password_confirm" class="form-control" name="password_confirm" placeholder="Confirm New Password" required>
             </div>
             <button type="submit" class="btn btn-default">Update</button>
           </form>

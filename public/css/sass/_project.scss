@@ -1,14 +1,20 @@
 section.project {
-  form {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    div.form-inner-wrapper {
-      overflow-y: hidden;
-      overflow-x: scroll;
+  form.addType {
+    input {
+      position: relative;
+      border-radius: 0;
+      @include box-shadow(none);
+      padding-right: 11%;
     }
     button {
-      margin-top: 15px;
-      margin-bottom: 15px;
+      position: absolute;
+      z-index: 2;
+      right: 15px;
+      top: 0;
+      border-radius: 0;
+    }
+    .form-group {
+      margin-bottom: 0;
     }
   }
   a.js-new-item {
@@ -19,10 +25,53 @@ section.project {
       padding-top: 5px;
       display: inline-block;
     }
-    .buttons {
-      a.btn {
-        padding: 3px 10px;
+    table {
+      tbody {
+        tr {
+          td {
+            position: relative;
+            overflow-x: hidden;
+            a {
+              float: left;
+              margin-right: 20px;
+              vertical-align: middle;
+              &.the-type {
+                width: 100%;
+                height: auto;
+                display: inline-block;
+              }
+              &.btn-delete {
+                color: $red;
+                font-size: 20px;
+                margin-top: -2px;
+                &:hover {
+                  color: darken($red, 10%);
+                }
+              }
+            }
+            &:hover {
+              background-color: $white;
+            }
+            .buttons {
+              position: absolute;
+              right: 0;
+              top: 50%;
+              margin-top: -13px;
+            }
+          }
+        }
       }
     }
+  }
+  .user-access {
+    table {
+      margin-bottom: 0;
+    }
+  }
+  .add-access {
+    width: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
   }
 }

@@ -35,12 +35,12 @@
   <li class="value-row">
     <div class="form-group">
       <div class="col-sm-4">
-        <label>Value</label>
-        <input type="text" class="form-control" name="{{ id }}[field_values][{{ valueId }}][value]">
-      </div>
-      <div class="col-sm-4">
         <label>Name</label>
         <input type="text" class="form-control" name="{{ id }}[field_values][{{ valueId }}][label]">
+      </div>
+      <div class="col-sm-4">
+        <label>Value</label>
+        <input type="text" class="form-control" name="{{ id }}[field_values][{{ valueId }}][value]">
       </div>
       <div class="col-sm-2 no-padding">
         <a class="remove btn btn-danger">Remove Value</a>

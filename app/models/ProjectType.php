@@ -168,7 +168,7 @@ class ProjectType extends Eloquent
   }
 
   /**
-   * Adds the individual data to the type
+   * Adds the individual data to the type, performs an upsert yo
    *
    * @param string, array
    *
@@ -177,21 +177,31 @@ class ProjectType extends Eloquent
   public static function createTypesData($tableName, $data)
   {
     if(!Schema::hasTable($tableName)) {
-      $state = 404;
-    } else {
-      $state = true;
-      $id = $data['id'];
-      unset($data['id']);
-      $set = DB::table($tableName)->where('id', $id)->first();
-      if($set === null) {
-        DB::table($tableName)->insert($data);
-      } else {
-        $data = self::setBooleanData($tableName, $data);
-        DB::table($tableName)->where('id', $id)->update($data);
-      }
+      throw new Exception('TableNotFoundException');
     }
-    return $state;
+
+    $dataset = isset($data['id']) ? DB::table($tableName)->where('id', $data['id'])->first() : null;
+
+    if($dataset === null) {
+      $db = DB::table($tableName)->insert($data);
+    } else {
+      $data = self::setBooleanData($tableName, $data);
+      $db = DB::table($tableName)->where('id', $dataset->id)->update($data);
+    }
+
+    return $db;
   }
+
+  /**
+   * Updates type data
+   *
+   * @param $tableName string
+   * @param $data array
+   *
+   * @return 
+   */
+
+
 
   /**
    * Set the boolean data true or false, checks data against column names/type
@@ -202,10 +212,12 @@ class ProjectType extends Eloquent
    */
    public static function setBooleanData($tableName, $data) {
     $columns = DB::connection()->getDoctrineSchemaManager()->listTableColumns($tableName);
-    foreach($columns as $column) {
-      if($column->getType()->getName() === 'boolean') {
-        $columnName = $column->getName();
-        $data[$columnName] = isset($data[$columnName]) ? true : false;
+    if($columns && sizeof($columns) > 0) {
+      foreach($columns as $column) {
+        if($column->getType()->getName() === 'boolean') {
+          $columnName = $column->getName();
+          $data[$columnName] = isset($data[$columnName]) ? true : false;
+        }
       }
     }
     return $data;
@@ -216,7 +228,7 @@ class ProjectType extends Eloquent
    *
    * @param int, string, int
    *
-   * @return int|null
+   * @return int
    */
   public static function deleteTypesData($project_id, $project_type, $project_row)
   {

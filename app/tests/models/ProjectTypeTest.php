@@ -13,22 +13,16 @@ class ProjectTypeTest extends TestCase {
   private $projectId, $projectType, $projectFields, $projectData;
 
   /**
-   * Constructor
-   *
-   */
-  function __construct()
-  {
-    $this->setVars();
-  }
-
-  /**
    * Sets our private class vars
    *
    * @return void
    */
   private function setVars()
   {
-    $this->projectId = 1;
+    $this->project = DB::table('projects')->first();
+
+    if($this->project === null || sizeof($this->project) !== 1) die('Failed to retrieve a project from the database.');
+
     $this->projectType = 'test';
     $this->projectFields = [
       [
@@ -49,9 +43,9 @@ class ProjectTypeTest extends TestCase {
       ],
     ];
     $this->projectData = [
-      'id'     => '1',
-      'text'   => 'test text',
-      'select' => 'test value',
+      'id'       => 1,
+      'text'     => 'test text',
+      'select'   => 'test value',
     ];
   }
 
@@ -61,8 +55,9 @@ class ProjectTypeTest extends TestCase {
    */
   public function testCreateTypesGroup()
   {
-    $state = ProjectType::createTypesGroup($this->projectId, ['table_name' => $this->projectType]);
-    $this->assertTrue($state);
+    $this->setVars();
+    $response = ProjectType::createTypesGroup($this->project->id, ['table_name' => $this->projectType]);
+    $this->assertTrue($response);
   }
 
   /**
@@ -71,8 +66,9 @@ class ProjectTypeTest extends TestCase {
    */
   public function testAddTypesFieldsSuccess()
   {
-    $state = ProjectType::addTypesFields($this->projectId, $this->projectType, $this->projectFields);
-    $this->assertTrue($state);
+    $this->setVars();
+    $response = ProjectType::addTypesFields($this->project->id, $this->projectType, $this->projectFields);
+    $this->assertTrue($response);
   }
 
   /**
@@ -81,9 +77,10 @@ class ProjectTypeTest extends TestCase {
    */
   public function testAddTypesFieldsFailure()
   {
-    $state = ProjectType::addTypesFields(42, 'nope', []);
-    $this->assertInternalType('int', $state);
-    $this->assertEquals(404, $state);
+    $this->setVars();
+    $response = ProjectType::addTypesFields(42, 'nope', []);
+    $this->assertInternalType('int', $response);
+    $this->assertEquals(404, $response);
   }
 
   /**
@@ -92,14 +89,21 @@ class ProjectTypeTest extends TestCase {
    */
   public function testCreateTypesData()
   {
-    // Test a success
-    $state = ProjectType::createTypesData('example_test', $this->projectData);
-    $this->assertTrue($state);
+    $this->setVars();
 
-    // Test a failure
-    $state = ProjectType::createTypesData('example_derp', $this->projectData);
-    $this->assertInternalType('int', $state);
-    $this->assertEquals(404, $state);
+    $response = ProjectType::createTypesData($this->project->name."_test", $this->projectData);
+    $this->assertTrue($response);
+  }
+
+  /**
+   * ProjectType::createTypesData()
+   *
+   * @expectedException Exception
+   */
+  public function testCreateTypesDataException()
+  {
+    $this->setVars();
+    ProjectType::createTypesData($this->project->name."_derp", $this->projectData);
   }
 
   /**
@@ -108,7 +112,8 @@ class ProjectTypeTest extends TestCase {
    */
   public function testSetBooleanDataFalse()
   {
-    $data = ProjectType::setBooleanData('example_test', $this->projectData);
+    $this->setVars();
+    $data = ProjectType::setBooleanData($this->project->name."_test", $this->projectData);
     $this->assertInternalType('array', $data);
     $this->assertEquals(false, $data['checkbox']);
   }
@@ -119,8 +124,9 @@ class ProjectTypeTest extends TestCase {
    */
   public function testSetBooleanDataTrue()
   {
+    $this->setVars();
     $this->projectData['checkbox'] = true;
-    $data = ProjectType::setBooleanData('example_test', $this->projectData);
+    $data = ProjectType::setBooleanData($this->project->name."_test", $this->projectData);
     $this->assertInternalType('array', $data);
     $this->assertEquals(true, $data['checkbox']);
   }
@@ -131,9 +137,12 @@ class ProjectTypeTest extends TestCase {
    */
   public function testDeleteTypesData()
   {
-    $state = ProjectType::deleteTypesData($this->projectId, 'test-type', 1);
-    $this->assertInternalType('int', $state);
-    $this->assertEquals(1, $state);
+    $this->setVars();
+    $projectType = ProjectType::where('project_id', $this->project->id)->first();
+
+    $response = ProjectType::deleteTypesData($this->project->id, $projectType->type, 1);
+    $this->assertInternalType('int', $response);
+    $this->assertEquals(1, $response);
   }
 
   /**
@@ -142,8 +151,9 @@ class ProjectTypeTest extends TestCase {
    */
   public function testDeleteTypesGroup()
   {
-    $state = ProjectType::deleteTypesGroup($this->projectId, $this->projectType);
-    $this->assertEquals(true, $state);
+    $this->setVars();
+    $response = ProjectType::deleteTypesGroup($this->project->id, $this->projectType);
+    $this->assertEquals(true, $response);
   }
 
   /**
@@ -152,8 +162,9 @@ class ProjectTypeTest extends TestCase {
    */
   public function testDeleteAllTypesTablesTrue()
   {
-    $state = ProjectType::deleteAllTypesTables($this->projectId);
-    $this->assertEquals(true, $state);
+    $this->setVars();
+    $response = ProjectType::deleteAllTypesTables($this->project->id);
+    $this->assertEquals(true, $response);
   }
 
 }

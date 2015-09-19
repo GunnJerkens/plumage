@@ -51,7 +51,7 @@ return array(
   |
   */
 
-  'seed_size' => isset($_ENV['SEED_SIZE']) ? $_ENV['SEED_SIZE'] : 10,
+  'seed_size' => isset($_ENV['SEED_SIZE']) ? $_ENV['SEED_SIZE'] : 1,
 
   /*
   |--------------------------------------------------------------------------

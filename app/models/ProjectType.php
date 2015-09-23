@@ -193,17 +193,6 @@ class ProjectType extends Eloquent
   }
 
   /**
-   * Updates type data
-   *
-   * @param $tableName string
-   * @param $data array
-   *
-   * @return 
-   */
-
-
-
-  /**
    * Set the boolean data true or false, checks data against column names/type
    *
    * @param string, array
@@ -246,8 +235,7 @@ class ProjectType extends Eloquent
   public static function deleteTypesGroup($project_id, $type)
   {
     $project = Project::where('id', $project_id)->first();
-    $type    = self::where('type', $type)->first();
-
+    $type    = self::where('project_id', $project_id)->where('type', $type)->first();
     Schema::drop($type->table_name);
     $type->delete();
 

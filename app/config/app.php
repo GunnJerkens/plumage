@@ -4,6 +4,19 @@ return array(
 
   /*
   |--------------------------------------------------------------------------
+  | Application Version
+  |--------------------------------------------------------------------------
+  |
+  | Just the version of the application. I guess I should describe this in
+  | gnarly detail cause you know, what could it mean? Anyway. We use semver
+  | for this project. Majors are breaking/not backwards compatible.
+  |
+  */
+
+  'version' => '0.0.3',
+
+  /*
+  |--------------------------------------------------------------------------
   | Application Debug Mode
   |--------------------------------------------------------------------------
   |

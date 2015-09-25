@@ -15,6 +15,8 @@
     data   = { id: id, fields: fields }
     source = $('#type-new-item').html();
 
+    console.log(data);
+
     Handlebars.registerHelper('dofields', function(i) {
       var string = '';
       switch(this.field_type) {

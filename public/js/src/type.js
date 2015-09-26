@@ -15,10 +15,9 @@
     data   = { id: id, fields: fields }
     source = $('#type-new-item').html();
 
-    console.log(data);
-
     Handlebars.registerHelper('dofields', function(i) {
       var string = '';
+
       switch(this.field_type) {
         case('text'):
         case('checkbox'):
@@ -26,8 +25,8 @@
           break;
         case('select'):
           string += '<select name="' + id + '[' + this.field_name + ']">';
-          for(var j = 0; j < this.field_values.length; j++) {
-            string += '<option value="' + this.field_values[j].value + '">' + this.field_values[j].label + '</option>';
+          for(var key in this.field_values) {
+            string += '<option value="' + this.field_values[key].value + '">' + this.field_values[key].label + '</option>';
           }
           string += '</select>';
           break;

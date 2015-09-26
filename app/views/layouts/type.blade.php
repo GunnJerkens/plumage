@@ -6,7 +6,7 @@
 
 @section('body')
   <script>var fields = {{ json_encode($fields) }};</script>
-  <section id="project" class="project">
+  <section id="type" class="project">
     @include('partials.message')
     <div class="container">
       <div class="row">
@@ -77,7 +77,7 @@
     </div>
   </section>
   <!-- Modal -->
-  <div class="modal fade" id="bulk-upload" tabindex="-1" role="dialog" aria-labelledby="bulk-upload" aria-hidden="true">
+  <div class="modal fade" id="bulk-upload" data-backdrop="true" data-keyboard="true" data-show="false" tabindex="-1" role="dialog" aria-labelledby="bulk-upload" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

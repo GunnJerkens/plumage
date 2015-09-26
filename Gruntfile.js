@@ -25,7 +25,8 @@ module.exports = function (grunt) {
             'public/js/src/bootstrap/tooltip.js',
             'public/js/src/bootstrap/popover.js',
             'public/js/src/libs/*.js',
-            'public/js/src/*.js',
+            'public/js/src/modules/*.js',
+            'public/js/src/app.js',
           ]
         }
       }
@@ -47,7 +48,8 @@ module.exports = function (grunt) {
             'public/js/src/bootstrap/tooltip.js',
             'public/js/src/bootstrap/popover.js',
             'public/js/src/libs/*.js',
-            'public/js/src/*.js',
+            'public/js/src/modules/*.js',
+            'public/js/src/app.js',
           ]
         }
       }
@@ -82,7 +84,7 @@ module.exports = function (grunt) {
         livereload: true
       },
       scripts: {
-        files: ['public/js/src/*.js','public/js/src/bootstrap/*.js','public/js/src/libs/*.js'],
+        files: ['public/js/src/*.js','public/js/src/bootstrap/*.js','public/js/src/libs/*.js', 'public/js/src/modules/*.js'],
         tasks: ['uglify']
       },
       css: {

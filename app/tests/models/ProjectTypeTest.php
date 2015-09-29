@@ -56,31 +56,49 @@ class ProjectTypeTest extends TestCase {
   public function testCreateTypesGroup()
   {
     $this->setVars();
-    $response = ProjectType::createTypesGroup($this->project->id, ['table_name' => $this->projectType]);
-    $this->assertTrue($response);
+    $projectType = ProjectType::createTypesGroup($this->project->id, $this->projectType);
+
+    $this->assertInternalType('object', $projectType);
+    $this->assertEquals($this->project->id, $projectType->project_id);
+    $this->assertEquals($this->project->name.'_'.$this->projectType, $projectType->table_name);
+  }
+
+  /**
+   * ProjectType::createTypesGroup()
+   *
+   * @expectedException Exception
+   */
+  public function testCreateTypesGroupException()
+  {
+    $this->setVars();
+
+    ProjectType::createTypesGroup(83838, 'failure');
   }
 
   /**
    * ProjectType::addTypesFields()
    *
    */
-  public function testAddTypesFieldsSuccess()
+  public function testAddTypesFields()
   {
     $this->setVars();
-    $response = ProjectType::addTypesFields($this->project->id, $this->projectType, $this->projectFields);
-    $this->assertTrue($response);
+    $projectType = ProjectType::addTypesFields($this->project->id, $this->projectType, $this->projectFields);
+
+    $this->assertInternalType('object', $projectType);
+    $this->assertEquals($this->project->id, $projectType->project_id);
+    $this->assertEquals($this->project->name.'_'.$this->projectType, $projectType->table_name);
   }
 
   /**
    * ProjectType::addTypesFields()
    *
+   * @expectedException Exception
    */
-  public function testAddTypesFieldsFailure()
+  public function testAddTypesFieldsException()
   {
     $this->setVars();
-    $response = ProjectType::addTypesFields(42, 'nope', []);
-    $this->assertInternalType('int', $response);
-    $this->assertEquals(404, $response);
+
+    ProjectType::addTypesFields(83838, 'failure', []);
   }
 
   /**
@@ -91,8 +109,8 @@ class ProjectTypeTest extends TestCase {
   {
     $this->setVars();
 
-    $response = ProjectType::createTypesData($this->project->name."_test", $this->projectData);
-    $this->assertTrue($response);
+    $projectType = ProjectType::createTypesData($this->project->name."_test", $this->projectData);
+    $this->assertTrue($projectType);
   }
 
   /**

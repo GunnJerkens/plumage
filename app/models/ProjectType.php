@@ -20,25 +20,28 @@ class ProjectType extends Eloquent
   /**
    * Create project types group
    *
-   * @param int,array
+   * @param integer, string
    *
-   * @return true
+   * @return object
    */
-  public static function createTypesGroup($project_id, $data)
+  public static function createTypesGroup($project_id, $tableName)
   {
-    $project = Project::where('id', $project_id)->first();
-    $data['table_name'] = strtolower($data['table_name']);
+    $tableName = strtolower($tableName);
+    $project   = Project::where('id', $project_id)->first();
 
-    $projectTable = ProjectType::create([
-      'project_id' => $project_id,
-      'type'       => $data['table_name'],
-      'table_name' => $project->name.'_'.$data['table_name']
+    if($project === null) throw new Exception('Project not found');
+
+    $projectType = ProjectType::create([
+      'project_id' => $project->id,
+      'type'       => $tableName,
+      'table_name' => $project->name.'_'.$tableName
     ]);
 
-    Schema::create($projectTable->table_name, function($table) {
+    Schema::create($projectType->table_name, function($table) {
       $table->increments('id');
     });
-    return true;
+
+    return $projectType;
   }
 
   /**
@@ -46,20 +49,19 @@ class ProjectType extends Eloquent
    *
    * @param int, string, array
    *
-   * @return true|int
+   * @return object
    */
   public static function addTypesFields($project_id, $project_type, $data)
   {
-    $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
-    if(null === $projectType) {
-      $state = 404;
-    } else {
-      $data = self::createFieldsColumns($projectType->table_name, $data);
-      $projectType->fields = self::formatFields($data);
-      $projectType->save();
-      $state = true;
-    }
-    return $state;
+    $projectType = self::where('project_id', $project_id)->where('type', $project_type)->first();
+
+    if(null === $projectType) throw new Exception('Project type not found.');
+
+    $data = self::createFieldsColumns($projectType->table_name, $data);
+    $projectType->fields = self::formatFields($data);
+    $projectType->save();
+
+    return $projectType;
   }
 
   /**
@@ -67,7 +69,7 @@ class ProjectType extends Eloquent
    *
    * @param object, string, string
    *
-   * @return
+   * @return bool
    */
   public static function removeTypesFields($project, $type, $column)
   {

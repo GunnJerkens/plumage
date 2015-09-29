@@ -55,7 +55,7 @@ class ProjectController extends BaseController
     if (!$this->checkNaming($this->input['table_name'])) {
       $response = ['error' => true, 'message' => 'Types may only contain lowercase a-z, underscores, & dashes.'];
     } else {
-      ProjectType::createTypesGroup($project_id, $this->input);
+      ProjectType::createTypesGroup($project_id, $this->input['table_name']);
       $response = ['error' => false, 'message' => 'Created project type successfully.'];
     }
     return Redirect::back()->with($response);

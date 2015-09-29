@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-sm-12">
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#bulk-upload">Bulk Upload</button>
-          <a class="btn btn-default js-new-item pull-right">New Item</a>
+          <a class="btn btn-default new-item js-new-item pull-right">New Item</a>
         </div>
       </div>
       <div class="row">

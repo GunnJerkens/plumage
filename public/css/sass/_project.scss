@@ -17,8 +17,13 @@ section.project {
       margin-bottom: 0;
     }
   }
-  a.js-new-item {
+  a.new-item {
     margin-right: 10px;
+  }
+  .form-inner-wrapper {
+    margin: 15px auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
   }
   .types {
     .the-type {

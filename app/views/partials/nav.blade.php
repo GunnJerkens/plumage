@@ -1,6 +1,5 @@
 @if(Sentry::check())
 
-  <!-- Pushy Menu -->
   <nav class="pushy pushy-left">
     <ul>
       <li><a href="{{ Route('dashboard') }}"><i class="fa fa-clone"></i> Dashboard</a></li>
@@ -15,7 +14,6 @@
   <!-- Site Overlay -->
   <div class="site-overlay"></div>
 
-  <!-- IMPORTANT FOR SLIDING CONTENT -->
   <div id="container">
 
     <!-- Menu Button -->

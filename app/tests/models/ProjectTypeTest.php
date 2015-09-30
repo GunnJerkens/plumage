@@ -1,6 +1,7 @@
 <?php
 
-class ProjectTypeTest extends TestCase {
+class ProjectTypeTest extends TestCase
+{
 
   /**
    * Private class vars

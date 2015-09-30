@@ -20,7 +20,8 @@ class ProjectType extends Eloquent
   /**
    * Create project types group
    *
-   * @param integer, string
+   * @param $project_id integer
+   * @param $tableName string
    *
    * @return object
    */
@@ -29,7 +30,7 @@ class ProjectType extends Eloquent
     $tableName = strtolower($tableName);
     $project   = Project::where('id', $project_id)->first();
 
-    if($project === null) throw new Exception('Project not found');
+    if ($project === null) throw new Exception('Project not found');
 
     $projectType = ProjectType::create([
       'project_id' => $project->id,
@@ -47,7 +48,9 @@ class ProjectType extends Eloquent
   /**
    * Update the project type fields
    *
-   * @param int, string, array
+   * @param $project_id integer
+   * @param $project_type string
+   * @param $data array
    *
    * @return object
    */
@@ -55,10 +58,10 @@ class ProjectType extends Eloquent
   {
     $projectType = self::where('project_id', $project_id)->where('type', $project_type)->first();
 
-    if(null === $projectType) throw new Exception('Project type not found.');
+    if (null === $projectType) throw new Exception('Project type not found.');
 
     $data = self::createFieldsColumns($projectType->table_name, $data);
-    $projectType->fields = self::formatFields($data);
+    $projectType->fields = self::formatFields("field_name_orig", $data);
     $projectType->save();
 
     return $projectType;
@@ -91,15 +94,18 @@ class ProjectType extends Eloquent
   }
 
   /**
-   * Format fields
+   * Check if a field is set in an array of data, unset the field
    *
+   * @var $field string
+   * @var $data array
    *
+   * @return string (json)
    */
-  private static function formatFields($data)
+  private static function formatFields($field, $data)
   {
-    foreach($data as &$fields) {
-      if(isset($fields['field_name_orig'])) {
-        unset($fields['field_name_orig']);
+    foreach($data as &$dataFields) {
+      if(isset($dataFields[$field])) {
+        unset($dataFields[$field]);
       }
     }
     return json_encode($data);

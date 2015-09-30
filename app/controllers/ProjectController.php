@@ -30,7 +30,7 @@ class ProjectController extends BaseController
    */
   public function createProject()
   {
-    if (!$this->checkEmpty()) {
+    if (!Utilities::checkEmpty($this->input)) {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
     } elseif (!$this->checkNaming($this->input['project_name'])) {
       $response = ['error' => true, 'message' => 'Alpha lowercase characters only.', 'input_text' => $this->input['project_name']];
@@ -140,7 +140,7 @@ class ProjectController extends BaseController
    */
   public function postProjectTypeEdit($project_id, $project_type)
   {
-    if (!$this->checkEmpty()) {
+    if (!Utilities::checkEmpty($this->input)) {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
     } else {
       $state = ProjectType::addTypesFields($project_id, $project_type, $this->input);
@@ -226,27 +226,7 @@ class ProjectController extends BaseController
    */
   private function checkNaming($string)
   {
-    $state = true;
-    if (!preg_match('/^[a-z-_]+$/', $string)) {
-      $state = false;
-    }
-    return $state;
-  }
-
-  /**
-   * Make sure Type Fields are not empty on POST
-   *
-   * @return true || array
-   */
-  private function checkEmpty()
-  {
-    $state = true;
-    foreach ($this->input as $field) {
-      if ($field === "" || empty($field)) {
-        $state = false;
-      }
-    }
-    return $state;
+    return (!preg_match('/^[a-z-_]+$/', $string)) ? false : true;
   }
 
 }

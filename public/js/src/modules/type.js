@@ -127,7 +127,7 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
   $('.js-add-field').on('click', function(e) {
     e.preventDefault();
     var data = {
-      id: $('li.field-row').last().data('id') + 1 || 0
+      id: $('li.field-row').length + 1 || 0
     },
     source   = $('#type-add-field').html(),
     template = Handlebars.compile(source);
@@ -154,6 +154,7 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
     },
     source   = $('#type-add-value').html(),
     template = Handlebars.compile(source);
+
 
     $(this).siblings('ul.values-group').append(template(data));
   });

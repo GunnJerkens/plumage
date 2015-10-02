@@ -142,13 +142,13 @@ class ProjectController extends BaseController
   {
     if (!Utilities::checkEmpty($this->input)) {
       $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
-    } else {
-      $state = ProjectType::addTypesFields($project_id, $project_type, $this->input);
-      if ($state === 404) {
-        $response = ['error' => true, 'message' => 'Project type not found.'];
-      } else {
-        $response = ['error' => false, 'message' => 'Fields updated successfully.'];
-      }
+    }
+
+    try {
+      $projectType = ProjectType::addTypesFields($project_id, $project_type, $this->input);
+      $response = ['error' => false, 'message' => 'Fields updated successfully.'];
+    } catch(Exception $e) {
+      $response = ['error' => true, 'message' => 'Something went wrong. Please try again.'];
     }
     return Redirect::back()->with($response);
   }

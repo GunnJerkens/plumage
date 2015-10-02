@@ -40,7 +40,7 @@
                     <a class="js-remove-field btn btn-danger" data-column="{{ $value->field_name }}">Remove Field</a>
                   </div>
                 </div>
-                <div class="form-group values{{ isset($value->field_values) ?: ' hidden' }}">
+                <div class="form-group values{{ $value->field_type === "select" ?: ' hidden' }}">
                   <div class="col-sm-12">
                     <ul class="values-group">
                     @if(isset($value->field_values) && sizeof($value->field_values) > 0)

@@ -159,6 +159,11 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
     $(this).siblings('ul.values-group').append(template(data));
   });
 
+  $sortable.on('click', '.js-remove-value', function(e) {
+    e.preventDefault();
+    $(this).closest('li.js-value-row').remove();
+  });
+
   $sortable.on('click', '.js-remove-field', function(e) {
     e.preventDefault();
     var column = $(this).data('column') || false;
@@ -171,7 +176,6 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
         dataType: 'json',
         data: 'column=' + column,
         beforeSend: function(request) {
-          $("form#invite-user .message").empty();
           return request.setRequestHeader("X-CSRF-Token", _this.token);
         },
         success: function(data) {

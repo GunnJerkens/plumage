@@ -45,7 +45,7 @@
                     <ul class="values-group">
                     @if(isset($value->field_values) && sizeof($value->field_values) > 0)
                       @foreach($value->field_values as $index=>$pair)
-                        <li class="value-row">
+                        <li class="value-row js-value-row">
                           <div class="form-group">
                             <div class="col-sm-4">
                               <label>Name</label>
@@ -56,7 +56,7 @@
                               <input type="text" class="form-control" name="{{ $key }}[field_values][{{ $index }}][value]" value="{{ $pair->value }}">
                             </div>
                             <div class="col-sm-2 no-padding">
-                              <a class="remove btn btn-danger">Remove Value</a>
+                              <a class="remove js-remove-value btn btn-danger">Remove Value</a>
                             </div>
                           </div>
                         </li>

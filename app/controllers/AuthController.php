@@ -14,7 +14,7 @@ class AuthController extends Controller
       return Redirect::to('dashboard');
     }
 
-    return View::make('layouts.default');
+    return View::make('layouts.auth');
   }
 
   /**

@@ -20,7 +20,7 @@ class ViewController extends BaseController
   {
     if($this->user->hasAnyAccess(['manage'])) {
       $projects = Project::all();
-    } else if(!empty($projects = $this->setProjects())) {
+    } else if(false !== ($projects = ProjectAccess::getUserProjects($this->user->id))) {
       $projects = Project::whereIn('id', $projects)->orWhere('user_id', $this->user->id)->orderBy('id')->get();
     } else {
       $projects = Project::where('user_id', $this->user->id)->orderBy('id')->get();
@@ -30,22 +30,6 @@ class ViewController extends BaseController
     ]);
   }
 
-  /**
-   * Sets the projects for viewing
-   *
-   * @return array
-   */
-  private function setProjects()
-  {
-    $ids = [];
-    $projects = ProjectAccess::where('user_id', $this->user->id)->get();
-    foreach($projects as $project) {
-      if($project->user_id === $this->user->id) {
-        $ids[] = $project->project_id;
-      }
-    }
-    return $ids;
-  }
   /**
    * Handles GET requests for /mapper
    *

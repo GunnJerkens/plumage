@@ -53,4 +53,30 @@ class ProjectAccess extends Eloquent
     return $user->email;
   }
 
+  /**
+   * Returns an array of projects the user has access
+   *
+   * @param $user_id integer
+   *
+   * @return array|false
+   */
+  public static function getUserProjects($user_id)
+  {
+    $projects = self::where('user_id', $user_id)->get();
+
+    if($projects === null) {
+      return false;
+    }
+
+    $projectIds = [];
+
+    foreach($projects as $project) {
+      if($project->user_id === $user_id) {
+        $projectIds[] = $project->project_id;
+      }
+    }
+
+    return (sizeof($projectIds) > 0) ? $projectIds : false;
+  }
+
 }

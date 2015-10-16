@@ -40,12 +40,12 @@
                     <a class="js-remove-field btn btn-danger" data-column="{{ $value->field_name }}">Remove Field</a>
                   </div>
                 </div>
-                <div class="form-group values{{ $value->field_type === "select" ?: ' hidden' }}">
+                <div class="form-group values{{ $value->field_type !== "select" ? ' hidden' : '' }}">
                   <div class="col-sm-12">
                     <ul class="values-group">
                     @if(isset($value->field_values) && sizeof($value->field_values) > 0)
                       @foreach($value->field_values as $index=>$pair)
-                        <li class="value-row js-value-row">
+                        <li class="value-row js-value-row" data-id-value="{{ $index }}">
                           <div class="form-group">
                             <div class="col-sm-4">
                               <label>Name</label>

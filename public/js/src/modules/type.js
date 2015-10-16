@@ -113,7 +113,9 @@ Type.prototype.loadTypeEdit = function() {
  */
 Type.prototype.setSortable = function($sortable) {
   $sortable.sortable();
-  $('.value-sortable').sortable();
+  // Turning off ability to sort values for now
+  // TODO:: fix numbering scheme
+  // $('.value-sortable').sortable();
 };
 
 /**
@@ -127,7 +129,7 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
   $('.js-add-field').on('click', function(e) {
     e.preventDefault();
     var data = {
-      id: $('li.field-row').length + 1 || 0
+      id : _this.findHighestDataId('id', $('li.field-row'))
     },
     source   = $('#type-add-field').html(),
     template = Handlebars.compile(source);
@@ -147,14 +149,16 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
   });
 
   $sortable.on('click', '.js-add-value', function(e) {
-    e.preventDefault();
-    var data = {
-      id:      $(this).closest('li.field-row').data('id'),
-      valueId: $(this).siblings('ul.values-group').children().length
-    },
-    source   = $('#type-add-value').html(),
-    template = Handlebars.compile(source);
+    var data, source, template;
 
+    e.preventDefault();
+
+    data = {
+      id      : $(this).closest('li.field-row').data('id'),
+      valueId : _this.findHighestDataId('id-value', $(this).siblings('ul.values-group').children())
+    };
+    source   = $('#type-add-value').html();
+    template = Handlebars.compile(source);
 
     $(this).siblings('ul.values-group').append(template(data));
   });
@@ -186,6 +190,27 @@ Type.prototype.loadTypeEditClickHandlers = function($sortable) {
     }
     $(this).closest('li').remove();
   });
+};
+
+/**
+ * Returns the high data id attribute from an array of elements
+ *
+ * @var dataAttribute string
+ * @var elements array
+ *
+ * @return int
+ */
+Type.prototype.findHighestDataId = function(dataAttribute, elements) {
+  var highestNumber = 0;
+
+  elements.each(function() {
+    var id = $(this).data(dataAttribute);
+
+    if(id >= highestNumber) {
+      highestNumber = id + 1;
+    }
+  });
+  return highestNumber;
 };
 
 /**

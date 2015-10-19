@@ -19,11 +19,11 @@ class ViewController extends BaseController
   public function getDashboard()
   {
     if($this->user->hasAnyAccess(['manage'])) {
-      $projects = Project::all();
+      $projects = Project::orderby('name')->get();
     } else if(false !== ($projects = ProjectAccess::getUserProjects($this->user->id))) {
-      $projects = Project::whereIn('id', $projects)->orWhere('user_id', $this->user->id)->orderBy('id')->get();
+      $projects = Project::whereIn('id', $projects)->orWhere('user_id', $this->user->id)->orderBy('name')->get();
     } else {
-      $projects = Project::where('user_id', $this->user->id)->orderBy('id')->get();
+      $projects = Project::where('user_id', $this->user->id)->orderBy('name')->get();
     }
     return View::make('layouts.dashboard')->with([
       'projects' => $projects

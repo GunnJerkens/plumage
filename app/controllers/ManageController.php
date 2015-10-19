@@ -28,13 +28,13 @@ class ManageController extends Controller
   public function deleteUser()
   {
     $user     = User::where('id', $this->input['user_id'])->first();
-    $response = ['error' => true, 'message' => 'User not found.'];
+    $response = ['error' => true, 'message' => Lang::get('manage.user_not_found')];
     if($user) {
       DB::table('projects_access')->where('user_id', $user->id)->delete();
       DB::table('throttle')->where('user_id', $user->id)->delete();
       DB::table('users_groups')->where('user_id', $user->id)->delete();
       $user->delete();
-      $response = ['error' => false, 'message' => 'User has been deleted.'];
+      $response = ['error' => false, 'message' => Lang::get('manage.user_deleted')];
     }
     return Redirect::back()->with($response);
   }
@@ -53,7 +53,7 @@ class ManageController extends Controller
     ]);
     $group = Sentry::findGroupByName($this->input['group']);
     $newUser->addGroup($group);
-    return Redirect::back()->with(['error' => false, 'message' => 'User created successfully.']);
+    return Redirect::back()->with(['error' => false, 'message' => Lang::get('manage.user_created')]);
   }
 
   /**

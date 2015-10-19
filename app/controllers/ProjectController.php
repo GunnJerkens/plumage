@@ -31,16 +31,16 @@ class ProjectController extends BaseController
   public function createProject()
   {
     if (!Utilities::checkEmpty($this->input)) {
-      $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
+      $response = ['error' => true, 'message' => Lang::get('project.fields_empty')];
     } elseif (!$this->checkNaming($this->input['project_name'])) {
-      $response = ['error' => true, 'message' => 'Alpha lowercase characters only.', 'input_text' => $this->input['project_name']];
+      $response = ['error' => true, 'message' => Lang::get('project.alpha_chars'), 'input_text' => $this->input['project_name']];
     } else {
       Project::create([
         'user_id'   => $this->user->id,
         'name'      => $this->input['project_name'],
         'is_active' => true
       ]);
-      $response = ['error' => false, 'message' => 'Created new project successfully.'];
+      $response = ['error' => false, 'message' => Lang::get('project.project_create')];
     }
     return Redirect::back()->with($response);
   }
@@ -53,10 +53,10 @@ class ProjectController extends BaseController
   public function postProject($project_id)
   {
     if (!$this->checkNaming($this->input['table_name'])) {
-      $response = ['error' => true, 'message' => 'Types may only contain lowercase a-z, underscores, & dashes.'];
+      $response = ['error' => true, 'message' => Lang::get('project.types_naming')];
     } else {
       ProjectType::createTypesGroup($project_id, $this->input['table_name']);
-      $response = ['error' => false, 'message' => 'Created project type successfully.'];
+      $response = ['error' => false, 'message' => Lang::get('project.type_create')];
     }
     return Redirect::back()->with($response);
   }
@@ -72,9 +72,9 @@ class ProjectController extends BaseController
     if($deleteTypesTables) {
       ProjectType::where('project_id', $project_id)->delete();
       Project::where('id', $project_id)->delete();
-      return Redirect::back()->with(['error' => false, 'message' => 'Project deleted successfully.']);
+      return Redirect::back()->with(['error' => false, 'message' => Lang::get('project.project_delete')]);
     } else {
-      return Redirect::back()->with(['error' => true, 'message' => 'Error delete all type sets.']);
+      return Redirect::back()->with(['error' => true, 'message' => Lang::get('project.delete_error')]);
     }
    }
 
@@ -93,9 +93,9 @@ class ProjectController extends BaseController
         'project_id' => $project_id,
         'user_id'    => $this->input['id'],
       ]);
-      return Redirect::back()->with(['error' => false, 'message' => 'Added user access successfully.']);
+      return Redirect::back()->with(['error' => false, 'message' => Lang::get('project.user_add')]);
     } else {
-      return Redirect::back()->with(['error' => true, 'message' => 'User already has access.']);
+      return Redirect::back()->with(['error' => true, 'message' => Lang::get('project.user_error')]);
     }
   }
 
@@ -106,7 +106,7 @@ class ProjectController extends BaseController
    */
   public function postProjectAccessRemove($project_id) {
     $access = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->delete();
-    return Redirect::back()->with(['error' => false, 'message' => 'Users access removed sucessfully.']);
+    return Redirect::back()->with(['error' => false, 'message' => Lang::get('project.user_remove')]);
   }
 
   /**
@@ -119,12 +119,14 @@ class ProjectController extends BaseController
   public function postProjectType($project_id, $project_type)
   {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
-    $response = ['error' => true, 'message' => 'Type data does not exist.'];
+    $response = ['error' => true, 'message' => Lang::get('project.type_missing')];
     foreach ($this->input as $data) {
       $state    = ProjectType::createTypesData($projectType->table_name, $data);
-      $response = ['error' => false, 'message' => 'Type data updated successfully.'];
-      if ($state === 404) {
-        $response = ['error' => true, 'message' => 'Type table does not exist.'];
+      $response = ['error' => false, 'message' => Lang::get('project.type_updated')];
+      // TODO::fix this, idk why I thought return integers was clever? It should
+      // just throw exceptions like a normal human being. -ps
+      if ($state === 404) { 
+        $response = ['error' => true, 'message' => Lang::get('project.type_missing')];
         break;
       }
     }
@@ -141,14 +143,14 @@ class ProjectController extends BaseController
   public function postProjectTypeEdit($project_id, $project_type)
   {
     if (!Utilities::checkEmpty($this->input)) {
-      $response = ['error' => true, 'message' => 'Fields cannot be empty.'];
+      $response = ['error' => true, 'message' => Lang::get('project.fields_empty')];
     }
 
     try {
       $projectType = ProjectType::addTypesFields($project_id, $project_type, $this->input);
-      $response = ['error' => false, 'message' => 'Fields updated successfully.'];
+      $response = ['error' => false, 'message' => Lang::get('fields_updated')];
     } catch(Exception $e) {
-      $response = ['error' => true, 'message' => 'Something went wrong. Please try again.'];
+      $response = ['error' => true, 'message' => Lang::get('error.default')];
     }
     return Redirect::back()->with($response);
   }
@@ -172,7 +174,7 @@ class ProjectController extends BaseController
         }
       }
     } else {
-      $response = ['error' => true, 'message' => 'Malformed json data.'];
+      $response = ['error' => true, 'message' => Lang::get('error.json_malformed')];
     } 
     return Redirect::back()->with($response);
   }
@@ -185,7 +187,7 @@ class ProjectController extends BaseController
   public function deleteProjectType($project_id, $project_type)
   {
     ProjectType::deleteTypesGroup($project_id, $project_type);
-    return Redirect::back()->with(['error' => false, 'message' => 'Type set deleted.']);
+    return Redirect::back()->with(['error' => false, 'message' => Lang::get('project.types_deleted')]);
   }
 
   /**
@@ -196,7 +198,7 @@ class ProjectController extends BaseController
   public function postProjectTypeDeleteRow($project_id, $project_type)
   {
     ProjectType::deleteTypesData($project_id, $project_type, $this->input['row']);
-    return Response::json(['error' => false, 'message' => 'Removed row successfully.']);
+    return Response::json(['error' => false, 'message' => Lang::get('project.types_row_removed')]);
   }
 
   /**
@@ -210,9 +212,9 @@ class ProjectController extends BaseController
     $project = Project::where('id', $project_id)->first();
     $state   = ProjectType::removeTypesFields($project, $project_type, $column);
     if($state) {
-      $state = ['error' => false, 'message' => 'Deleted field successfully.'];
+      $state = ['error' => false, 'message' => Lang::get('project.fields_deleted')];
     } else {
-      $state = ['error' => true, 'message' => 'Failed to delete field.'];
+      $state = ['error' => true, 'message' => Lang::get('project.fields_deleted_failed')];
     }
     return Response::json($state);
   }

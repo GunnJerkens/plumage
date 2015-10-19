@@ -27,12 +27,12 @@ class AccountController extends BaseController
    */
   public function postAccount()
   {
-    $response = ['error' => false, 'message' => 'Update something.'];
+    $response = ['error' => false, 'message' => Lang::get('error.default')];
     switch ($this->formPart) {
-      case 'email':
+      case('email'):
         $response = $this->updateUserEmail();
         break;
-      case 'password':
+      case('password'):
         $response = $this->updateUserPassword();
         break;
     }
@@ -52,11 +52,11 @@ class AccountController extends BaseController
     ];
     $validator = Validator::make($this->input, $rules);
     if ($validator->fails()) {
-      $response = ['error' => true, 'message' => 'New email and confirm email must match.']; // temp message
+      $response = ['error' => true, 'message' => Lang::get('auth.email_match')];
     } else {
       $this->user->email = Input::get('email_new');
       $this->user->save();
-      $response = ['error' => false, 'message' => 'Email updated.'];
+      $response = ['error' => false, 'message' => Lang::get('auth.email_updated')];
     }
     return $response;
   }
@@ -69,7 +69,7 @@ class AccountController extends BaseController
   private function updateUserPassword()
   {
     if (!Hash::check(Input::get('password_old'), $this->user->password)) {
-      $response = ['error' => true, 'message' => 'Password invalid.'];
+      $response = ['error' => true, 'message' => Lang::get('auth.password')];
     } else {
       $rules = [
         'password_new'     => 'required',
@@ -77,11 +77,11 @@ class AccountController extends BaseController
       ];
       $validator = Validator::make($this->input, $rules);
       if ($validator->fails()) {
-        $response = ['error' => true, 'message' => 'New password and confirm password must match.']; // temp message
+        $response = ['error' => true, 'message' => Lang::get('auth.password_match')];
       } else {
         $this->user->password = Input::get('password_new');
         $this->user->save();
-        $response = ['error' => false, 'message' => 'Password updated.'];
+        $response = ['error' => false, 'message' => Lang::get('password_updated')];
       }
     }
     return $response;

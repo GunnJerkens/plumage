@@ -66,10 +66,12 @@ Type.prototype.loadTypeClickHandlers = function() {
   });
 
   $('#type').on('click', '.js-delete-type', function(e) {
-    e.preventDefault();
-    var id = $(this).data('id');
+    var id    = $(this).data('id'),
+        state = $(this).data('state');
 
-    if('new' !== id) {
+    e.preventDefault();
+
+    if(state !== "unsaved") {
       $.ajax({
         url: window.location.href + '/delete-row',
         type: 'post',

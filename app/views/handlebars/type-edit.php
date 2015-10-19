@@ -1,5 +1,5 @@
 <script id="type-add-field" type="text/x-handlebars-template">
-  <li class="field-row" data-id="{{ id }}">
+  <li class="field-row" data-id="{{ id }}" data-state="unsaved">
     <div class="form-group fields">
       <div class="col-sm-4">
         <label>Select a field type</label>

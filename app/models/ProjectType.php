@@ -81,7 +81,7 @@ class ProjectType extends Eloquent
     $match  = false;
     foreach($fields as $key=>$value) {
       if(isset($value->field_name) && $value->field_name === $column) {
-        unset($fields[$key]);
+        unset($fields->{$key});
         $match = true;
       }
     }

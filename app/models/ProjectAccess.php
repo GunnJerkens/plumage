@@ -15,7 +15,7 @@ class ProjectAccess extends Eloquent
    *
    * @var array
    */
-  protected $fillable = ['project_id', 'user_id'];
+  protected $fillable = ['project_id', 'user_id', 'can_add_users', 'can_edit', 'can_delete'];
 
   /**
    * Appendable items to the object on retrieval

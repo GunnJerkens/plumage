@@ -48,20 +48,45 @@
           </div>
         </div>
       </div>
-      @if($users)
+      @if($user->is_admin || $project->is_owner || $access->can_add_users)
         <h1>User Access</h1>
         <div class="row user-access">
           <div class="col-sm-12">
             <div class="table-responsive">
               <table class="table table-striped table-bordered">
                 <tbody>
-                  @foreach($project->access as $access)
+                  @foreach($project->access as $accessor)
                     <tr>
-                      <td><i class="fa fa-user"></i> {{ $access->user_email }}
+                      <td>
                         <form role="form" method="post" action="/project/{{$project->id}}/access-remove" class="pull-right">
                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                          <input type="hidden" name="id" value="{{ $access->user_id }}">
+                          <input type="hidden" name="id" value="{{ $accessor->user_id }}">
                           <button type="submit" class="btn-delete"><i class="fa fa-times-circle"></i></button>
+                        </form>
+                      </td>
+                      <td>{{ $accessor->user_email }}</td>
+                        <form role="form" method="post" action="/project/{{$project->id}}/access">
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                          <input type="hidden" name="id" value="{{ $accessor->user_id }}">
+                          <input type="hidden" name="mode" value="update">
+                          <td>
+                            <label for="can_add_user">
+                              <input type="checkbox" id="can_add_user" name="can_add_users"{{ $accessor->can_add_users ? ' checked' : ''}}> Can Add User
+                            </label>
+                          </td>
+                          <td>
+                            <label for="can_edit">
+                              <input type="checkbox" id="can_edit" name="can_edit"{{ $accessor->can_edit ? ' checked' : ''}}> Can Edit
+                            </label>
+                          </td>
+                          <td>
+                            <label for="can_delete">
+                              <input type="checkbox" id="can_delete" name="can_delete"{{ $accessor->can_delete ? ' checked' : ''}}> Can Delete
+                            </label>
+                          </td>
+                          <td>
+                            <button type="submit" class="btn btn-primary">Update Access</button>
+                          </td>
                         </form>
                       </td>
                     </tr>
@@ -75,13 +100,16 @@
           <div class="col-sm-12">
             <form role="form-inline" method="post" action="/project/{{$project->id}}/access" class="add-access text-center">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="mode" value="create">
                 <label for="id">Add User</label>
                 <select id="id" name="id">
-                  @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->email }}</option>
-                  @endforeach
+                  @if($users)
+                    @foreach($users as $user)
+                      <option value="{{ $user->id }}">{{ $user->email }}</option>
+                    @endforeach
+                  @endif
                 </select>
-                <button type="submit" class="btn btn-primary">Add User</button>
+                <button type="submit" class="btn btn-primary">Add Access</button>
             </form>
           </div>
         </div>

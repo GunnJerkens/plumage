@@ -85,22 +85,33 @@ class ProjectController extends BaseController
    */
   public function postProjectAccess($project_id)
   {
-    $access  = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->first();
     $project = Project::where('id', $project_id)->first();
+    $access  = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first();
 
-    if(!$access && $this->input['id'] != $project->user_id) {
-      ProjectAccess::create([
-        'project_id' => $project_id,
-        'user_id'    => $this->input['id'],
-      ]);
-      return Redirect::back()->with(['error' => false, 'message' => Lang::get('project.user_add')]);
+    if($this->user->is_admin || $project->is_owner || $access->can_add_users) {
+      if($this->input['mode'] === "create") {
+        ProjectAccess::create([
+          'project_id' => $project_id,
+          'user_id'    => $this->input['id'],
+        ]);
+        $response = ['error' => false, 'message' => Lang::get('project.user_add')];
+        return Redirect::back()->with();
+      } else {
+        ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->update([
+          "can_add_users" => isset($this->input['can_add_users']) ? true : false,
+          "can_edit"      => isset($this->input['can_edit']) ? true : false,
+          "can_delete"    => isset($this->input['can_delete']) ? true : false,
+        ]);
+        $response = ['error' => false, 'message' => Lang::get('project.user_update')];
+      }
     } else {
-      return Redirect::back()->with(['error' => true, 'message' => Lang::get('project.user_error')]);
+      $response = ['error' => true, 'message' => Lang::get('project.project_perm')];
     }
+    return Redirect::back()->with($response);
   }
 
   /**
-   * Handles POST requests for /project/{project_id}/accessremove
+   * Handles POST requests for /project/{project_id}/access-remove
    *
    * @return redirect
    */

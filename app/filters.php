@@ -55,12 +55,16 @@ Route::filter('project_check', function($route) {
  * @return void || redirect
  */
 Route::filter('edit_check', function($route) {
-  $user      = Sentry::getUser();
-  $projectID = $route->getParameter('project_id');
-  $project   = Project::where('id', $projectID)->where('user_id', $user->id)->first();
-  if (!Sentry::getUser()->hasAnyAccess(['manage']) && null === $project) {
-    return Redirect::to('404');
+  $project_id = $route->getParameter('project_id');
+  $user       = Sentry::getUser();
+  $project    = Project::where('id', $project_id)->first();
+  $access     = ProjectAccess::where('project_id', $project_id)->where('user_id', $user->id)->first();
+
+  if($user->is_admin || $project->is_owner || $access !== null) {
+    return;
   }
+
+  return Redirect::to('404');
 });
 
 /*

@@ -27,14 +27,16 @@
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <tbody>
-                @foreach($project_types as $type)
+                @foreach($types as $type)
                   <tr>
                     <td>
                       <a class="the-type" href="{{ '/project/'.$type->project_id.'/'.$type->type }}">{{ $type->type }}</a>
                       <div class="buttons">
                         <a href="{{ '/api/'.$project->name.'/'.$type->type }}" target="_blank"><i class="fa fa-gear"></i> API</a>
-                        @if($project->is_owner)
+                        @if($user->is_admin || $project->is_owner || $access->can_edit)
                           <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}"><i class="fa fa-pencil"></i> Edit</a>
+                        @endif
+                        @if($user->is_admin || $project->is_owner || $access->can_delete)
                           <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn-delete"><i class="fa fa-times-circle"></i></a>
                         @endif
                       </div>

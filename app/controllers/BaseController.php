@@ -15,8 +15,9 @@ class BaseController extends Controller
    */
   function __construct()
   {
-    $this->user  = Sentry::getUser();
-    $this->input = Input::except('_token');
+    $this->user    = Sentry::getUser();
+    $this->input   = Input::except('_token');
+    $this->default = ['user' => $this->user];
   }
 
 }

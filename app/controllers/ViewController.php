@@ -53,12 +53,12 @@ class ViewController extends BaseController
     $types   = ProjectType::where('project_id', $project_id)->get();
     $access  = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first();
 
-    return View::make('layouts.project')->with([
-      'project'         => $project,
-      'project_types'   => $types,
-      'project_acccess' => $access,
-      'users'           => $this->user->hasAnyAccess(['manage']) ? User::all() : false,
-    ]);
+    return View::make('layouts.project')->with(array_merge($this->default, [
+      'project' => $project,
+      'types'   => $types,
+      'access' => $access,
+      'users'   => $this->user->hasAnyAccess(['manage']) ? User::all() : false,
+    ]));
   }
 
   /**

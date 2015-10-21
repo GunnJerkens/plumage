@@ -11,42 +11,49 @@
 |
 */
 
+/**
+ * Checks if a user is authed
+ *
+ * @return void || redirect
+ */
 Route::filter('sentry_check', function() {
   if (!Sentry::check()) return Redirect::to('/');
 });
 
-Route::filter('project_check', function($route) {
-  $user = Sentry::getUser();
-
-  // Test if the user is an admin
-  if ($user->hasAnyAccess(['manage'])) {
-    return;
-  }
-
-  $projectID = $route->getParameter('project_id');
-  $project   = Project::where('id', $projectID)->with('access')->first();
-
-  // Test the user id matches the projects owner's id
-  if ($user->id === $project->user_id) {
-    return;
-  }
-
-  // Test if the user has project access
-  foreach($project->access as $access) {
-    if($access->user_id === $user->id) {
-      return;
-    }
-  }
-
-  return Redirect::to('404');
-});
-
+/**
+ * Checks if a user is an admin
+ *
+ * @return void || redirect
+ */
 Route::filter('manage_check', function() {
   if (!Sentry::getUser()->hasAnyAccess(['manage'])) {
     return Redirect::to('404');
   }
 });
 
+/**
+ * Checks if a user can access a project
+ *
+ * @return void || redirect
+ */
+Route::filter('project_check', function($route) {
+  $project_id = $route->getParameter('project_id');
+  $user       = Sentry::getUser();
+  $project    = Project::where('id', $project_id)->first();
+  $access     = ProjectAccess::where('project_id', $project_id)->where('user_id', $user->id)->first();
+
+  if($user->is_admin || $project->is_owner || $access !== null) {
+    return;
+  }
+
+  return Redirect::to('404');
+});
+
+/**
+ * Checks if a user can edit a project
+ *
+ * @return void || redirect
+ */
 Route::filter('edit_check', function($route) {
   $user      = Sentry::getUser();
   $projectID = $route->getParameter('project_id');
@@ -67,12 +74,22 @@ Route::filter('edit_check', function($route) {
 |
 */
 
+/**
+ * Filters standard HTTP POST requests
+ *
+ * @return void
+ */
 Route::filter('csrf', function() {
   if (Session::token() !== Input::get('_token')) {
     throw new Illuminate\Session\TokenMismatchException;
   }
 });
 
+/**
+ * Filters AJAX POST requests
+ *
+ * @return void
+ */
 Route::filter('csrf_ajax', function() {
   if (Session::token() != Request::header('x-csrf-token')) {
     throw new Illuminate\Session\TokenMismatchException;

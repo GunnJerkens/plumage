@@ -60,7 +60,7 @@ Route::filter('edit_check', function($route) {
   $project    = Project::where('id', $project_id)->first();
   $access     = ProjectAccess::where('project_id', $project_id)->where('user_id', $user->id)->first();
 
-  if($user->is_admin || $project->is_owner || $access !== null) {
+  if($user->is_admin || $project->is_owner || ($access !== null && $access->can_edit)) {
     return;
   }
 

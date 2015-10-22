@@ -12,7 +12,9 @@
       <div class="row">
         <div class="col-sm-12">
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#bulk-upload">Bulk Upload</button>
-          <a class="btn btn-default new-item js-new-item pull-right">New Item</a>
+          @if($user->is_admin || $project->is_owner || $access->can_delete)
+            <a class="btn btn-default new-item js-new-item pull-right">New Item</a>
+          @endif
         </div>
       </div>
       <div class="row">
@@ -24,7 +26,9 @@
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <td>Delete</td>
+                    @if($user->is_admin || $project->is_owner || $access->can_delete)
+                      <td>Delete</td>
+                    @endif
                     @foreach($fields as $field)
                       <td>{{ $field->field_name }}</td>
                     @endforeach
@@ -35,7 +39,9 @@
                   @foreach($items as $item)
                     <tr data-id="{{ $item->id }}">
                       <input type="hidden" name="{{ $item->id }}[id]" value="{{ $item->id }}">
-                      <td><a href class="js-delete-type btn btn-danger" data-id="{{ $item->id }}"><i class="fa fa-times"></i></a>
+                      @if($user->is_admin || $project->is_owner || $access->can_delete)
+                        <td><a href class="js-delete-type btn btn-danger" data-id="{{ $item->id }}"><i class="fa fa-times"></i></a>
+                      @endif
                       @foreach($fields as $field)
                         @if($field->field_type === 'text')
                           <td>

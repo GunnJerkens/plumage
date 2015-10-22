@@ -15,7 +15,7 @@
       </div>
       <div class="row">
         <div class="col-sm-12 types">
-          @if($project->is_owner)
+          @if($user->is_admin || $project->is_owner || $access->can_edit)
             <form role="form" method="post" class="addType">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">

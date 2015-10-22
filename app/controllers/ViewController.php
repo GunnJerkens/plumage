@@ -12,6 +12,21 @@ class ViewController extends BaseController
   }
 
   /**
+   * Get merges permission access in with the $this->default
+   *
+   * @param $project_id integer
+   *
+   * @return void
+   */
+  private function permissionAccess($project_id)
+  {
+    $this->default = array_merge($this->default, [
+      'project' => Project::where('id', $project_id)->first(),
+      'access'  => ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first(),
+    ]);
+  }
+
+  /**
    * Handles GET requests for /dashboard
    *
    * @return view
@@ -49,14 +64,11 @@ class ViewController extends BaseController
    */
   public function getProject($project_id)
   {
-    $project = Project::where('id', $project_id)->first();
-    $types   = ProjectType::where('project_id', $project_id)->get();
-    $access  = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first();
+    $this->permissionAccess($project_id);
+    $types = ProjectType::where('project_id', $project_id)->get();
 
     return View::make('layouts.project')->with(array_merge($this->default, [
-      'project' => $project,
       'types'   => $types,
-      'access' => $access,
       'users'   => $this->user->hasAnyAccess(['manage']) ? User::all() : false,
     ]));
   }
@@ -70,14 +82,14 @@ class ViewController extends BaseController
    */
   public function getProjectType($project_id, $project_type)
   {
+    $this->permissionAccess($project_id);
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     $itemData    = DB::table($projectType->table_name)->get();
-    return View::make('layouts.type')->with([
+    return View::make('layouts.type')->with(array_merge($this->default, [
       'project' => $projectType,
       'fields'  => json_decode($projectType->fields),
       'items'   => $itemData,
-      'user'    => $this->user,
-    ]);
+    ]));
   }
 
   /**

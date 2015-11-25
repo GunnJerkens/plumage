@@ -95,7 +95,6 @@ class ProjectController extends BaseController
           'user_id'    => $this->input['id'],
         ]);
         $response = ['error' => false, 'message' => Lang::get('project.user_add')];
-        return Redirect::back()->with();
       } else {
         ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->update([
           "can_add_users" => isset($this->input['can_add_users']) ? true : false,

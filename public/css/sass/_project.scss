@@ -116,7 +116,10 @@ section.project {
       height: 34px;
       -webkit-appearance: none;
       border-radius: 0;
-      border: 1px solid #ccc;
+      border-top: none;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
       padding: 5px 20px;
     }
     button {

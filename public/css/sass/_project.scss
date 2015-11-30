@@ -79,4 +79,17 @@ section.project {
     border: 1px solid #ddd;
     padding: 20px;
   }
+  form.manageType {
+    table {
+      tr {
+        td {
+          text-align: center;
+          a.btn-delete {
+            color: $red;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
 }

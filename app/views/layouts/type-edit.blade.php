@@ -9,6 +9,11 @@
     @include('partials.message')
     <div class="container">
       <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h2>{{ var_dump($fields) }}</h2>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-sm-12 add-fields">
           <button class="btn btn-default pull-right js-add-field">Add Field</button>
           <form id="fields" role="form" method="post">

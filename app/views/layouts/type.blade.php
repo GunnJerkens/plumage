@@ -20,7 +20,7 @@
       <div class="row">
         <div class="col-sm-12">
           @if(sizeof($fields) > 0)
-          <form role="form" method="post">
+          <form role="form" method="post" class="manageType">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-inner-wrapper">
               <table class="table table-striped table-bordered">
@@ -40,12 +40,12 @@
                     <tr data-id="{{ $item->id }}">
                       <input type="hidden" name="{{ $item->id }}[id]" value="{{ $item->id }}">
                       @if($user->is_admin || $project->is_owner || $access->can_delete)
-                        <td><a href class="js-delete-type btn btn-danger" data-id="{{ $item->id }}"><i class="fa fa-times"></i></a>
+                        <td><a href class="js-delete-type btn-delete" data-id="{{ $item->id }}"><i class="fa fa-times-circle"></i></a>
                       @endif
                       @foreach($fields as $field)
                         @if($field->field_type === 'text')
                           <td>
-                            <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
+                            <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" class="form-control" {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
                           </td>
                         @elseif($field->field_type === 'checkbox')
                           <td>

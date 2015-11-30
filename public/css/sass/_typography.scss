@@ -1,10 +1,5 @@
 /// General ///
 
-body {
-  -webkit-font-smoothing: antialiased;
-  font-style: normal;
-  font-size: 16px;
-}
 @mixin serif {
   font-family: serif;
 }
@@ -29,6 +24,14 @@ h1, h2, h3, h4, h5, h6 {
 p, a, label {
   @include sans;
   font-weight: 400;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-size: 15px;
+  @include sans;
+  color: $darkGray;
 }
 
 a {

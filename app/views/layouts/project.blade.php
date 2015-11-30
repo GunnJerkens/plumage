@@ -85,7 +85,7 @@
                             </label>
                           </td>
                           <td>
-                            <button type="submit" class="btn btn-primary">Update Access</button>
+                            <button type="submit" class="btn btn-edit"><i class="fa fa-user"></i> Update Access</button>
                           </td>
                         </form>
                       </td>
@@ -101,7 +101,6 @@
             <form role="form-inline" method="post" action="/project/{{$project->id}}/access" class="add-access text-center">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="mode" value="create">
-                <label for="id">Add User</label>
                 <select id="id" name="id">
                   @if($users)
                     @foreach($users as $user)

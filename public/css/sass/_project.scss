@@ -1,4 +1,10 @@
 section.project {
+
+  /*
+  ====================
+  Add Type Table
+  ==================== */
+
   form.addType {
     input {
       position: relative;
@@ -19,6 +25,9 @@ section.project {
   }
   a.new-item {
     margin-right: 10px;
+  }
+  button.btn-save {
+    margin-left: 10px;
   }
   .form-inner-wrapper {
     margin: 15px auto;
@@ -68,17 +77,60 @@ section.project {
       }
     }
   }
+
+  /*
+  ====================
+  User Access Table
+  ==================== */
+
   .user-access {
     table {
       margin-bottom: 0;
+      tr {
+        td {
+          text-align: center;
+          vertical-align: middle;
+          button {
+            &.btn-edit {
+              color: $blue;
+              @include box-shadow(none);
+            }
+            &.btn-delete {
+              color: $red;
+              font-size: 20px;
+            }
+          }
+        }
+      }
     }
   }
-  .add-access {
+
+  form.add-access {
     width: auto;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 0;
+    position: relative;
+    select {
+      width: 100%;
+      height: 34px;
+      -webkit-appearance: none;
+      border-radius: 0;
+      border: 1px solid #ccc;
+      padding: 5px 20px;
+    }
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
+
+  /*
+  ====================
+  Manage Type Table
+  ==================== */
+
   form.manageType {
     table {
       tr {
@@ -87,6 +139,9 @@ section.project {
           a.btn-delete {
             color: $red;
             font-size: 20px;
+          }
+          input {
+            border-radius: 0;
           }
         }
       }

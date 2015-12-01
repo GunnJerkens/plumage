@@ -8,5 +8,8 @@ section.home {
     margin: 0 auto;
     border: 5px solid;
     border-color: darken($lightGray, 5%);
+    input {
+      border-radius: 0;
+    }
   }
 }

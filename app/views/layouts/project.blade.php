@@ -85,7 +85,7 @@
                             </label>
                           </td>
                           <td>
-                            <button type="submit" class="btn btn-edit"><i class="fa fa-user"></i> Update Access</button>
+                            <button type="submit" class="btn btn-edit"><i class="fa fa-check-circle"></i> Update Access</button>
                           </td>
                         </form>
                       </td>

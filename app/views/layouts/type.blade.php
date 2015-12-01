@@ -78,6 +78,14 @@
                 </div>
               </div>
             </div>
+            <div class="row bottom-buttons">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-save btn-primary pull-right">Save</button>
+                @if($user->is_admin || $project->is_owner || $access->can_delete)
+                  <a class="btn btn-default new-item js-new-item pull-right">New Item</a>
+                @endif
+              </div>
+            </div>
           </form>
           @else
             <h1>You need to create fields before you can add data.</h1>

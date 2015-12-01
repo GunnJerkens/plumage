@@ -1,37 +1,70 @@
 section.sites-edit {
-  .add-fields {
+  .buttons {
+    button {
+      margin: 15px 0;
+      margin-left: 10px;
+    }
+  }
+  .bottom-buttons {
+    button {
+      margin: 0 0 50px 10px;
+    }
+  }
+  form#fields {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    div.form-group {
+      overflow: hidden;
+      clear: both;
+      input {
+        border-radius: 0;
+      }
+      &.values {
+        padding-left: 50px;
+        .btn-delete {
+          color: $red;
+          font-size: 20px;
+          margin-top: 30px;
+          display: inline-block;
+        }
+      }
+    }
     button {
       display: inline-block;
       position: relative;
     }
-    form {
-      width: 100%;
-      display: inline-block;
-      position: relative;
+    .checkbox {
+      label {
+        margin-top: 20px;
+      }
     }
-  }
-  .checkbox {
-    label {
-      margin-top: 20px;
-    }
-  }
-  a.js-remove-field {
-    float: right;
-    margin-top: 25px;
-  }
-  div.form-group {
-    overflow: hidden;
-    clear: both;
-  }
-  ul {
-    list-style: none;
-    padding-left: 0px;
-    &#sortable {
-      margin-top: 25px;
-    }
-    li {
-      overflow: hidden;
-      cursor: pointer;
+    ul {
+      list-style: none;
+      padding-left: 0px;
+      &#sortable {
+        margin-top: 25px;
+        li.field-row {
+          padding: 10px 0 0 0;
+          &:nth-child(even) {
+            background-color: $white;
+          }
+          .delete-row {
+            text-align: right;
+            .btn-delete {
+              margin-top: 25px;
+              margin-right: 25px;
+              color: $red;
+              font-size: 20px;
+              display: inline-block;
+            }
+          }
+        }
+      }
+      li {
+        overflow: hidden;
+        cursor: pointer;
+      }
     }
   }
 }

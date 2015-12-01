@@ -18,8 +18,8 @@
           <input type="checkbox" name="{{ id }}[field_editable]"> User Editable
         </label>
       </div>
-      <div class="col-sm-2 no-padding">
-        <a class="js-remove-field btn btn-delete"><i class="fa fa-times-circle"></i></a>
+      <div class="col-sm-2 delete-row no-padding">
+        <a class="js-remove-field btn-delete"><i class="fa fa-times-circle"></i></a>
       </div>
     </div>
     <div class="form-group values hidden">
@@ -43,7 +43,7 @@
         <input type="text" class="form-control" name="{{ id }}[field_values][{{ valueId }}][value]">
       </div>
       <div class="col-sm-2 no-padding">
-        <a class="remove btn-delete js-remove-value btn"><i class="fa fa-times"></i></a>
+        <a class="remove btn-delete js-remove-value"><i class="fa fa-times"></i></a>
       </div>
     </div>
   </li>

@@ -191,13 +191,16 @@ class ProjectType extends Eloquent
     $dataset = isset($data['id']) ? DB::table($tableName)->where('id', $data['id'])->first() : null;
 
     if($dataset === null) {
-      $db = DB::table($tableName)->insert($data);
+      if(isset($data['id'])) {
+        unset($data['id']);
+      }
+      $response = DB::table($tableName)->insert($data);
     } else {
       $data = self::setBooleanData($tableName, $data);
-      $db = DB::table($tableName)->where('id', $dataset->id)->update($data);
+      $response = DB::table($tableName)->where('id', $dataset->id)->update($data);
     }
 
-    return $db;
+    return $response;
   }
 
   /**

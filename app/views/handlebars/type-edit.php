@@ -31,6 +31,7 @@
     </div>
   </li>
 </script>
+
 <script id="type-add-value" type="text/x-handlebars-template">
   <li class="value-row js-value-row" data-id-value="{{ valueId }}">
     <div class="form-group">

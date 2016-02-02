@@ -45,6 +45,8 @@ Type.prototype.loadTypeClickHandlers = function() {
 
       switch(this.field_type) {
         case('text'):
+          string += '<input type="' + this.field_type + '" name="' + id + '[' + this.field_name + ']" class="form-control">';
+          break;
         case('checkbox'):
           string += '<input type="' + this.field_type + '" name="' + id + '[' + this.field_name + ']">';
           break;

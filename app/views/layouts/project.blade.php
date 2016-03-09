@@ -101,13 +101,9 @@
             <form role="form-inline" method="post" action="/project/{{$project->id}}/access" class="add-access text-center">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="mode" value="create">
-                <select id="id" name="id">
-                  @if($users)
-                    @foreach($users as $user)
-                      <option value="{{ $user->id }}">{{ $user->email }}</option>
-                    @endforeach
-                  @endif
-                </select>
+                <div class="form-group">
+                  <input id="email" type="text" name="email" class="form-control" placeholder="email">
+                </div>
                 <button type="submit" class="btn btn-primary">Add Access</button>
             </form>
           </div>

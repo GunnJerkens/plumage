@@ -90,11 +90,16 @@ class ProjectController extends BaseController
 
     if($this->user->is_admin || $project->is_owner || $access->can_add_users) {
       if($this->input['mode'] === "create") {
-        ProjectAccess::create([
-          'project_id' => $project_id,
-          'user_id'    => $this->input['id'],
-        ]);
-        $response = ['error' => false, 'message' => Lang::get('project.user_add')];
+        $user = User::where('email', $this->input['email'])->first();
+        if($user) {
+          ProjectAccess::create([
+            'project_id' => $project_id,
+            'user_id'    => $user->id,
+          ]);
+          $response = ['error' => false, 'message' => Lang::get('project.user_add')];
+        } else {
+          $response = ['error' => true, 'message' => Lang::get('manage.user_not_found')];
+        }
       } else {
         ProjectAccess::where('project_id', $project_id)->where('user_id', $this->input['id'])->update([
           "can_add_users" => isset($this->input['can_add_users']) ? true : false,
@@ -135,7 +140,7 @@ class ProjectController extends BaseController
       $response = ['error' => false, 'message' => Lang::get('project.type_updated')];
       // TODO::fix this, idk why I thought return integers was clever? It should
       // just throw exceptions like a normal human being. -ps
-      if ($state === 404) { 
+      if ($state === 404) {
         $response = ['error' => true, 'message' => Lang::get('project.type_missing')];
         break;
       }
@@ -185,7 +190,7 @@ class ProjectController extends BaseController
       }
     } else {
       $response = ['error' => true, 'message' => Lang::get('error.json_malformed')];
-    } 
+    }
     return Redirect::back()->with($response);
   }
 

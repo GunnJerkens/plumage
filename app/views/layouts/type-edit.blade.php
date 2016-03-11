@@ -13,6 +13,7 @@
           <form id="fields" role="form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="row buttons">
+              @include('partials.breadcrumbs')
               <button type="submit" class="btn btn-primary pull-right">Update Fields</button>
               <button class="btn btn-default pull-right js-add-field">Add Field</button>
             </div>

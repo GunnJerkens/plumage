@@ -102,3 +102,13 @@ Nav Overlay
   background-color: rgba(255,255,255,0.5);
   @include animation(fade, 0s, 0s, 1s)
 }
+
+/*
+====================
+Breadcrumbs
+==================== */
+
+.breadcrumb {
+  margin: 0;
+  background-color: $lightGray;
+}

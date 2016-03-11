@@ -111,7 +111,8 @@ class ViewController extends BaseController
   {
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     return View::make('layouts.type-edit')->with([
-      'fields' => json_decode($projectType->fields)
+      'fields'  => json_decode($projectType->fields),
+      'project' => $projectType,
     ]);
   }
 

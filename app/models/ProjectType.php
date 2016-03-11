@@ -271,4 +271,14 @@ class ProjectType extends Eloquent
     return true;
   }
 
+  /**
+   * Relationship to the projects table
+   *
+   * @return object
+   */
+  public function project() 
+  {
+    return $this->hasOne('Project', 'id', 'project_id');
+  }
+
 }

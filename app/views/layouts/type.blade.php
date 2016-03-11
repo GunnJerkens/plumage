@@ -16,6 +16,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="row">
               <div class="col-sm-12">
+                @include('partials.breadcrumbs')
                 <button type="submit" class="btn btn-save btn-primary pull-right">Save</button>
                 <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#bulk-upload">Bulk Upload</button>
                 @if($user->is_admin || $project->is_owner || $access->can_delete)
@@ -104,6 +105,7 @@
             </div>
           </form>
           @else
+            @include('partials.breadcrumbs')
             <h1>You need to create fields before you can add data.</h1>
           @endif
         </div>

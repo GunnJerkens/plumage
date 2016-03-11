@@ -87,12 +87,16 @@ class ViewController extends BaseController
     $itemData    = DB::table($projectType->table_name)->get();
     $fields = json_decode($projectType->fields);
     $verifiedFields = array();
-    foreach ($fields as $field) {
-      // check if column exists in DB
-      if(Schema::hasColumn($projectType->table_name, $field->field_name)) {
-          array_push($verifiedFields, $field);
+    
+    if($fields) {
+      foreach ($fields as $field) {
+        // check if column exists in DB
+        if(Schema::hasColumn($projectType->table_name, $field->field_name)) {
+            array_push($verifiedFields, $field);
+        }
       }
     }
+
     return View::make('layouts.type')->with(array_merge($this->default, [
       'project' => $projectType,
       'fields'  => $verifiedFields,

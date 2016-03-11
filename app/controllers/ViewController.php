@@ -57,7 +57,7 @@ class ViewController extends BaseController
 
   /**
    * Handles GET requests for /project/{project_id}
-   * 
+   *
    * @param int
    *
    * @return view
@@ -85,9 +85,17 @@ class ViewController extends BaseController
     $this->permissionAccess($project_id);
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     $itemData    = DB::table($projectType->table_name)->get();
+    $fields = json_decode($projectType->fields);
+    $verifiedFields = array();
+    foreach ($fields as $field) {
+      // check if column exists in DB
+      if(Schema::hasColumn($projectType->table_name, $field->field_name)) {
+          array_push($verifiedFields, $field);
+      }
+    }
     return View::make('layouts.type')->with(array_merge($this->default, [
       'project' => $projectType,
-      'fields'  => json_decode($projectType->fields),
+      'fields'  => $verifiedFields,
       'items'   => $itemData,
     ]));
   }

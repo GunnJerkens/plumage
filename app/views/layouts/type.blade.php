@@ -59,22 +59,24 @@
                               <td><a href class="js-delete-type btn-delete" data-id="{{ $item->id }}"><i class="fa fa-times-circle"></i></a>
                             @endif
                             @foreach($fields as $field)
-                              @if($field->field_type === 'text')
-                                <td>
-                                  <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" class="form-control" {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
-                                </td>
-                              @elseif($field->field_type === 'checkbox')
-                                <td>
-                                  <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ $item->{$field->field_name} ? ' checked' : '' }} {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }} value="1">
-                                </td>
-                              @elseif($field->field_type === 'select')
-                                <td>
-                                  <select name="{{ $item->id }}[{{ $field->field_name }}]"{{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
-                                    @foreach($field->field_values as $option)
-                                      <option value="{{ $option->value }}"{{ $option->value === $item->{$field->field_name} ? ' selected' : '' }}>{{ $option->label }}</option>
-                                    @endforeach
-                                  </select>
-                                </td>
+                              @if(isset($item->{$field->field_name}))
+                                @if($field->field_type === 'text')
+                                  <td>
+                                    <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" class="form-control" {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
+                                  </td>
+                                @elseif($field->field_type === 'checkbox')
+                                  <td>
+                                    <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ $item->{$field->field_name} ? ' checked' : '' }} {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }} value="1">
+                                  </td>
+                                @elseif($field->field_type === 'select')
+                                  <td>
+                                    <select name="{{ $item->id }}[{{ $field->field_name }}]"{{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
+                                      @foreach($field->field_values as $option)
+                                        <option value="{{ $option->value }}"{{ $option->value === $item->{$field->field_name} ? ' selected' : '' }}>{{ $option->label }}</option>
+                                      @endforeach
+                                    </select>
+                                  </td>
+                                @endif
                               @endif
                             @endforeach
                           </tr>

@@ -64,6 +64,9 @@ Type.prototype.loadTypeClickHandlers = function() {
     template = Handlebars.compile(source);
     $('table#no-data').remove();
     $('tbody').append(template(data));
+    // resize and scroll the fixed header
+    fixedHeader.resize();
+    fixedHeader.scrollToBottom();
     newId++;
   });
 

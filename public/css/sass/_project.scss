@@ -139,6 +139,7 @@ section.project {
 
   form.manageType {
     table {
+      margin-bottom: 0;
       thead {
         tr {
           td {
@@ -163,6 +164,7 @@ section.project {
       }
     }
     .bottom-buttons {
+      padding-top: 20px;
       button {
         margin: 0 0 50px 0;
         &.btn-save {

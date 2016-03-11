@@ -60,3 +60,21 @@ nav.navbar-default {
 .section {
   padding: 15px 15px;
 }
+
+.table-fixed-header {
+  margin-bottom: 0;
+  position: absolute;
+  background: #F0F0EF;
+  z-index: 1;
+  opacity: 0;
+  &.active {
+    opacity: 1;
+  }
+  thead > tr > td {
+    border-bottom-width: 1px;
+  }
+}
+
+.table-fixed-header-wrap {
+  overflow-y: auto;
+}

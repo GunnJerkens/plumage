@@ -6,7 +6,7 @@ function Plumage() {
 
 Plumage.prototype.run = function() {
 
-  // This section loads all the needed script 
+  // This section loads all the needed script
   //based on whether an ID exists
   if($('#type').length > 0) {
     $('#type').type({});
@@ -17,7 +17,6 @@ Plumage.prototype.run = function() {
   }
 
 }
-
 
 plumage = new Plumage();
 plumage.run();

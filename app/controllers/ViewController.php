@@ -20,9 +20,14 @@ class ViewController extends BaseController
    */
   private function permissionAccess($project_id)
   {
+    $noAccess = new stdClass();
+    $noAccess->can_add_users = false;
+    $noAccess->can_edit = false;
+    $noAccess->can_delete = false;
+    $access = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first();
     $this->default = array_merge($this->default, [
       'project' => Project::where('id', $project_id)->first(),
-      'access'  => ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first(),
+      'access'  => $access ? $access : $noAccess,
     ]);
   }
 
@@ -87,7 +92,6 @@ class ViewController extends BaseController
     $itemData    = DB::table($projectType->table_name)->get();
     $fields = json_decode($projectType->fields);
     $verifiedFields = array();
-    
     if($fields) {
       foreach ($fields as $field) {
         // check if column exists in DB
@@ -96,7 +100,8 @@ class ViewController extends BaseController
         }
       }
     }
-
+    //set project owner
+    $projectType->is_owner = $this->default['project']->is_owner;
     return View::make('layouts.type')->with(array_merge($this->default, [
       'project' => $projectType,
       'fields'  => $verifiedFields,

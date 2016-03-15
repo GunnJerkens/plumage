@@ -10,7 +10,7 @@
  */
 function FixedHeader($fixedHeader) {
   this.fixedHeader = $fixedHeader;
-  this.tableId = $fixedHeader.attr('table-id');
+  this.table = $fixedHeader.next('.table-fixed-header-wrap').find('table');
 }
 
 /**
@@ -31,8 +31,8 @@ FixedHeader.prototype.resize = function() {
  */
 FixedHeader.prototype.resizeWidth = function() {
   var fixedHeaderItems = this.fixedHeader.find('tr').children('td');
-  this.fixedHeader.width($('#'+this.tableId).find('thead').width());
-  $('#'+this.tableId+' tr').first().children('td').each(function(index) {
+  this.fixedHeader.width(this.table.find('thead').width());
+  this.table.find('tr').first().children('td').each(function(index) {
     var newWidth = $(this).width();
     $(fixedHeaderItems[index]).width(newWidth);
   });
@@ -44,10 +44,9 @@ FixedHeader.prototype.resizeWidth = function() {
  * @return void
  */
 FixedHeader.prototype.resizeHeight = function() {
-  var newHeight = $(window).height() - $('#'+this.tableId).offset().top - $('.bottom-buttons').height();
-  var $table = $('#'+this.tableId);
-  if(newHeight < $table.height() && newHeight > 95) {
-    $table.parent('.table-fixed-header-wrap').height(newHeight);
+  var newHeight = $(window).height() - this.fixedHeader.offset().top - $('.bottom-buttons').height();
+  if(newHeight < this.table.height() && newHeight > 95) {
+    this.table.parent('.table-fixed-header-wrap').height(newHeight);
   }
 };
 

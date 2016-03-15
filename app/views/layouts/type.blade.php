@@ -27,7 +27,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-inner-wrapper">
-                  <table class="table table-striped table-bordered table-fixed-header hidden-xs" table-id="type-table">
+                  <table class="table table-striped table-bordered table-fixed-header hidden-xs">
                     <thead>
                       <tr>
                         @if($user->is_admin || $project->is_owner || $access->can_delete)
@@ -40,7 +40,7 @@
                     </thead>
                   </table>
                   <div class="table-fixed-header-wrap">
-                    <table id="type-table" class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           @if($user->is_admin || $project->is_owner || $access->can_delete)

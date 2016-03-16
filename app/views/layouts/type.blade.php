@@ -8,7 +8,7 @@
   <script>var fields = {{ json_encode($fields) }};</script>
   <section id="type" class="project">
     @include('partials.message')
-    <div class="container">
+    <div class="container view">
       <div class="row">
         <div class="col-sm-12">
           @if(sizeof($fields) > 0)

@@ -6,7 +6,7 @@
 
 @section('body')
   <section id="errors" class="errors">
-    <div class="container">
+    <div class="container view">
       <div class="row">
         <div class="col-sm-12">
           <h1>Where we're going, we don't need qualified routes.</h1>

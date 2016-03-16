@@ -1,5 +1,18 @@
+body, html {
+  height: 100%;
+}
+
 body {
   background-color: $lightGray;
+}
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -40px;
+}
+
+.footer, .wrapper:after {
+  height: 40px;
 }
 
 // Global //
@@ -8,9 +21,17 @@ body {
   padding-right: 0 !important;
 }
 
+.form-control {
+  border-radius: 0;
+}
+
 textarea {
   width: 100%;
   min-height: 100px;
+}
+
+.view {
+  padding-bottom: 80px;
 }
 
 // Smaller logo for interior pages
@@ -77,4 +98,9 @@ nav.navbar-default {
 
 .table-fixed-header-wrap {
   overflow-y: auto;
+}
+
+// Footer //
+.footer-content {
+  text-align: center;
 }

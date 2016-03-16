@@ -7,7 +7,7 @@
 @section('body')
   <section id="type-edit" class="sites-edit">
     @include('partials.message')
-    <div class="container">
+    <div class="container view">
       <div class="row">
         <div class="col-sm-12 add-fields">
           <form id="fields" role="form" method="post">

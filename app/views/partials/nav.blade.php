@@ -14,7 +14,7 @@
   <!-- Site Overlay -->
   <div class="site-overlay"></div>
 
-  <div id="container">
+  <div id="container" class="wrapper">
 
     <!-- Menu Button -->
     <div class="menu-btn">

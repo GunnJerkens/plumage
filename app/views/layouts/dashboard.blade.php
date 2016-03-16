@@ -7,7 +7,7 @@
 @section('body')
   <section id="dashboard" class="dashboard">
     @include('partials.message')
-    <div class="container">
+    <div class="container view">
       <div class="row">
         <div class="col-sm-12">
           <form role="form" method="post" class="addForm">

@@ -7,7 +7,7 @@
 @section('body')
   <section id="manage" class="manage">
     @include('partials.message')
-    <div class="container">
+    <div class="container view">
       <div class="row">
         <div class="col-sm-12">
           <h1>Users</h1>

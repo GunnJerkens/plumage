@@ -20,14 +20,9 @@ class ViewController extends BaseController
    */
   private function permissionAccess($project_id)
   {
-    $noAccess = new stdClass();
-    $noAccess->can_add_users = false;
-    $noAccess->can_edit = false;
-    $noAccess->can_delete = false;
-    $access = ProjectAccess::where('project_id', $project_id)->where('user_id', $this->user->id)->first();
     $this->default = array_merge($this->default, [
       'project' => Project::where('id', $project_id)->first(),
-      'access'  => $access ? $access : $noAccess,
+      'access'  => ProjectAccess::getUserProjectAccess($this->user->id, $project_id)
     ]);
   }
 

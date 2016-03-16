@@ -79,4 +79,27 @@ class ProjectAccess extends Eloquent
     return (sizeof($projectIds) > 0) ? $projectIds : false;
   }
 
+  /**
+   * Returns a project access object else creates one
+   *
+   * @param $user_id integer
+   *
+   * @param $project_id integer
+   *
+   * @return object
+   */
+  public static function getUserProjectAccess($user_id, $project_id)
+  {
+    $projectAccess = self::where('project_id', $project_id)->where('user_id', $user_id)->first();
+
+    if($projectAccess === null) {
+      $projectAccess = new stdClass();
+      $projectAccess->can_add_users = false;
+      $projectAccess->can_edit = false;
+      $projectAccess->can_delete = false;
+    }
+
+    return $projectAccess;
+  }
+
 }

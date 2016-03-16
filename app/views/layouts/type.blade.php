@@ -60,7 +60,7 @@
                               <td><a href class="js-delete-type btn-delete" data-id="{{ $item->id }}"><i class="fa fa-times-circle"></i></a>
                             @endif
                             @foreach($fields as $field)
-                              @if(isset($item->{$field->field_name}))
+                              @if(property_exists($item, $field->field_name))
                                 @if($field->field_type === 'text')
                                   <td>
                                     <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" class="form-control" {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
@@ -78,6 +78,8 @@
                                     </select>
                                   </td>
                                 @endif
+                              @else
+                                <td>{{ $field->field_name }}</td>
                               @endif
                             @endforeach
                           </tr>

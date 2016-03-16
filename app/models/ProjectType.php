@@ -142,6 +142,46 @@ class ProjectType extends Eloquent
   }
 
   /**
+   * Checks if field column exists, if not then creates it based on data
+   *
+   * @param string, string, string|int|bool
+   *
+   * @return array
+   */
+  private static function checkFieldColumnExists($projectType, $fieldName, $value)
+  {
+    if (!Schema::hasColumn($projectType->table_name, $fieldName)) {
+      $newField = array(
+        'field_type' => gettype($value) === 'boolean' ? 'checkbox' : 'text',
+        'field_name' => $fieldName
+      );
+      $fields = json_decode($projectType->fields);
+      foreach ($fields as $field => $data) {
+        $fields[$field] = (array) $data;
+      }
+      array_push($fields, $newField);
+      self::addTypesFields($projectType->project_id, $projectType->type, $fields);
+    }
+  }
+
+  /**
+   * Creates new types data
+   *
+   * @param string, array
+   *
+   * @return array
+   */
+  public static function createNewTypesData($projectType, $data)
+  {
+    //check if columns exist for data
+    foreach ($data as $fieldName => $value) {
+      self::checkFieldColumnExists($projectType, $fieldName, $value);
+    }
+    $data = self::setBooleanData($projectType->table_name, $data);
+    return DB::table($projectType->table_name)->insert($data);
+  }
+
+  /**
    * Validates the types field names against a whitelist
    *
    * @param string
@@ -182,22 +222,23 @@ class ProjectType extends Eloquent
    *
    * @return true|int
    */
-  public static function createTypesData($tableName, $data)
+  public static function createTypesData($projectType, $data)
   {
-    if(!Schema::hasTable($tableName)) {
+    if(!Schema::hasTable($projectType->table_name)) {
       throw new Exception('TableNotFoundException');
     }
 
-    $dataset = isset($data['id']) ? DB::table($tableName)->where('id', $data['id'])->first() : null;
+    $dataset = isset($data['id']) ? DB::table($projectType->table_name)->where('id', $data['id'])->first() : null;
 
     if($dataset === null) {
-      if(isset($data['id'])) {
+      if(array_key_exists('id', $data)) {
         unset($data['id']);
       }
-      $response = DB::table($tableName)->insert($data);
+      // checks if new column needs to be created for the data
+      $response = self::createNewTypesData($projectType, $data);
     } else {
-      $data = self::setBooleanData($tableName, $data);
-      $response = DB::table($tableName)->where('id', $dataset->id)->update($data);
+      $data = self::setBooleanData($projectType->table_name, $data);
+      $response = DB::table($projectType->table_name)->where('id', $dataset->id)->update($data);
     }
 
     return $response;
@@ -276,7 +317,7 @@ class ProjectType extends Eloquent
    *
    * @return object
    */
-  public function project() 
+  public function project()
   {
     return $this->hasOne('Project', 'id', 'project_id');
   }

@@ -109,8 +109,8 @@ class ProjectTypeTest extends TestCase
   public function testCreateTypesData()
   {
     $this->setVars();
-
-    $projectType = ProjectType::createTypesData($this->project->name."_test", $this->projectData);
+    $this->project->table_name = $this->project->name."_test";
+    $projectType = ProjectType::createTypesData($this->project, $this->projectData);
     $this->assertTrue($projectType);
   }
 
@@ -122,7 +122,8 @@ class ProjectTypeTest extends TestCase
   public function testCreateTypesDataException()
   {
     $this->setVars();
-    ProjectType::createTypesData($this->project->name."_derp", $this->projectData);
+    $this->project->table_name = $this->project->name."_derp";
+    ProjectType::createTypesData($this->project, $this->projectData);
   }
 
   /**

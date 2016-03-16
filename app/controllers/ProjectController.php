@@ -136,7 +136,7 @@ class ProjectController extends BaseController
     $projectType = ProjectType::where('project_id', $project_id)->where('type', $project_type)->first();
     $response = ['error' => true, 'message' => Lang::get('project.type_missing')];
     foreach ($this->input as $data) {
-      $state    = ProjectType::createTypesData($projectType->table_name, $data);
+      $state    = ProjectType::createTypesData($projectType, $data);
       $response = ['error' => false, 'message' => Lang::get('project.type_updated')];
       // TODO::fix this, idk why I thought return integers was clever? It should
       // just throw exceptions like a normal human being. -ps
@@ -183,7 +183,7 @@ class ProjectController extends BaseController
     if (is_array($json = json_decode($this->input['json_data']))) {
       foreach ($json as $data) {
         $data->id = null;
-        $response = ProjectType::createTypesData($projectType->table_name, (array) $data);
+        $response = ProjectType::createTypesData($projectType, (array) $data);
         if ($response['error'] === true) {
           break;
         }

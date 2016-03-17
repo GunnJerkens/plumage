@@ -11,6 +11,7 @@
 function FixedHeader($fixedHeader) {
   this.fixedHeader = $fixedHeader;
   this.table = $fixedHeader.next('.table-fixed-header-wrap').find('table');
+  this.topOffset = this.table.offset().top;
 }
 
 /**
@@ -19,9 +20,7 @@ function FixedHeader($fixedHeader) {
  * @return void
  */
 FixedHeader.prototype.resize = function() {
-  this.resizeHeight();
   this.resizeWidth();
-  this.fixedHeader.addClass('active');
 };
 
 /**
@@ -39,24 +38,25 @@ FixedHeader.prototype.resizeWidth = function() {
 };
 
 /**
- * Resizes the fixed header columns height
- *
- * @return void
- */
-FixedHeader.prototype.resizeHeight = function() {
-  var newHeight = $(window).height() - this.fixedHeader.offset().top - $('.bottom-buttons').height();
-  if(newHeight < this.table.height() && newHeight > 95) {
-    this.table.parent('.table-fixed-header-wrap').height(newHeight);
-  }
-};
-
-/**
  * Scrolls to bottom row
  *
  * @return void
  */
 FixedHeader.prototype.scrollToBottom = function() {
-  this.fixedHeader.scrollTop($('.table-fixed-header-wrap table').height());
+  $('body').scrollTop($(document).height());
+};
+
+/**
+ * Sets fixed header to active when scrolled
+ *
+ * @return void
+ */
+FixedHeader.prototype.processScroll = function() {
+  if($('body').scrollTop() >= this.topOffset) {
+    this.fixedHeader.addClass('active');
+  } else {
+    this.fixedHeader.removeClass('active');
+  }
 };
 
 /**
@@ -67,11 +67,16 @@ FixedHeader.prototype.scrollToBottom = function() {
 $.fn.fixedHeader = function() {
   var fixedHeader = new FixedHeader($(this));
   fixedHeader.resize();
+  fixedHeader.processScroll();
   $(window).resize(function() {
     fixedHeader.resize();
+  });
+  $(window).on('scroll', function() {
+    fixedHeader.processScroll();
   });
   $('.js-new-item').on('click.fixedHeader', function(e) {
     e.preventDefault();
     fixedHeader.resize();
+    fixedHeader.scrollToBottom();
   });
 };

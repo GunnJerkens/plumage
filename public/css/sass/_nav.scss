@@ -73,6 +73,7 @@ Menu Toggle Button
   left: 0;
   cursor: pointer;
   color: $blue;
+  z-index: 5;
   i {
     font-size: 30px;
     &:hover {

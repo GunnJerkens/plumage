@@ -29,6 +29,9 @@ FixedHeader.prototype.resize = function() {
  * @return void
  */
 FixedHeader.prototype.resizeWidth = function() {
+  if($(window).width() < 768) {
+    return false
+  }
   var fixedHeaderItems = this.fixedHeader.find('tr').children('td');
   this.fixedHeader.width(this.table.find('thead').width());
   this.table.find('tr').first().children('td').each(function(index) {
@@ -52,6 +55,9 @@ FixedHeader.prototype.scrollToBottom = function() {
  * @return void
  */
 FixedHeader.prototype.processScroll = function() {
+  if($(window).width() < 768) {
+    return false
+  }
   if($('body').scrollTop() >= this.topOffset) {
     this.fixedHeader.addClass('active');
   } else {

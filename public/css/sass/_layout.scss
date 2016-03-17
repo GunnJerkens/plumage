@@ -36,7 +36,8 @@ textarea {
 
 // Smaller logo for interior pages
 .logo {
-  margin: 20px 0;
+  background-color: #F0F0EF;
+  padding: 20px 0;
   img {
     width: 50px;
     height: 57px;
@@ -96,11 +97,37 @@ nav.navbar-default {
   }
 }
 
-.table-fixed-header-wrap {
-  overflow-y: auto;
+.form-inner-wrapper {
+  margin: 15px auto 0 auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 // Footer //
 .footer-content {
   text-align: center;
+}
+
+@media(max-width: 767px) {
+  #container {
+    .logo-container {
+      padding-left: 0;
+      padding-right: 0;
+      .logo {
+        z-index: 3;
+        width: 100%;
+        position: fixed;
+        img {
+          height: 33px;
+          width: auto;
+        }
+      }
+    }
+    .view {
+      margin-top: 100px;
+    }
+    .menu-btn {
+      background-color: #F0F0EF;
+    }
+  }
 }

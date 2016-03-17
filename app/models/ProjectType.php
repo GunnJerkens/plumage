@@ -167,7 +167,7 @@ class ProjectType extends Eloquent
   /**
    * Creates new types data
    *
-   * @param string, array
+   * @param object, array
    *
    * @return array
    */
@@ -218,7 +218,7 @@ class ProjectType extends Eloquent
   /**
    * Adds the individual data to the type, performs an upsert yo
    *
-   * @param string, array
+   * @param object, array
    *
    * @return true|int
    */

@@ -127,6 +127,42 @@ class ProjectTypeTest extends TestCase
   }
 
   /**
+   * ProjectType::createNewTypesData()
+   *
+   */
+  public function testCreateNewTypesData()
+  {
+    $this->setVars();
+    $projectType = ProjectType::addTypesFields($this->project->id, $this->projectType, $this->projectFields);
+    $newTypesData = ['new field' => 'new value'];
+    $response = ProjectType::createNewTypesData($projectType, $newTypesData);
+    $this->assertTrue($response);
+    // check that the new fields were added based on data
+    $projectType = ProjectType::where('project_id', $projectType->project_id)->where('type', $projectType->type)->first();
+    array_push($this->projectFields, ["field_type" => "text", "field_name" => "new field"]);
+    $fields = json_encode($this->projectFields);
+    $this->assertEquals($fields, $projectType->fields);
+  }
+
+  /**
+   * ProjectType::createNewTypesData()
+   *
+   */
+  public function testCreateNewTypesDataBool()
+  {
+    $this->setVars();
+    $projectType = ProjectType::addTypesFields($this->project->id, $this->projectType, $this->projectFields);
+    $newTypesData = ['new field bool' => true];
+    $response = ProjectType::createNewTypesData($projectType, $newTypesData);
+    $this->assertTrue($response);
+    // check that the new fields were added based on data
+    $projectType = ProjectType::where('project_id', $projectType->project_id)->where('type', $projectType->type)->first();
+    array_push($this->projectFields, ["field_type" => "checkbox", "field_name" => "new field bool"]);
+    $fields = json_encode($this->projectFields);
+    $this->assertEquals($fields, $projectType->fields);
+  }
+
+  /**
    * ProjectType::setBooleanData()
    *
    */

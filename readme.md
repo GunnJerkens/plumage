@@ -17,9 +17,9 @@ Run `composer install` in the root to install all Composer dependencies, then `n
 ### environments
 
 If no environments file exists the application assumes production, if an `.env.local.php` or `.env.staging.php` exists, the application will default to that environment for local and staging respectively. Use `.env.php` for your production environments file.  
-  
+
 [Laravel Configuration Docs](http://laravel.com/docs/4.2/configuration)  
-  
+
 Each file can contain an array of variables to override for the specific environment, or to keep secret keys out of versioning. The file must at minimum return an array matching the `APP` and `DATABASE` options of the `sample.env.php`.  
 
 ### seeding
@@ -44,6 +44,10 @@ All pull requests should made on the `master` branch.
 - PHP 5.5+
 - node.js & npm
 - Composer
+
+## PHP settings
+
+Set `max_input_vars` to at least `10000` or else you won't be able to save edits to the seed data.
 
 ## issues
 

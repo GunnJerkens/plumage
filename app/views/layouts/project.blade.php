@@ -37,7 +37,24 @@
                           <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/edit' }}"><i class="fa fa-pencil"></i> Edit</a>
                         @endif
                         @if($user->is_admin || $project->is_owner || $access->can_delete)
-                          <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn-delete"><i class="fa fa-times-circle"></i></a>
+                          <a href="#" class="btn-delete" data-toggle="modal" data-target="#deleteModal{{ $type->type }}"><i class="fa fa-times-circle"></i></a>
+                          <div id="deleteModal{{ $type->type }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModal">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title">Confirm Delete</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Are you sure you want to delete <strong>{{ $type->type }}</strong>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                 <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+                                 <a href="{{ '/project/'.$type->project_id.'/'.$type->type.'/delete'}}" class="btn btn-danger btn-delete-modal">Delete</a>
+                               </div>
+                              </div>
+                            </div>
+                          </div>
                         @endif
                       </div>
                     </td>

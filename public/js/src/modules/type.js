@@ -85,12 +85,12 @@ Type.prototype.loadTypeClickHandlers = function() {
           return request.setRequestHeader("X-CSRF-Token", _this.token);
         },
         success: function(data) {
-          console.log(data);
+          $('tr[data-id="'+id+'"]').remove();
         },
         error: function(xhr, textStatus, thrownError) { console.log('Silent failure.'); }
       });
     }
-    $(this).closest('tr').remove();
+
   });
 
 };

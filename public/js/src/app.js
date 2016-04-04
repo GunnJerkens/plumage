@@ -15,10 +15,12 @@ Plumage.prototype.run = function() {
   if($('#type-edit').length > 0) {
     $('#type-edit').typeEdit({});
   }
-  
+
   if($('.table-fixed-header').length > 0) {
     $('.table-fixed-header').fixedHeader();
   }
+
+  $('[data-toggle="popover"]').popover();
 
 }
 

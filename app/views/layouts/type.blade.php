@@ -57,7 +57,9 @@
                           <tr data-id="{{ $item->id }}">
                             <input type="hidden" name="{{ $item->id }}[id]" value="{{ $item->id }}">
                             @if($user->is_admin || $project->is_owner || $access->can_delete)
-                              <td><a href class="js-delete-type btn-delete" data-id="{{ $item->id }}"><i class="fa fa-times-circle"></i></a>
+                              <td>
+                                <a tabindex="0" class="btn-delete" role="button" data-toggle="popover" data-container="#type" data-trigger="focus" data-html="true" title="<strong>Confirm Delete</strong>" data-content='<p>Are you sure you want to delete this item?</p><a role="button" data-id="{{ $item->id }}" class="js-delete-type btn btn-danger btn-delete-modal btn-block">Delete</a>'><i class="fa fa-times-circle"></i></a>
+                              </td>
                             @endif
                             @foreach($fields as $field)
                               @if(property_exists($item, $field->field_name))

@@ -29,12 +29,14 @@ class ProjectTypeTest extends TestCase
       [
         'field_type'     => 'text',
         'field_name'     => 'text',
-        'field_editable' => 'on',
+        'field_editable' => false,
+        'field_values'   => null
       ],
       [
         'field_type'     => 'checkbox',
         'field_name'     => 'checkbox',
         'field_editable' => 'on',
+        'field_values'   => null
       ],
       [
         'field_type'     => 'select',
@@ -139,7 +141,7 @@ class ProjectTypeTest extends TestCase
     $this->assertTrue($response);
     // check that the new fields were added based on data
     $projectType = ProjectType::where('project_id', $projectType->project_id)->where('type', $projectType->type)->first();
-    array_push($this->projectFields, ["field_type" => "text", "field_name" => "new field"]);
+    array_push($this->projectFields, ["field_type" => "text", "field_name" => "new field", "field_editable" => false, "field_values" => null]);
     $fields = json_encode($this->projectFields);
     $this->assertEquals($fields, $projectType->fields);
   }
@@ -157,7 +159,7 @@ class ProjectTypeTest extends TestCase
     $this->assertTrue($response);
     // check that the new fields were added based on data
     $projectType = ProjectType::where('project_id', $projectType->project_id)->where('type', $projectType->type)->first();
-    array_push($this->projectFields, ["field_type" => "checkbox", "field_name" => "new field bool"]);
+    array_push($this->projectFields, ["field_type" => "checkbox", "field_name" => "new field bool", "field_editable" => false, "field_values" => null]);
     $fields = json_encode($this->projectFields);
     $this->assertEquals($fields, $projectType->fields);
   }

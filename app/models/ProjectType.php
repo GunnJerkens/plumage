@@ -103,9 +103,20 @@ class ProjectType extends Eloquent
    */
   private static function formatFields($field, $data)
   {
+    // echo "<pre>";
+    // print_r($field);
+    // print_r($data);
+    // echo "</pre>";
+    // exit;
     foreach($data as &$dataFields) {
       if(isset($dataFields[$field])) {
         unset($dataFields[$field]);
+      }
+      if(!isset($dataFields['field_editable'])) {
+        $dataFields['field_editable'] = false;
+      }
+      if(!isset($dataFields['field_values'])) {
+        $dataFields['field_values'] = null;
       }
     }
     return json_encode($data);

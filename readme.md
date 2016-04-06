@@ -47,7 +47,7 @@ All pull requests should made on the `master` branch.
 
 ## PHP settings
 
-Set `max_input_vars` to at least `10000` or else you won't be able to save edits to the seed data.
+In your `php.ini` file set `max_input_vars` to at least `10000` or else you won't be able to save edits to the seed data.
 
 ## issues
 

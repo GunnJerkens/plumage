@@ -8,10 +8,12 @@
  *
  * @return void
  */
+var fixedHeaderNode, table, topOffset;
+
 function FixedHeader($fixedHeader) {
-  this.fixedHeader = $fixedHeader;
-  this.table = $fixedHeader.next('.table-fixed-header-wrap').find('table');
-  this.topOffset = this.table.offset().top;
+  fixedHeaderNode = $fixedHeader;
+  table = $fixedHeader.next('table');
+  topOffset = table.offset().top;
 }
 
 /**
@@ -29,14 +31,11 @@ FixedHeader.prototype.resize = function() {
  * @return void
  */
 FixedHeader.prototype.resizeWidth = function() {
-  if($(window).width() < 768) {
-    return false
-  }
-  var fixedHeaderItems = this.fixedHeader.find('tr').children('td');
-  this.fixedHeader.width(this.table.find('thead').width());
-  this.table.find('tr').first().children('td').each(function(index) {
-    var newWidth = $(this).width();
-    $(fixedHeaderItems[index]).width(newWidth);
+  var fixedHeaderItems = fixedHeaderNode.find('tr').children('td');
+  fixedHeaderNode.width(table.find('thead').width());
+  table.find('tr').first().children('td').each(function(index) {
+    var newWidth = $(this).innerWidth();
+    $(fixedHeaderItems[index]).innerWidth(newWidth);
   });
 };
 
@@ -54,16 +53,41 @@ FixedHeader.prototype.scrollToBottom = function() {
  *
  * @return void
  */
-FixedHeader.prototype.processScroll = function() {
-  if($(window).width() < 768) {
-    return false
-  }
-  if($('body').scrollTop() >= this.topOffset) {
-    this.fixedHeader.addClass('active');
+
+ var latestKnownScrollY = 0,
+ 	ticking = false;
+
+ function onScroll() {
+ 	latestKnownScrollY = window.scrollY;
+ 	requestTick();
+ }
+
+ function requestTick() {
+ 	if(!ticking) {
+ 		requestAnimationFrame(processScroll);
+ 	}
+ 	ticking = true;
+ }
+
+ function processScroll() {
+	// reset the tick so we can
+	// capture the next onScroll
+	ticking = false;
+
+	var currentScrollY = latestKnownScrollY;
+
+	// read offset of DOM elements
+	// and compare to the currentScrollY value
+	// then apply some CSS classes
+	// to the visible items
+
+  if($('body').scrollTop() >= topOffset) {
+    fixedHeaderNode.addClass('active');
+    fixedHeaderNode.css('top', $('body').scrollTop());
   } else {
-    this.fixedHeader.removeClass('active');
+    fixedHeaderNode.removeClass('active');
   }
-};
+}
 
 /**
  * Load jquery methods to interact on el
@@ -73,12 +97,12 @@ FixedHeader.prototype.processScroll = function() {
 $.fn.fixedHeader = function() {
   var fixedHeader = new FixedHeader($(this));
   fixedHeader.resize();
-  fixedHeader.processScroll();
+  processScroll();
   $(window).resize(function() {
     fixedHeader.resize();
   });
   $(window).on('scroll', function() {
-    fixedHeader.processScroll();
+    onScroll();
   });
   $('.js-new-item').on('click.fixedHeader', function(e) {
     e.preventDefault();

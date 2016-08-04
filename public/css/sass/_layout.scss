@@ -83,8 +83,13 @@ nav.navbar-default {
   padding: 15px 15px;
 }
 
+.table-fixed-header-wrap {
+  position: relative;
+}
+
 .table-fixed-header {
-  position: fixed;
+  margin-top: -149px;
+  position: absolute;
   top: 0;
   background: #F0F0EF;
   z-index: 1;
@@ -94,6 +99,10 @@ nav.navbar-default {
   }
   thead > tr > td {
     border-bottom-width: 2px;
+    background: #F0F0EF;
+  }
+  @media(max-width: 767px) {
+    margin-top: -112px;
   }
 }
 

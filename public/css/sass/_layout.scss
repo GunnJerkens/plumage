@@ -92,6 +92,9 @@ nav.navbar-default {
   position: relative;
   .table {
     max-width: none;
+    select {
+      font-size: 16px;
+    }
   }
 }
 
@@ -110,7 +113,7 @@ nav.navbar-default {
     background: #F0F0EF;
   }
   @media(max-width: 767px) {
-    margin-top: -112px;
+    margin-top: -185px;
   }
 }
 
@@ -133,7 +136,7 @@ nav.navbar-default {
       .logo {
         z-index: 3;
         width: 100%;
-        position: fixed;
+        position: absolute;
         img {
           height: 33px;
           width: auto;
@@ -145,6 +148,7 @@ nav.navbar-default {
     }
     .menu-btn {
       background-color: #F0F0EF;
+      position: absolute;
     }
   }
 }

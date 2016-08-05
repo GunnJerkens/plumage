@@ -87,6 +87,9 @@ nav.navbar-default {
 
 .table-fixed-header-wrap {
   position: relative;
+  .table {
+    max-width: none;
+  }
 }
 
 .table-fixed-header {

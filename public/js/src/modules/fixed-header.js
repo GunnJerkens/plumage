@@ -32,10 +32,10 @@ FixedHeader.prototype.resize = function() {
  */
 FixedHeader.prototype.resizeWidth = function() {
   var fixedHeaderItems = fixedHeaderNode.find('tr').children('td');
-  fixedHeaderNode.width(table.find('thead').width());
+  fixedHeaderNode.width(table.width());
   table.find('tr').first().children('td').each(function(index) {
-    var newWidth = $(this).innerWidth();
-    $(fixedHeaderItems[index]).innerWidth(newWidth);
+    var newWidth = $(this).width();
+    $(fixedHeaderItems[index]).width(newWidth);
   });
 };
 

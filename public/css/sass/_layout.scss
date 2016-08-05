@@ -25,6 +25,9 @@ body {
   border-radius: 0;
   min-width: 30px;
   padding: 6px 2px;
+  @media(max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 textarea {

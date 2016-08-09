@@ -268,7 +268,7 @@ class ProjectType extends Eloquent
       foreach($columns as $column) {
         if($column->getType()->getName() === 'boolean') {
           $columnName = $column->getName();
-          $data[$columnName] = isset($data[$columnName]) ? true : false;
+          $data[$columnName] = isset($data[$columnName]) ? (bool) $data[$columnName] : false;
         }
       }
     }

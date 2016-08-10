@@ -11,6 +11,11 @@ body {
   margin-bottom: -40px;
 }
 
+.menu-btn {
+  background-color: #F0F0EF;
+  position: absolute;
+}
+
 .footer, .wrapper:after {
   height: 40px;
 }
@@ -99,7 +104,6 @@ nav.navbar-default {
 }
 
 .table-fixed-header {
-  margin-top: -149px;
   position: absolute;
   top: 0;
   background: #F0F0EF;
@@ -111,9 +115,6 @@ nav.navbar-default {
   thead > tr > td {
     border-bottom-width: 2px;
     background: #F0F0EF;
-  }
-  @media(max-width: 767px) {
-    margin-top: -185px;
   }
 }
 
@@ -145,10 +146,6 @@ nav.navbar-default {
     }
     .view {
       margin-top: 100px;
-    }
-    .menu-btn {
-      background-color: #F0F0EF;
-      position: absolute;
     }
   }
 }

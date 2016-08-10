@@ -83,7 +83,7 @@ FixedHeader.prototype.scrollToBottom = function() {
 
   if($('body').scrollTop() >= topOffset) {
     fixedHeaderNode.addClass('active');
-    fixedHeaderNode.css('top', $('body').scrollTop());
+    fixedHeaderNode.css('top', $('body').scrollTop() - table.offset().top);
   } else {
     fixedHeaderNode.removeClass('active');
   }

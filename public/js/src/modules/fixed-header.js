@@ -8,12 +8,11 @@
  *
  * @return void
  */
-var fixedHeaderNode, table, topOffset;
+var fixedHeaderNode, table;
 
 function FixedHeader($fixedHeader) {
   fixedHeaderNode = $fixedHeader;
   table = $fixedHeader.next('table');
-  topOffset = table.offset().top;
 }
 
 /**
@@ -80,8 +79,7 @@ FixedHeader.prototype.scrollToBottom = function() {
 	// and compare to the currentScrollY value
 	// then apply some CSS classes
 	// to the visible items
-
-  if($('body').scrollTop() >= topOffset) {
+  if($('body').scrollTop() >= table.offset().top) {
     fixedHeaderNode.addClass('active');
     fixedHeaderNode.css('top', $('body').scrollTop() - table.offset().top);
   } else {

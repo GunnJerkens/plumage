@@ -109,6 +109,11 @@ nav.navbar-default {
   background: #F0F0EF;
   z-index: 1;
   opacity: 0;
+  -moz-transition: top 0.2s; 
+  -webkit-transition: top 0.2s;  
+  -ms-transition: top 0.2s;  
+  -o-transition: top 0.2s;  
+  transition: top 0.2s;  
   &.active {
     opacity: 1;
   }

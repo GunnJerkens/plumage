@@ -64,7 +64,7 @@
                             @foreach($fields as $field)
                               @if(property_exists($item, $field->field_name))
                                 @if($field->field_type === 'text')
-                                  <td>
+                                  <td style="min-width:{{ (strlen($item->{$field->field_name}) * 14) + 22 }}px;">
                                     <input type="text" name="{{ $item->id }}[{{ $field->field_name }}]" value="{{ $item->{$field->field_name} }}" class="form-control" {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }}>
                                   </td>
                                 @elseif($field->field_type === 'checkbox')

@@ -103,11 +103,6 @@ class ProjectType extends Eloquent
    */
   private static function formatFields($field, $data)
   {
-    // echo "<pre>";
-    // print_r($field);
-    // print_r($data);
-    // echo "</pre>";
-    // exit;
     foreach($data as &$dataFields) {
       if(isset($dataFields[$field])) {
         unset($dataFields[$field]);
@@ -248,7 +243,7 @@ class ProjectType extends Eloquent
       // checks if new column needs to be created for the data
       $response = self::createNewTypesData($projectType, $data);
     } else {
-      $data = self::setBooleanData($projectType->table_name, $data);
+      //$data = self::setBooleanData($projectType->table_name, $data);
       $response = DB::table($projectType->table_name)->where('id', $dataset->id)->update($data);
     }
 

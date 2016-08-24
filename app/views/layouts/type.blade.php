@@ -69,7 +69,12 @@
                                   </td>
                                 @elseif($field->field_type === 'checkbox')
                                   <td>
-                                    <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ $item->{$field->field_name} ? ' checked' : '' }} {{ $user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on' ? '' : ' disabled' }} value="1">
+                                    @if($user->hasAccess(['manage']) || isset($field->field_editable) && $field->field_editable === 'on')
+                                      <input type="checkbox" name="{{ $item->id }}[{{ $field->field_name }}]"{{ $item->{$field->field_name} ? ' checked' : '' }} value="1">
+                                    @else
+                                      <input type="checkbox"{{ $item->{$field->field_name} ? ' checked' : '' }} disabled>
+                                      <input type="checkbox" class="hidden" name="{{ $item->id }}[{{ $field->field_name }}]"{{ $item->{$field->field_name} ? ' checked' : '' }} value="1">
+                                    @endif
                                   </td>
                                 @elseif($field->field_type === 'select')
                                   <td>

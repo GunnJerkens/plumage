@@ -243,7 +243,7 @@ class ProjectType extends Eloquent
       // checks if new column needs to be created for the data
       $response = self::createNewTypesData($projectType, $data);
     } else {
-      //$data = self::setBooleanData($projectType->table_name, $data);
+      $data = self::setBooleanData($projectType->table_name, $data);
       $response = DB::table($projectType->table_name)->where('id', $dataset->id)->update($data);
     }
 

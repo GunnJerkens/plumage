@@ -53,7 +53,11 @@ class ProjectTableSeeder extends Seeder
       {
         $table->increments('id');
         foreach($fields as $field) {
-          $table->mediumText($field['field_name'])->nullable();
+          if($field['field_type'] === 'checkbox') {
+            $table->boolean($field['field_name']);
+          } else {
+            $table->mediumText($field['field_name'])->nullable();
+          }
         }
       });
 

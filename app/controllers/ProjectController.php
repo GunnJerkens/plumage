@@ -34,6 +34,8 @@ class ProjectController extends BaseController
       $response = ['error' => true, 'message' => Lang::get('project.fields_empty')];
     } elseif (!$this->checkNaming($this->input['project_name'])) {
       $response = ['error' => true, 'message' => Lang::get('project.alpha_chars'), 'input_text' => $this->input['project_name']];
+    } elseif ($this->hasDuplicate($this->input['project_name'])) {
+      $response = ['error' => true, 'message' => Lang::get('project.project_duplicate'), 'input_text' => $this->input['project_name']];
     } else {
       Project::create([
         'user_id'   => $this->user->id,
@@ -244,6 +246,19 @@ class ProjectController extends BaseController
   private function checkNaming($string)
   {
     return (!preg_match('/^[a-z-_]+$/', $string)) ? false : true;
+  }
+
+
+  /**
+   * Make sure a project is all lowercase, no special chars
+   *
+   * @param string
+   *
+   * @return bool
+   */
+  private function hasDuplicate($string)
+  {
+    return Project::where('name', $string)->first() === null ? false : true;
   }
 
 }

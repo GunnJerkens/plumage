@@ -12,6 +12,7 @@ return [
   */
 
   "project_create"        => "Created new project successfully.",
+  "project_duplicate"     => "Project name already exists.",
   "project_delete"        => "Project deleted successfully.",
   "project_perm"          => "You do not have permission to edit this project.",
   "delete_error"          => "Error deleting all type sets.",

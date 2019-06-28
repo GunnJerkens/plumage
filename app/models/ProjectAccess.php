@@ -42,7 +42,7 @@ class ProjectAccess extends Eloquent
     if (is_object($project)) {
       return $project->name;
     } else {
-      return 'false';
+      return '';
     }
   }
 

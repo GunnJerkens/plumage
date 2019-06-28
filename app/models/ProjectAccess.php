@@ -39,7 +39,11 @@ class ProjectAccess extends Eloquent
   public function getProjectNameAttribute()
   {
     $project = Project::where('id', $this->project_id)->first();
-    return $project->name;
+    if (is_object($project)) {
+      return $project->name;
+    } else {
+      return 'false';
+    }
   }
 
   /**

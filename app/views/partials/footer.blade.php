@@ -1,7 +1,7 @@
   </div>
   <div class="footer">
     <div class="footer-content">
-      <p>Copyright {{{ date('Y') }}} Gunn/Jerkens</p>
+      <p>Copyright {{{ date('Y') }}} Gunn | Jerkens</p>
     </div>
   </div>
 
